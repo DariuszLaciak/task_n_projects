@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+
+body{
+	background: #192346;
+}
+#logo{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 400px;
+	height: 50px;
+	text-align: center;
+	border: 1px solid grey;
+	vertical-align: middle;
+	color: white;
+}
+#login {
+	position: absolute;
+	width: 650px;
+	height: 300px;
+	top: 50%;
+	left: 50%;
+	margin-top: -150px;
+	margin-left: -325px;
+	background: #1B1C31;
+	text-align: center;
+	color: white;
+	vertical-align: middle;
+}
+#login_form{
+	position: relative;
+	left: -100px;
+}
+.inputs {
+	display: block;
+	padding-bottom: 20px;
+}
+.l_input {
+	margin-right: 50px;
+}
+#userpanel {
+	border: 1px solid black;
+	margin-right: 100px;
+	margin-top: 100px;
+	margin-left: auto;
+	width: 400px;
+	height: 300px;
+	min-height: 300px;
+	min-width: 400px;
+	text-align: center;
+}
