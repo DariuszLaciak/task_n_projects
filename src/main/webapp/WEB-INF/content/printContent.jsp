@@ -8,10 +8,10 @@ if(session.getAttribute("userId") == null){
 	<%
 }
 else {
-	if((String)session.getAttribute("type") == "student"){
+	//if((String)session.getAttribute("type") == "student"){
 		%>
 		<jsp:include page="printPageUser.jsp"></jsp:include>
 		<%
-	}
+	//}
 }
 %>

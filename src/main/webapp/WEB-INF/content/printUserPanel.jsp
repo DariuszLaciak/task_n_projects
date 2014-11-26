@@ -4,5 +4,6 @@
 
     <div id='userpanel'>
     <p>Witaj <%=session.getAttribute("user_name") %> </p>
+    <p>Jestes zalogowany jako <%=session.getAttribute("type") %></p>
     <%=Common.makeButton("Logout","logout()") %>
     </div>

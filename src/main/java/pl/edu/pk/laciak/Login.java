@@ -82,6 +82,9 @@ public class Login extends HttpServlet {
 						s.setAttribute("type", "teacher");
 						s.setAttribute("userData", login.getTeachers());
 					}
+					else {
+						s.setAttribute("type", "admin");
+					}
 					logged = true;
 					
 				}
