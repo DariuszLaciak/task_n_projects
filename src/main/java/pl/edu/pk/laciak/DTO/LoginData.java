@@ -21,6 +21,7 @@ public class LoginData implements ObjectDTO {
 	private boolean active;
 	private Students students;
 	private Teachers teachers;
+	private Admins admins;
 	
 	public LoginData() {}
 	
@@ -83,6 +84,17 @@ public class LoginData implements ObjectDTO {
 	}
 	public void setTeachers(Teachers teachers) {
 		this.teachers = teachers;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "login", cascade = CascadeType.ALL, optional=true)
+	public Admins getAdmins() {
+		return admins;
+	}
+
+
+
+	public void setAdmins(Admins admins) {
+		this.admins = admins;
 	}
 	
 	
