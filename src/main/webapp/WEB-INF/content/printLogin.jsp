@@ -9,7 +9,7 @@
 			<br />
 			<%=Common.makeInputText("username", "Username", "")%>
 			<%=Common.makeInputPassword("password", "Password")%>
-			<%=Common.makeButton("Login", "log()")%>
+			<%=Common.makeButton("Login", "log()","b_blue")%>
 			<div id='loading_login'></div>
 		</form>
 		<br />

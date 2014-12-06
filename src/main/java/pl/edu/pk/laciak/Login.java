@@ -29,6 +29,9 @@ public class Login extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -51,7 +54,7 @@ public class Login extends HttpServlet {
 			String user = request.getParameter("username");
 			String pass = request.getParameter("password");
 			
-			session = HibernateUtil.getSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			Query q = session.createQuery("from LoginData where username=:user").setString("user", user);
 			List<?> result = q.list();
@@ -62,7 +65,6 @@ public class Login extends HttpServlet {
 			}
 			else {
 				LoginData login = (LoginData)result.get(0);
-				System.out.println(login.getPassword() + " " + pass);
 				if(!login.isActive()){
 					response_msg = "Account has not been activated! Check e-mail";
 					

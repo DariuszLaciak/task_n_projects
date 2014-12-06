@@ -21,4 +21,7 @@
     <servlet-name>User</servlet-name>
     <url-pattern>/User</url-pattern>
   </servlet-mapping>
+  <listener>
+   <listener-class>pl.edu.pk.laciak.hibernate.HibernateListener</listener-class> 
+  </listener>
 </web-app>
