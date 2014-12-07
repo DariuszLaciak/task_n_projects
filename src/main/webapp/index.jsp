@@ -7,14 +7,17 @@
 
 <!-- cssy -->
 <link rel="stylesheet" type="text/css" href="styles/default.css">
+<link rel="stylesheet" type="text/css" href="scripts/jQuery/jquery-ui.min.css">
 
 <!-- skrypty -->
-<script type="text/javascript" src="scripts/jQuery/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="scripts/jQuery/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="scripts/jQuery/jquery-ui.min.js"></script>
 <script type="text/javascript" src="scripts/jQuery/jquery.textfill.js"></script>
 <script type="text/javascript" src="scripts/login.js"></script>
 <script type="text/javascript" src="scripts/logout.js"></script>
 <script type="text/javascript" src="scripts/menu.js"></script>
 <script type="text/javascript" src="scripts/common_functions.js"></script>
+<script type="text/javascript" src="scripts/dialogs.js"></script>
 
 <title>PnT Manager</title>
 </head>

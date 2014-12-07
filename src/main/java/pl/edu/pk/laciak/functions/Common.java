@@ -15,13 +15,21 @@ public class Common {
 	public static String makeInputText(String id, String label, String value){
 		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' value='"+value+"' size='30'></input></div>";
 	}
+	
+	public static String makeInputTextReadOnly(String id, String label, String value){
+		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' value='"+value+"' size='30' readonly='readonly' ></input></div>";
+	}
+	
+	public static String makeInputTextMaxLength(String id, String label, String value, int maxLength){
+		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' value='"+value+"' size='30' maxlength="+maxLength+" ></input></div>";
+	}
 
 	public static String makeInputPassword(String id, String label){
 		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='password' id='"+id+"' size='30'></input></div>";
 	}
 
 	public static String makeButton(String value,String onclick, String clas){
-		return "<button class='"+clas+"' type='button' id='submit' onclick='"+onclick+"'>"+value+"</button>";
+		return "<button class='"+clas+"' type='button' onclick='"+onclick+"'>"+value+"</button>";
 	}
 
 	public static String makeLink(String page, String name){
