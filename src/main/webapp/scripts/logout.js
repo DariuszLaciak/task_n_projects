@@ -9,7 +9,7 @@ function logout(){
 			},
 			function(data){
 				var reply = jQuery.parseJSON(data);
-				if(reply == 1){
+				if(reply.logout_reply == 1){
 					location.reload();
 				}
 			});

@@ -87,9 +87,7 @@ public class User extends HttpServlet {
 				form += Common.makeInputText("user_address", "Adres", st.getAddress());
 				form += Common.makeInputTextMaxLength("user_pesel", "PESEL", ""+st.getPESEL(),11);
 				form += Common.makeInputTextReadOnly("user_birthday", "Data urodzenia", st.getBirthday().toString());
-				form += "<br />";
-				form += Common.makeInputText("user_album", "Nr albumu",st.getAlbum());
-				form += Common.makeInputTextMaxLength("user_period", "Semestr", ""+st.getPeriod(),2);
+				
 			}
 					
 			form += "</form>";

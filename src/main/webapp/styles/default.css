@@ -55,6 +55,7 @@ body {
 	margin-right: 250px;
 	width: auto;
 	min-height: 800px;
+	background-color: rgba(255,255,255,0.02); 
 }
 
 #left_side {
@@ -152,7 +153,7 @@ ul.admin, ul.teacher, ul.student {
 	left: 50%;
 	margin-top: -150px;
 	margin-left: -325px;
-	background: #1B1C31;
+	background: rgba(27,28,49,0.3);
 	text-align: center;
 	color: white;
 	vertical-align: middle;
