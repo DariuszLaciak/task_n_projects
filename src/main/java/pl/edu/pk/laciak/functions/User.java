@@ -53,14 +53,16 @@ public class User extends HttpServlet {
 		String function = request.getParameter("action");
 		s = request.getSession();
 		PrintWriter out = response.getWriter();
+		JSONObject json = new JSONObject();
 		switch(function){
 		case "logout":
 			s.invalidate();
-			out.println("1");
+			json.put("logout_reply", 1);
+			out.println(json);
 			break;
 		case "edit_profile":
 			Object user = s.getAttribute("userData");
-			JSONObject json = new JSONObject();
+			
 			String form = "<form name='edit_profile_form'><br />";
 			if(user instanceof Admins){
 				Admins adm = (Admins)user;

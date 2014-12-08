@@ -3,6 +3,8 @@ function printLogo(){
 }
 function makeLoading(on){
 	
+	
+	
 	if(!on){
 		$("#loading_login").hide();
 	}

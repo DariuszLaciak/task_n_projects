@@ -13,7 +13,7 @@ body {
 	width: 100%;
 	height: 50px;
 	text-align: center;
-	border: 1px solid grey;
+	
 	vertical-align: middle;
 	color: white;
 	z-index: 1;
@@ -35,7 +35,7 @@ body {
 
 #m_content {
 	position: relative;
-	border: 1px solid grey;
+	
 	margin-left: 250px;
 	width: auto;
 	min-height: 500px;
@@ -242,4 +242,10 @@ ul.admin, ul.teacher, ul.student {
 
 #edit_profile input{
 	float: right;
+}
+
+#logo_img{
+	float:right;
+	height: 130px;
+	width: auto;
 }
