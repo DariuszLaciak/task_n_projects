@@ -4,6 +4,7 @@ body {
 	background: #2c3e50 url("../images/pk.png") no-repeat top 100px right 200px;
 	font-family: Arial, Helvetica, sans-serif;
 	vertical-align: middle;
+	background-attachment: fixed;
 }
 
 #water_sign{
@@ -22,6 +23,7 @@ body {
 	vertical-align: middle;
 	color: white;
 	z-index: 1;
+	background: #333333;
 }
 
 #logo span {
@@ -30,20 +32,29 @@ body {
 	padding: 5px;
 }
 
-#content {
+#main{
+	width: 100%;
+	height: 100%;
 	position: absolute;
-	top: 60px;
+	left: 0px;
+	top: 0px;
+}
+
+#content {
+	position: relative;
+	top: 40px;
 	width: 100%;
 	rigth: 0px;
 	left: 0px;
+	
 }
 
 #m_content {
 	position: relative;
-	
 	margin-left: 250px;
+	margin-right: 250px;
 	width: auto;
-	min-height: 500px;
+	min-height: 800px;
 }
 
 #left_side {
@@ -252,17 +263,26 @@ ul.admin, ul.teacher, ul.student {
 #logo_img{
 	float:right;
 	height: 130px;
+	top: 50px;
+	right: 30px;
 	width: auto;
+	position: relative;
 }
 
 #footer {
-	position: absolute;
+	position: fixed;
 	bottom: 0px;
 	right: 0px;
 	width: 100%;
 	height: 50px;
 	text-align: center;
-	vertical-align: bottom;
+	bottom: 0px;
+	border-top: 1px solid grey;
+}
+
+#footer span {
+	position: relative;
+	float: none;
 }
 
 #footer img {
@@ -272,10 +292,10 @@ ul.admin, ul.teacher, ul.student {
 
 #footer_left{
 	position: relative;
-	float:left;
+	float: left;
 }
 
 #footer_right{
 	position: relative;
-	float:right;
+	float: right;
 }
