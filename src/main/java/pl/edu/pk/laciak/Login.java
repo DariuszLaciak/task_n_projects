@@ -61,16 +61,16 @@ public class Login extends HttpServlet {
 			
 			
 			if(result.isEmpty()){
-				response_msg = "Wrong username or password!";
+				response_msg = "Zla nazwa uzytkownika lub haslo!";
 			}
 			else {
 				LoginData login = (LoginData)result.get(0);
 				if(!login.isActive()){
-					response_msg = "Account has not been activated! Check e-mail";
+					response_msg = "Konto nie zostalo aktywowane! Sprawdz e-maila";
 					
 				}
 				else if(!login.getPassword().equals(pass)){
-					response_msg = "Wrong username or password!";
+					response_msg = "Zla nazwa uzytkownika lub haslo!";
 				}
 				else {
 					s = request.getSession();
@@ -99,7 +99,7 @@ public class Login extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		if(logged){
-			response_msg = "Logged";
+			response_msg = "Zalogowany";
 		}
 		
 		response.getWriter().write(response_msg);

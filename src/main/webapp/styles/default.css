@@ -24,6 +24,7 @@ body {
 	color: white;
 	z-index: 1;
 	background: #333333;
+	vertical-align: middle;
 }
 
 #logo span {
@@ -56,6 +57,13 @@ body {
 	width: auto;
 	min-height: 800px;
 	background-color: rgba(255,255,255,0.02); 
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#clock {
+	float:right;
+	margin-top: 15px;
 }
 
 #left_side {
@@ -147,17 +155,25 @@ ul.admin, ul.teacher, ul.student {
 
 #login {
 	position: relative;
-	width: 650px;
+	width: 550px;
 	height: 300px;
-	top: 200px;
-	left: 50%;
-	margin-top: -150px;
-	margin-left: -325px;
-	background: rgba(27,28,49,0.3);
+	top: 50%;
+	
+	margin-top: 150px;
+	margin-left: auto;
+	margin-right: auto;
+	background: rgba(27,28,49,0.7);
 	text-align: center;
 	color: white;
 	vertical-align: middle;
 	padding: 20px;
+	
+}
+
+#login_form_buttons {
+	float:right;
+	position:relative;
+	width: 100px;
 }
 
 #login button {
@@ -166,12 +182,15 @@ ul.admin, ul.teacher, ul.student {
 
 #login_form {
 	position: relative;
-	left: -100px;
+	float: left;
+	width: 300px;
+	margin-left:50px;
 }
 
 .inputs {
 	display: block;
 	padding-bottom: 20px;
+	float: right;
 }
 
 .l_input {

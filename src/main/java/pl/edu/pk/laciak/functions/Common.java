@@ -1,10 +1,10 @@
 package pl.edu.pk.laciak.functions;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.servlet.http.HttpSession;
 
 public class Common {
 
@@ -34,6 +34,16 @@ public class Common {
 
 	public static String makeLink(String page, String name){
 		return "<a href='"+page+"'>"+name+"</a>";
+	}
+	
+	public static boolean isUserLogged(HttpSession s){
+		try {
+			s.getAttribute("type");
+		}
+		catch(NullPointerException e){
+			return false;
+		}
+		return true;
 	}
 
 	private static Map<String,Map<String, String>> createMenuElements(String user){
