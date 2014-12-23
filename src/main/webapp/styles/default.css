@@ -7,6 +7,12 @@ body {
 	background-attachment: fixed;
 }
 
+.separator {
+	position: relative;
+	margin-top: 10px;
+
+	}
+
 #water_sign{
 	position: fixed;
 	top: 100px;
@@ -269,16 +275,38 @@ ul.admin, ul.teacher, ul.student {
 	background: #1b435e;
 }
 
-#screen {
+.screen {
 	position: absolute;
 	left: 0;
 	top: 0;
 	background: #000;
 }
 
-#edit_profile input{
-	float: right;
-}
+ #progress_bar {
+    margin: 10px 0;
+    padding: 3px;
+    border: 1px solid #000;
+    font-size: 14px;
+    clear: both;
+    
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+  }
+  #progress_bar.loading {
+    opacity: 1.0;
+  }
+  
+  #progress_bar .error {
+    background-color: red;
+     height: auto;
+    width: 0;
+  }
+  #progress_bar .percent {
+    background-color: #99ccff;
+    height: auto;
+    width: 0;
+  }
 
 #logo_img{
 	float:right;

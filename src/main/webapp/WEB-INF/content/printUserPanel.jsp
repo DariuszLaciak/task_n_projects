@@ -12,7 +12,7 @@
 			if (file.exists()) {
 		%>
 		<img
-			src="images/users/<%=session.getAttribute("userId")%>/photo.bmp" />
+			src="images/users/<%=session.getAttribute("userId")%>/photo.jpg" />
 		<%
 			} else {
 		%>

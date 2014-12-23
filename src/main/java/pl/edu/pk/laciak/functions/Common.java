@@ -6,6 +6,8 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
 
+import pl.edu.pk.laciak.helpers.BorderStyle;
+
 public class Common {
 
 	public static String makeHeader(int val, String header){
@@ -13,19 +15,19 @@ public class Common {
 	}
 
 	public static String makeInputText(String id, String label, String value){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' value='"+value+"' size='30'></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30'></input></div>";
 	}
 	
 	public static String makeInputTextReadOnly(String id, String label, String value){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' value='"+value+"' size='30' readonly='readonly' ></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' readonly='readonly' ></input></div>";
 	}
 	
 	public static String makeInputTextMaxLength(String id, String label, String value, int maxLength){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' value='"+value+"' size='30' maxlength="+maxLength+" ></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' maxlength="+maxLength+" ></input></div>";
 	}
 
 	public static String makeInputPassword(String id, String label){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='password' id='"+id+"' size='30'></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='password' id='"+id+"' name='"+id+"' size='30'></input></div>";
 	}
 
 	public static String makeButton(String value,String onclick, String clas){
@@ -34,6 +36,23 @@ public class Common {
 
 	public static String makeLink(String page, String name){
 		return "<a href='"+page+"'>"+name+"</a>";
+	}
+	
+	public static String makeUploadFile(String id){
+		return "<div class='inputs'><label class='l_input'>Wybierz plik: </label><input type='file' name='"+id+"' id='"+id+"'></input></div>";
+	}
+	
+	public static String insertSeparator(String color, BorderStyle style, String floating){
+		String floate ="";
+		
+		if(floating != ""){
+			floate = "float: "+floating+";";
+		}
+		else {
+			
+		}
+		String ret = "<div class='separator' style='width: 100%; height: 1px; border-bottom: 1px "+style+" "+color+"; "+floate+"'></div>";
+		return ret;
 	}
 	
 	public static boolean isUserLogged(HttpSession s){

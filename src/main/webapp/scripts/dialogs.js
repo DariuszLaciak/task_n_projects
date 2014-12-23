@@ -4,15 +4,28 @@
 
 $(document).ready(function(){
 	var dialogs = [
-	               "edit_profile", "screen"
+	               "edit_profile"
 	               ]
 	$.each(dialogs,function(value,key){
 		if($("body").find("#"+key).length == 0){
 			$("body").append("<div id='"+key+"'>");
 		}
 	});
+	$(document).on("dialogopen", function() {
+		$("body").append("<div class='screen'>");
+		$('.screen').css({'display': 'block', opacity: 0.6, 'width':$(document).width(),'height':$(document).height()});
+		
+		
+		
+		});
+	$(document).on("dialogclose", function() {
+		$(".screen").remove();
+		//$('.screen').css({'display': 'none'});
+	});
 
 });
+
+
 
 function openEditProfileWindow(){
 	editProfileWindowSettings();
@@ -30,6 +43,7 @@ function openEditProfileWindow(){
 					$("#user_birthday").datepicker({
 						dateFormat: "yy-mm-dd 00:00:00"
 					});
+					progressBarUploadPhoto();
 				}
 				else {
 					alert("Problem z serwerem");
@@ -42,12 +56,13 @@ function editProfileWindowSettings(){
 	$("#edit_profile").dialog({
 		title: "Edytuj profil",
 		autoOpen: false,
-		width: 400,
+		width: 450,
 		height: 500,
+		resizable: false,
 		buttons: [{
 			text: "Zapisz",
 			click: function() {
-				alert("zapisano");
+				saveProfile();
 			}
 		},
 		{
@@ -56,13 +71,7 @@ function editProfileWindowSettings(){
 				$( this ).dialog( "close" );
 			}
 		}
-		],
-		open: function(){
-			$('#screen').css({'display': 'block', opacity: 0.7, 'width':$(document).width(),'height':$(document).height()});
-
-		},
-		close: function(){
-			$('#screen').css({'display': 'none'});
-		}
+		]
+		
 	});
 }

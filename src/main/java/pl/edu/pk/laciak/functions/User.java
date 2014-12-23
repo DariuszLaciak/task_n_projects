@@ -1,10 +1,13 @@
 package pl.edu.pk.laciak.functions;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,11 +18,19 @@ import javax.servlet.http.HttpSession;
 
 
 
+
+
+
+
+
+
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Admins;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Teachers;
+import pl.edu.pk.laciak.helpers.BorderStyle;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
 
 /**
@@ -89,11 +100,21 @@ public class User extends HttpServlet {
 				form += Common.makeInputTextReadOnly("user_birthday", "Data urodzenia", st.getBirthday().toString());
 				
 			}
+			form += Common.insertSeparator("black", BorderStyle.SOLID,"right");
+			form += "<br /><span style='float: left; margin-bottom: 10px; border-top: 15px;'>Wgraj zdjęcie profilowe</span><br /><br />";
+			form += Common.makeUploadFile("photo_upload");
 					
-			form += "</form>";
+			form += "<div id='progress_bar'><div class='percent'>0%</div></div></form>";
+			
+			
+			
 			
 			json.put("form", form);
 
+			out.println(json);
+			break;
+		case "saveProfile":
+			json.put("form", 1);
 			out.println(json);
 			break;
 		}
