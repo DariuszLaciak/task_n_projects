@@ -54,16 +54,16 @@ public class Common {
 		switch(user){
 		case "admin":
 			submenus = new HashMap<String, String>();
-			submenus.put("Przegladaj","db_look");
-			elems.put("Zarzadznie baza", submenus);
+			submenus.put("Przeglądaj","db_look");
+			elems.put("Zarządznie bazą", submenus);
 			
 			submenus = new HashMap<String, String>();
 			submenus.put("Aktywuj", "activate");
 			submenus.put("Dodaj", "add_new");
 			submenus.put("Szukaj", "search");
-			submenus.put("Przegladaj", "look");
+			submenus.put("Przeglądaj", "look");
 			
-			elems.put("Zarzadzanie kontami",submenus);
+			elems.put("Zarządzanie kontami",submenus);
 			break;
 		case "teacher":
 			submenus = new HashMap<String, String>();

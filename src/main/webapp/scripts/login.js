@@ -10,7 +10,7 @@ function log(){
 				password: pass
 			},
 			function(data){
-				if(data != "Logged"){
+				if(data != "Zalogowany"){
 					$("#response_login").html("<h3>"+data+"</h3>");
 					$("#username").val("");
 					$("#password").val("");
