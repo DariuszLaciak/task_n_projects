@@ -1,14 +1,14 @@
 <%@page import="java.io.File"%>
 <%@page import="pl.edu.pk.laciak.functions.Common"%>
+<%@page import="java.util.Properties" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%!File file;%>
 
 <div id='userpanel'>
 	<div id='user_photo'>
-		<%
-			file = new File("images/users/" + session.getAttribute("userId")
-					+ "/photo.bmp");
+		<%	
+			file = new File(Common.getPhotoUrl(request.getSession().getAttribute("userId").toString()));
 			if (file.exists()) {
 		%>
 		<img

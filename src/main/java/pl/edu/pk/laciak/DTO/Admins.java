@@ -42,6 +42,18 @@ public class Admins implements ObjectDTO {
 		this.birthday = birthday;
 	}
 
+	
+
+
+	public void editAdmins(String name, String surname, String address, long pESEL,
+			Date birthday) {
+		this.name = name;
+		this.surname = surname;
+		this.address = address;
+		PESEL = pESEL;
+		this.birthday = birthday;
+	}
+
 
 
 	@Id

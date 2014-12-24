@@ -5,7 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -24,7 +27,16 @@ import javax.servlet.http.HttpSession;
 
 
 
+
+
+
+
+
+
+
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Admins;
@@ -39,6 +51,7 @@ import pl.edu.pk.laciak.hibernate.HibernateUtil;
 public class User extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        HttpSession s;
+       Session session;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -65,6 +78,10 @@ public class User extends HttpServlet {
 		s = request.getSession();
 		PrintWriter out = response.getWriter();
 		JSONObject json = new JSONObject();
+		String user_type = (String) s.getAttribute("type");
+		Object user = s.getAttribute("userData");
+		long user_id = (long) s.getAttribute("userId");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		switch(function){
 		case "logout":
 			s.invalidate();
@@ -72,7 +89,7 @@ public class User extends HttpServlet {
 			out.println(json);
 			break;
 		case "edit_profile":
-			Object user = s.getAttribute("userData");
+			
 			
 			String form = "<form name='edit_profile_form'><br />";
 			if(user instanceof Admins){
@@ -81,7 +98,7 @@ public class User extends HttpServlet {
 				form += Common.makeInputText("user_surname", "Nazwisko", adm.getSurname());
 				form += Common.makeInputText("user_address", "Adres", adm.getAddress());
 				form += Common.makeInputTextMaxLength("user_pesel", "PESEL", ""+adm.getPESEL(),11);
-				form += Common.makeInputTextReadOnly("user_birthday", "Data urodzenia", adm.getBirthday().toString());
+				form += Common.makeInputTextReadOnly("user_birthday", "Data urodzenia", format.format(adm.getBirthday()));
 			}
 			else if(user instanceof Teachers){
 				Teachers t = (Teachers)user;
@@ -89,7 +106,7 @@ public class User extends HttpServlet {
 				form += Common.makeInputText("user_surname", "Nazwisko", t.getSurname());
 				form += Common.makeInputText("user_address", "Adres", t.getAddress());
 				form += Common.makeInputTextMaxLength("user_pesel", "PESEL", ""+t.getPESEL(),11);
-				form += Common.makeInputTextReadOnly("user_birthday", "Data urodzenia", t.getBirthday().toString());
+				form += Common.makeInputTextReadOnly("user_birthday", "Data urodzenia", format.format(t.getBirthday()));
 			}
 			else {
 				Students st = (Students)user;
@@ -97,7 +114,7 @@ public class User extends HttpServlet {
 				form += Common.makeInputText("user_surname", "Nazwisko", st.getSurname());
 				form += Common.makeInputText("user_address", "Adres", st.getAddress());
 				form += Common.makeInputTextMaxLength("user_pesel", "PESEL", ""+st.getPESEL(),11);
-				form += Common.makeInputTextReadOnly("user_birthday", "Data urodzenia", st.getBirthday().toString());
+				form += Common.makeInputTextReadOnly("user_birthday", "Data urodzenia", format.format(st.getBirthday()));
 				
 			}
 			form += Common.insertSeparator("black", BorderStyle.SOLID,"right");
@@ -114,7 +131,49 @@ public class User extends HttpServlet {
 			out.println(json);
 			break;
 		case "saveProfile":
-			json.put("form", 1);
+			String[] form_data = request.getParameterValues("data_form[]");
+			String name = form_data[0];
+			String surname = form_data[1];
+			String address = form_data[2];
+			long pESEL = Long.parseLong(form_data[3]);
+			
+			Date birthday = null;
+			try {
+				birthday = format.parse(form_data[4]);
+				
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try{
+			
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			if(user_type.equals("student")){
+				Students profile = (Students) session.get(Students.class, user_id);
+				profile.editStudents(name, surname, address, pESEL, birthday);
+				session.saveOrUpdate(profile);
+				s.setAttribute("userData", profile);
+				
+			}
+			else if(user_type.equals("teacher")){
+				Teachers profile = (Teachers) session.get(Teachers.class, user_id);
+				profile.editTeachers(name, surname, address, pESEL, birthday);
+				session.saveOrUpdate(profile);
+				s.setAttribute("userData", profile);
+			}
+			else {
+				Admins profile = (Admins) session.get(Admins.class, user_id);
+				profile.editAdmins(name, surname, address, pESEL, birthday);
+				session.saveOrUpdate(profile);
+				s.setAttribute("userData", profile);
+			}
+			session.getTransaction().commit();
+			json.put("edited", 1);
+			}
+			catch (HibernateException e) {
+				json.put("edited", 0);
+			}
 			out.println(json);
 			break;
 		}

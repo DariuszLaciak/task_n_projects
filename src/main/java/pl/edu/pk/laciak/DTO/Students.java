@@ -58,6 +58,14 @@ public class Students implements ObjectDTO {
 		this.period = period;
 	}
 
+	public void editStudents(String name, String surname, String address, long pESEL,
+			Date birthday) {
+		this.name = name;
+		this.surname = surname;
+		this.address = address;
+		PESEL = pESEL;
+		this.birthday = birthday;
+	}
 
 
 	@Id

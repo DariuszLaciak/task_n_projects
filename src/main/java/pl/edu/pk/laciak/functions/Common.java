@@ -1,8 +1,10 @@
 package pl.edu.pk.laciak.functions;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,11 +19,11 @@ public class Common {
 	public static String makeInputText(String id, String label, String value){
 		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30'></input></div>";
 	}
-	
+
 	public static String makeInputTextReadOnly(String id, String label, String value){
 		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' readonly='readonly' ></input></div>";
 	}
-	
+
 	public static String makeInputTextMaxLength(String id, String label, String value, int maxLength){
 		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' maxlength="+maxLength+" ></input></div>";
 	}
@@ -37,24 +39,24 @@ public class Common {
 	public static String makeLink(String page, String name){
 		return "<a href='"+page+"'>"+name+"</a>";
 	}
-	
+
 	public static String makeUploadFile(String id){
 		return "<div class='inputs'><label class='l_input'>Wybierz plik: </label><input type='file' name='"+id+"' id='"+id+"'></input></div>";
 	}
-	
+
 	public static String insertSeparator(String color, BorderStyle style, String floating){
 		String floate ="";
-		
+
 		if(floating != ""){
 			floate = "float: "+floating+";";
 		}
 		else {
-			
+
 		}
 		String ret = "<div class='separator' style='width: 100%; height: 1px; border-bottom: 1px "+style+" "+color+"; "+floate+"'></div>";
 		return ret;
 	}
-	
+
 	public static boolean isUserLogged(HttpSession s){
 		try {
 			s.getAttribute("type");
@@ -66,22 +68,22 @@ public class Common {
 	}
 
 	private static Map<String,Map<String, String>> createMenuElements(String user){
-		
+
 		Map<String,Map<String, String>> elems = new HashMap<String,Map<String, String>>();
 		Map<String,String> submenus;
-		
+
 		switch(user){
 		case "admin":
 			submenus = new HashMap<String, String>();
 			submenus.put("Przeglądaj","db_look");
 			elems.put("Zarządznie bazą", submenus);
-			
+
 			submenus = new HashMap<String, String>();
 			submenus.put("Aktywuj", "activate");
 			submenus.put("Dodaj", "add_new");
 			submenus.put("Szukaj", "search");
 			submenus.put("Przeglądaj", "look");
-			
+
 			elems.put("Zarządzanie kontami",submenus);
 			break;
 		case "teacher":
@@ -89,17 +91,17 @@ public class Common {
 			submenus.put("Lista", "st_list");
 			submenus.put("Dodaj","add_group");
 			elems.put("Grupy studenckie", submenus);
-			
+
 			submenus = new HashMap<String, String>();
 			submenus.put("Przegladaj", "view_projects");
 			submenus.put("Dodaj", "add_project");
 			elems.put("Projekty", submenus);
-			
+
 			submenus = new HashMap<String, String>();
 			submenus.put("Przegladaj", "view_tasks");
 			submenus.put("Dodaj", "add_task");
 			elems.put("Zadania",submenus);
-			
+
 			submenus = new HashMap<String, String>();
 			submenus.put("Przegladaj", "view_subjects");
 			elems.put("Przedmioty", submenus);
@@ -107,20 +109,20 @@ public class Common {
 		case "student":
 			submenus = new HashMap<String, String>();
 			elems.put("Projekty", submenus);
-			
+
 			submenus = new HashMap<String, String>();
 			elems.put("Zadania", submenus);
-			
+
 			submenus = new HashMap<String, String>();
 			elems.put("Przemioty", submenus);
 			break;
 		default:
 			break;
 		}
-		
+
 		return elems;
 	}
-	
+
 	public static String makeMenu(String user){
 		Map<String,Map<String, String>> menu_elements = createMenuElements(user);
 		String menu = "<ul class='"+user+"'>";
@@ -134,8 +136,30 @@ public class Common {
 		menu += "</ul>";
 		return menu;
 	}
+
+	public static String getPhotoUrl(String user_id){
+		String url;
+		Properties properties = new Properties();
+		try {
+			properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("project.properties"));
+		} catch (IOException e) {
+			System.err.println("Error with properties");
+		}
+		url = properties.getProperty("project_dir")+"/images/users/"+user_id+ "/photo.jpg";
+		return url;
+	}
 	
-	
+	public static String getProjetProperty(String prop){
+		String value;
+		Properties properties = new Properties();
+		try {
+			properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("project.properties"));
+		} catch (IOException e) {
+			System.err.println("Error with properties");
+		}
+		value = properties.getProperty(prop);
+		return value;
+	}
 
 }
 

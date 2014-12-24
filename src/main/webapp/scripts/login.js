@@ -3,24 +3,27 @@ function log(){
 	var user =$("#username").val();
 	var pass = $("#password").val();
 
-	$.post(
-			'Login',
-			{
-				username: user,
-				password: pass
-			},
-			function(data){
-				if(data != "Zalogowany"){
-					$("#response_login").html("<h3>"+data+"</h3>");
-					$("#username").val("");
-					$("#password").val("");
-				}
-				else {
-					location.reload();
-				}
-				makeLoading(1);
-			});
-
+	
+	$.ajax({
+		url: 'Login',
+		type: "POST",
+		async: false,
+		data: {
+			username: user,
+			password: pass
+		},
+		success: function(data){
+			if(data != "Zalogowany"){
+				$("#response_login").html("<h3>"+data+"</h3>");
+				$("#username").val("");
+				$("#password").val("");
+			}
+			else {
+				location.reload();
+			}
+			makeLoading(1);
+		}
+	});
 }
 
 function updateClock ( )
@@ -45,4 +48,7 @@ function updateClock ( )
 
 $(document).ready(function(){
 	setInterval('updateClock()', 1000);
+	$("form[name='login_form']").submit(function(ev){
+		ev.preventDefault();
+	});
 });

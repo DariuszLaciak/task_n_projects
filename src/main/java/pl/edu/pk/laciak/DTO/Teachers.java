@@ -49,6 +49,15 @@ public class Teachers implements ObjectDTO {
 		PESEL = pESEL;
 		this.birthday = birthday;
 	}
+	
+	public void editTeachers(String name, String surname, String address, long pESEL,
+			Date birthday) {
+		this.name = name;
+		this.surname = surname;
+		this.address = address;
+		PESEL = pESEL;
+		this.birthday = birthday;
+	}
 
 
 
