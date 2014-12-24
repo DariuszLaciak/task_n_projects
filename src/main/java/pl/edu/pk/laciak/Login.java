@@ -29,6 +29,9 @@ public class Login extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -51,24 +54,23 @@ public class Login extends HttpServlet {
 			String user = request.getParameter("username");
 			String pass = request.getParameter("password");
 			
-			session = HibernateUtil.getSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			Query q = session.createQuery("from LoginData where username=:user").setString("user", user);
 			List<?> result = q.list();
 			
 			
 			if(result.isEmpty()){
-				response_msg = "Wrong username or password!";
+				response_msg = "Zla nazwa uzytkownika lub haslo!";
 			}
 			else {
 				LoginData login = (LoginData)result.get(0);
-				System.out.println(login.getPassword() + " " + pass);
 				if(!login.isActive()){
-					response_msg = "Account has not been activated! Check e-mail";
+					response_msg = "Konto nie zostalo aktywowane! Sprawdz e-maila";
 					
 				}
 				else if(!login.getPassword().equals(pass)){
-					response_msg = "Wrong username or password!";
+					response_msg = "Zla nazwa uzytkownika lub haslo!";
 				}
 				else {
 					s = request.getSession();
@@ -82,6 +84,10 @@ public class Login extends HttpServlet {
 						s.setAttribute("type", "teacher");
 						s.setAttribute("userData", login.getTeachers());
 					}
+					else if(login.getAdmins() != null){
+						s.setAttribute("type", "admin");
+						s.setAttribute("userData", login.getAdmins());
+					}
 					logged = true;
 					
 				}
@@ -93,7 +99,7 @@ public class Login extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		if(logged){
-			response_msg = "Logged";
+			response_msg = "Zalogowany";
 		}
 		
 		response.getWriter().write(response_msg);

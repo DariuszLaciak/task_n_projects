@@ -8,8 +8,9 @@ function logout(){
 				action: "logout"
 			},
 			function(data){
-				if(data == "1")
+				var reply = jQuery.parseJSON(data);
+				if(reply.logout_reply == 1){
 					location.reload();
-				
+				}
 			});
 }
