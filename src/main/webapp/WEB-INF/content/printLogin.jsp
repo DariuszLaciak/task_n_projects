@@ -8,7 +8,7 @@
 			<%=Common.makeHeader(1, "Zaloguj sie")%>
 			<br />
 			<%=Common.makeInputText("username", "Login", "")%>
-			<%=Common.makeInputPassword("password", "Haslo")%>
+			<%=Common.makeInputPassword("password", "Hasło")%>
 			<input type='submit' class='b_blue' value='Zaloguj' />
 			<div id='loading_login'></div>
 		</form>
