@@ -109,6 +109,7 @@ function saveProfile(){
 		},
 		success: function(data){
 			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
 			if(output.edited == 1){
 				popup("success","Profil zapisany");
 				$("#edit_profile").dialog("close");
@@ -116,9 +117,7 @@ function saveProfile(){
 			else {
 				popup("error","Problem z bazą danych. Skontaktuj się z administratorem systemu");
 			}
-			setTimeout(function(){
-				location.reload();
-			}, 1000);
+
 		}
 	});
 }
@@ -138,4 +137,52 @@ function popup(type,text){
 	}, 3000);
 }
 
+function isUserLoggedIn(data){
+	if(data.error == 'logged_out'){
+		popup("error","Sesja wygasła. Zaloguj się ponownie");
+		setTimeout(function(){
+			location.reload();
+		}, 4000);
+	}
+}
+
+function insertDatePicker(id){
+	$("#"+id).datepicker({
+		dateFormat: "yy-mm-dd 00:00:00"
+	});
+}
+
+function readFileFromInput(callback,id)
+{               
+	var return_s ="";
+	if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+		alert('The File APIs are not fully supported in this browser.');
+		return;
+	}   
+
+	input = document.getElementById(id);
+	if (!input) {
+		alert("Um, couldn't find the fileinput element.");
+	}
+	else if (!input.files) {
+		alert("This browser doesn't seem to support the `files` property of file inputs.");
+	}
+	else if (!input.files[0]) {
+		alert("Please select a file before clicking 'Load'");               
+	}
+	else {
+		file = input.files[0];
+		fr = new FileReader();
+		//fr.readAsText(file);
+		fr.onload = function (e) {
+			return_s = e.target.result;
+			callback(return_s);
+		};
+	
+		fr.readAsText(file);
+		
+		
+	}
+	return return_s;
+}
 

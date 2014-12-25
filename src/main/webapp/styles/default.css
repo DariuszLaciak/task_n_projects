@@ -210,6 +210,10 @@ ul.admin, ul.teacher, ul.student {
 	
 }
 
+#form_add{
+	width: 400px;
+}
+
 #login button {
 	font-size: 15px;
 }
@@ -224,6 +228,9 @@ ul.admin, ul.teacher, ul.student {
 .inputs {
 	display: block;
 	padding-bottom: 20px;
+}
+
+.inputs input{
 	float: right;
 }
 
