@@ -4,15 +4,38 @@
 
 $(document).ready(function(){
 	$("#add_new").click(function(){
-		addUsers();
+		$("#m_content").load("admin/add_new.jsp");
+	});
+	$("#add_new_subject").click(function(){
+		$("#m_content").load("admin/new_subject.jsp");
 	});
 });
 
-
-
-function addUsers(){
-	$("#m_content").load("admin/add_new.jsp");
+function confirm_n_s(){
+	var name = $("#sub_name").val();
+	var teacher = $("#teacher_list").val();
+	$.ajax({
+		url: "Admin",
+		type: "post",
+		async: false,
+		data: {
+			action: "add_new_subject",
+			name: name,
+			teacher: teacher
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 1){
+				popup("success","Pomyślnie dodano przedmiot");
+			}
+			else {
+				popup("error","Problem z bazą danych");
+			}
+		}
+	});
 }
+
 
 function add_new_t(){
 	

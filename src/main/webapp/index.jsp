@@ -20,6 +20,7 @@
 <script type="text/javascript" src="scripts/common_functions.js"></script>
 <script type="text/javascript" src="scripts/dialogs.js"></script>
 <script type="text/javascript" src="scripts/admin.js"></script>
+<script type="text/javascript" src="scripts/teacher.js"></script>
 
 
 <title>PnT Manager</title>

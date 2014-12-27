@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 import pl.edu.pk.laciak.DTO.Admins;
 import pl.edu.pk.laciak.DTO.LoginData;
 import pl.edu.pk.laciak.DTO.Students;
+import pl.edu.pk.laciak.DTO.Subject;
 import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
 
@@ -284,6 +285,28 @@ public class Admin extends HttpServlet {
 					s.getTransaction().commit();
 				}
 				json.put("success", 1);
+				out.println(json);
+				break;
+			case "add_new_subject":
+				String sub_name = request.getParameter("name");
+				String teacher = request.getParameter("teacher");
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				if(s.getTransaction().isActive()){
+					s.getTransaction().commit();
+				}
+				s.beginTransaction();
+				Teachers te = (Teachers) s.load(Teachers.class, Long.parseLong(teacher));
+				Subject sub = new Subject(sub_name);
+				sub.setTeacher(te);
+				te.getSubjects().add(sub);
+				int succ = (int) s.save(sub);
+				s.getTransaction().commit();
+				if(succ > 0){
+					json.put("success", 1);
+				}
+				else {
+					json.put("success", 0);
+				}
 				out.println(json);
 				break;
 			}

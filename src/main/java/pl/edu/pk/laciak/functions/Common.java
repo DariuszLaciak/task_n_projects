@@ -13,17 +13,19 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
+import pl.edu.pk.laciak.DTO.Subject;
+import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.helpers.BorderStyle;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
 
-public class Common {
+public abstract class Common {
 
 	public static String makeHeader(int val, String header){
 		return "<h"+val+">"+header+"</h"+val+">";
 	}
 
 	public static String makeInputText(String id, String label, String value){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30'></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30'  required='required'></input></div>";
 	}
 
 	public static String makeInputTextReadOnly(String id, String label, String value){
@@ -31,11 +33,11 @@ public class Common {
 	}
 
 	public static String makeInputTextMaxLength(String id, String label, String value, int maxLength){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' maxlength="+maxLength+" ></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' maxlength="+maxLength+" required='required ></input></div>";
 	}
 
 	public static String makeInputPassword(String id, String label){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='password' id='"+id+"' name='"+id+"' size='30'></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='password' id='"+id+"' name='"+id+"' size='30' required='required></input></div>";
 	}
 
 	public static String makeButton(String value,String onclick, String clas){
@@ -54,6 +56,14 @@ public class Common {
 		return label+":<input type='radio' name='"+name+"' value='"+value+"'></input>";
 	}
 	
+	public static String makeSelect(String label, String id, List<String[]> options){
+		String select = "<div class='inputs'><label class='l_input'>"+label+"</label><select id='"+id+"' required='required'>";
+		for(String[] elems : options){
+			select += "<option value='"+elems[0]+"'>"+elems[1]+"</option>";
+		}
+		select += "</select>";
+		return select;
+	}
 
 	
 	public static String br(int num){
@@ -105,11 +115,16 @@ public class Common {
 			submenus.put("Przeglądaj", "look");
 
 			elems.put("Zarządzanie kontami",submenus);
+			
+			submenus = new HashMap<String, String>();
+			submenus.put("Dodaj", "add_new_subject");
+			submenus.put("Zarządzaj", "manage_subject");
+			elems.put("Zarządzenie przedmiotami",submenus);
 			break;
 		case "teacher":
 			submenus = new HashMap<String, String>();
 			submenus.put("Lista", "st_list");
-			submenus.put("Dodaj","add_group");
+			submenus.put("Dodaj","add_group_teacher");
 			elems.put("Grupy studenckie", submenus);
 
 			submenus = new HashMap<String, String>();
@@ -128,12 +143,15 @@ public class Common {
 			break;
 		case "student":
 			submenus = new HashMap<String, String>();
+			submenus.put("Lista", "project_list_st");
 			elems.put("Projekty", submenus);
 
 			submenus = new HashMap<String, String>();
+			submenus.put("Lista", "task_list_st");
 			elems.put("Zadania", submenus);
 
 			submenus = new HashMap<String, String>();
+			submenus.put("Lista", "subject_list_st");
 			elems.put("Przemioty", submenus);
 			break;
 		default:
@@ -216,6 +234,15 @@ public class Common {
 		word = word.replace("ź", "z");
 		word = word.replace("ń", "n");
 		return word;
+	}
+	
+	public static String createSubjectTable(List<Subject> lista){
+		String html = "<table>";
+		for(Subject s : lista){
+			html += "<tr><td>"+s.getName()+"</td><td>"+makeButton("Szczegóły", "sub_details("+s.getId()+")", "b_blue")+"</td></tr>";
+		}
+		html += "</table>";
+		return html;
 	}
 
 }

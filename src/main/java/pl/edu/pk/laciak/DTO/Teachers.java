@@ -34,7 +34,7 @@ public class Teachers implements ObjectDTO {
 	private Set<Comments> comment = new HashSet<Comments>();
 	private Set<Task> tasks = new HashSet<Task>();
 	private Set<Project> projects = new HashSet<Project>();
-	
+	private Set<Subject> subjects = new HashSet<Subject>();
 	
 	public Teachers() {}
 	
@@ -149,6 +149,19 @@ public class Teachers implements ObjectDTO {
 
 	public void setProjects(Set<Project> projects) {
 		this.projects = projects;
+	}
+
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
+	@PrimaryKeyJoinColumn
+	public Set<Subject> getSubjects() {
+		return subjects;
+	}
+
+
+
+	public void setSubjects(Set<Subject> subjects) {
+		this.subjects = subjects;
 	}
 
 	

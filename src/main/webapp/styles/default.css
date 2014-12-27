@@ -7,6 +7,10 @@ body {
 	background-attachment: fixed;
 }
 
+#new_subject_form{
+	max-width: 350px;
+}
+
 #popup{
 	position: relative;
 	top: 100px;
@@ -230,7 +234,7 @@ ul.admin, ul.teacher, ul.student {
 	padding-bottom: 20px;
 }
 
-.inputs input{
+.inputs input, select{
 	float: right;
 }
 

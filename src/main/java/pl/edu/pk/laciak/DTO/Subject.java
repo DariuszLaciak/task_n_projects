@@ -5,12 +5,16 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -22,6 +26,7 @@ public class Subject implements ObjectDTO {
 	
 	private Set<Project> projects = new HashSet<Project>();
 	private Set<Notes> notes = new HashSet<Notes>();
+	private Teachers teacher;
 	
 	public Subject() {
 		// TODO Auto-generated constructor stub
@@ -66,6 +71,17 @@ public class Subject implements ObjectDTO {
 	}
 	public void setNotes(Set<Notes> notes) {
 		this.notes = notes;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idTeacher", nullable = false)
+	public Teachers getTeacher() {
+		return teacher;
+	}
+
+
+	public void setTeacher(Teachers teacher) {
+		this.teacher = teacher;
 	}
 	
 	
