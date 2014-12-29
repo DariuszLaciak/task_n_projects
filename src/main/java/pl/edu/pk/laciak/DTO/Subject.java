@@ -27,6 +27,7 @@ public class Subject implements ObjectDTO {
 	private Set<Project> projects = new HashSet<Project>();
 	private Set<Notes> notes = new HashSet<Notes>();
 	private Teachers teacher;
+	private Set<Task> tasks = new HashSet<Task>();
 	
 	public Subject() {
 		// TODO Auto-generated constructor stub
@@ -82,6 +83,17 @@ public class Subject implements ObjectDTO {
 
 	public void setTeacher(Teachers teacher) {
 		this.teacher = teacher;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subject")
+	@PrimaryKeyJoinColumn
+	public Set<Task> getTasks() {
+		return tasks;
+	}
+
+
+	public void setTasks(Set<Task> tasks) {
+		this.tasks = tasks;
 	}
 	
 	

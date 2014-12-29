@@ -5,11 +5,10 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	vertical-align: middle;
 	background-attachment: fixed;
+	
 }
 
-#new_subject_form{
-	max-width: 350px;
-}
+
 
 #popup{
 	position: relative;
@@ -42,6 +41,7 @@ body {
     min-width:200px;
     margin-left:10px;
     overflow:hidden;
+    color: #000000;
 }
 
 .result_table thead tr{
@@ -131,7 +131,7 @@ td.table_fr{
 
 #content {
 	position: relative;
-	top: 40px;
+	top: 60px;
 	width: 100%;
 	rigth: 0px;
 	left: 0px;
@@ -147,6 +147,12 @@ td.table_fr{
 	background-color: rgba(255,255,255,0.02); 
 	padding-left: 10px;
 	padding-right: 10px;
+	color: #ffffff;
+	overflow: auto;
+}
+
+#task_deadline{
+	display: none;
 }
 
 #clock {
@@ -267,7 +273,7 @@ ul.admin, ul.teacher, ul.student {
 	
 }
 
-#form_add{
+.form_styles{
 	width: 400px;
 }
 

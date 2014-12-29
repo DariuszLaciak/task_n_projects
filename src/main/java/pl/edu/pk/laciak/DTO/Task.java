@@ -31,6 +31,7 @@ public class Task implements ObjectDTO {
 	private Set<Comments> comment = new HashSet<Comments>();
 	private Notes note;
 	private Teachers teacher;
+	private Subject subject;
 	
 	public Task(){}
 	
@@ -71,7 +72,7 @@ public class Task implements ObjectDTO {
 		this.startDate = startDate;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idStudent", nullable = false)
 	public Students getStudent() {
 		return student;
@@ -80,8 +81,8 @@ public class Task implements ObjectDTO {
 		this.student = student;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY, optional=true)
-	@PrimaryKeyJoinColumn
+	@OneToOne(fetch = FetchType.EAGER, optional=true)
+	@JoinColumn(name = "idDeadline", nullable = true)
 	public Deadlines getDeadline() {
 		return deadline;
 	}
@@ -90,7 +91,7 @@ public class Task implements ObjectDTO {
 		this.deadline = deadline;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "task")
 	@PrimaryKeyJoinColumn
 	public Set<Comments> getComment() {
 		return comment;
@@ -99,7 +100,7 @@ public class Task implements ObjectDTO {
 	public void setComment(Set<Comments> comment) {
 		this.comment = comment;
 	}
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "task", cascade = CascadeType.ALL, optional=true)
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "task", cascade = CascadeType.ALL, optional=true)
 	public Notes getNote() {
 		return note;
 	}
@@ -108,8 +109,8 @@ public class Task implements ObjectDTO {
 		this.note = note;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idTeacher", nullable = true)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idTeacher", nullable = false)
 	public Teachers getTeacher() {
 		return teacher;
 	}
@@ -118,8 +119,16 @@ public class Task implements ObjectDTO {
 		this.teacher = teacher;
 	}
 
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idSubject", nullable = true)
+	public Subject getSubject() {
+		return subject;
+	}
 	
-	
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
 	
 	
 }

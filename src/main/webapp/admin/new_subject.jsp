@@ -7,7 +7,7 @@
     pageEncoding="UTF-8"%>
 <%!  %>
 <h1>Dodawanie nowego przedmiotu</h1>
-<form id='new_subject_form'>
+<form id='new_subject_form' class='form_styles'>
 <%=Common.makeInputText("sub_name", "Nazwa", "") %>
 <% List<Teachers> lista = DBCommon.getTeachers();
 List<String[]> t = new ArrayList<String[]>();
@@ -21,5 +21,5 @@ for(Teachers t1 : lista){
 %>
 <%=Common.makeSelect("Prowadzący","teacher_list", t) %>
 <%=Common.br(2) %>
-<%=Common.makeButton("Dodaj", "confirm_n_s()", "b_blue") %>
+<%=Common.makeButton("Dodaj", "confirm_n_s()", "b_grey") %>
 </form>

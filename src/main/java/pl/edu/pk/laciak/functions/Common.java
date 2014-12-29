@@ -2,6 +2,7 @@ package pl.edu.pk.laciak.functions;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,19 +26,20 @@ public abstract class Common {
 	}
 
 	public static String makeInputText(String id, String label, String value){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30'  required='required'></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30'  required='required'></input></div>";
 	}
 
 	public static String makeInputTextReadOnly(String id, String label, String value){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' readonly='readonly' ></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' readonly='readonly' ></input></div>";
 	}
+	
 
 	public static String makeInputTextMaxLength(String id, String label, String value, int maxLength){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' maxlength="+maxLength+" required='required ></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' maxlength="+maxLength+" required='required' ></input></div>";
 	}
 
 	public static String makeInputPassword(String id, String label){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='password' id='"+id+"' name='"+id+"' size='30' required='required'></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='password' id='"+id+"' name='"+id+"' size='30' required='required'></input></div>";
 	}
 
 	public static String makeButton(String value,String onclick, String clas){
@@ -49,7 +51,7 @@ public abstract class Common {
 	}
 
 	public static String makeUploadFile(String id){
-		return "<div class='inputs'><label class='l_input'>Wybierz plik: </label><input type='file' name='"+id+"' id='"+id+"'></input></div>";
+		return "<div class='inputs'><label class='l_input'>Wybierz plik </label><input type='file' name='"+id+"' id='"+id+"'></input></div>";
 	}
 	
 	public static String makeRadio(String name, String value, String label){
@@ -57,12 +59,22 @@ public abstract class Common {
 	}
 	
 	public static String makeSelect(String label, String id, List<String[]> options){
-		String select = "<div class='inputs'><label class='l_input'>"+label+"</label><select id='"+id+"' required='required'>";
+		String select = "<div class='inputs'><label class='l_input'>"+label+"</label><select id='"+id+"' name='"+id+"' required='required'>";
 		for(String[] elems : options){
 			select += "<option value='"+elems[0]+"'>"+elems[1]+"</option>";
 		}
-		select += "</select>";
+		select += "</select></div>";
 		return select;
+	}
+	
+	public static String makeCheckBox(String label, String id, String value){
+		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='checkbox' id='"+id+"' name='"+id+"' value='"+value+"' ></input></div>";
+	}
+	
+	public static String makeCheckBoxSendUnchecked(String label, String id, String value, String uncheckedvalue){
+		String html = "<div class='inputs'><label class='l_input'>"+label+"</label><input type='checkbox' id='"+id+"' name='"+id+"' value='"+value+"' ></input></div>";
+		html += "<input type='hidden' id='"+id+"Hidden' name='"+id+"' value='"+uncheckedvalue+"' ></input>";
+		return html;
 	}
 
 	
@@ -237,11 +249,34 @@ public abstract class Common {
 	}
 	
 	public static String createSubjectTable(List<Subject> lista){
+		
+		List<String> headers = new ArrayList<String>();
+		headers.add("Nazwa");
+		headers.add("");
+		
+		List<List<String>> subjects = new ArrayList<List<String>>();
+		for(Subject s : lista){
+			List<String> l = new ArrayList<String>();
+			l.add(s.getName());
+			l.add(makeButton("Szczegóły", "sub_details("+s.getId()+")", "b_blue"));
+			subjects.add(l);
+		}
+		
+		String html = createTable(subjects,headers);
+		
+		return html;
+	}
+	
+	public static String createTable(List<List<String>> lista, List<String> headers){
 		String html = "<div class='table_wrap'><table class='result_table'>";
-		html += "<thead><tr><th>Nazwa</th><th></th></tr></thead>";
+		html += "<thead><tr>";
+		for(String h : headers)
+			html += "<th>"+h+"</th>";
+		html += "</tr></thead>";
+		
 		int line = 1;
 		String t_class = "odd";
-		for(Subject s : lista){
+		for(List<String> s : lista){
 			if(line % 2 == 0){
 				t_class = "even";
 			}
@@ -249,7 +284,11 @@ public abstract class Common {
 				t_class = "odd";
 			}
 			line++;
-			html += "<tr class='"+t_class+"'><td class='table_fr'>"+s.getName()+"</td><td>"+makeButton("Szczegóły", "sub_details("+s.getId()+")", "b_blue")+"</td></tr>";
+			html += "<tr class='"+t_class+"'>";
+			for(String s1: s){
+				html += "<td>"+s1+"</td>";
+			}
+			html += "</tr>";
 		}
 		html += "</table></div>";
 		return html;

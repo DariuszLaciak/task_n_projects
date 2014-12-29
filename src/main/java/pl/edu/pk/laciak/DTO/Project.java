@@ -85,7 +85,7 @@ public class Project implements ObjectDTO {
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, optional=true)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "idDeadline", nullable = true)
 	public Deadlines getDeadline() {
 		return deadline;
 	}

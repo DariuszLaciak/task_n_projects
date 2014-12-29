@@ -74,7 +74,7 @@ public class Admin extends HttpServlet {
 							+ " }); });</script>";
 							
 				}
-				form += Common.makeButton("Dodaj", "confirm_add()", "b_blue");
+				form += Common.makeButton("Dodaj", "confirm_add()", "b_grey");
 				form += "</form>";
 				json.put("form", form);
 				json.put("success", 1);

@@ -112,7 +112,7 @@ public class Teachers implements ObjectDTO {
 		this.birthday = birthday;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@PrimaryKeyJoinColumn
 	public LoginData getLogin() {
 		return login;
@@ -121,7 +121,7 @@ public class Teachers implements ObjectDTO {
 		this.login = login;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "teacher")
 	@PrimaryKeyJoinColumn
 	public Set<Comments> getComment() {
 		return comment;
@@ -131,7 +131,7 @@ public class Teachers implements ObjectDTO {
 		this.comment = comment;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "teacher")
 	@PrimaryKeyJoinColumn
 	public Set<Task> getTasks() {
 		return tasks;
@@ -141,7 +141,7 @@ public class Teachers implements ObjectDTO {
 		this.tasks = tasks;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "teacher")
 	@PrimaryKeyJoinColumn
 	public Set<Project> getProjects() {
 		return projects;
@@ -152,7 +152,7 @@ public class Teachers implements ObjectDTO {
 	}
 
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "teacher")
 	@PrimaryKeyJoinColumn
 	public Set<Subject> getSubjects() {
 		return subjects;

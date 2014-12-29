@@ -7,6 +7,7 @@
     	<jsp:include page="printMenu.jsp"></jsp:include>
     </div>
     <div id="m_content">
-   		<h1> Poprawnie zalogowano </h1>
+   		<h1>Witaj w TaskNProject Manager</h1>
+   		<h3>Przejdź do podmenu po lewej stronie</h3>
     </div>
 	
