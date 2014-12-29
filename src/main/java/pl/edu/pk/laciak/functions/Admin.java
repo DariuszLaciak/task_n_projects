@@ -194,6 +194,8 @@ public class Admin extends HttpServlet {
 						return;
 					}
 				}
+				if(s.isOpen())
+				s.close();
 				json.put("added", number_added);
 				json.put("success", 1);
 				out.println(json);
@@ -284,6 +286,8 @@ public class Admin extends HttpServlet {
 					s.save(ld);
 					s.getTransaction().commit();
 				}
+				if(s.isOpen())
+					s.close();
 				json.put("success", 1);
 				out.println(json);
 				break;
@@ -307,6 +311,8 @@ public class Admin extends HttpServlet {
 				else {
 					json.put("success", 0);
 				}
+				if(s.isOpen())
+					s.close();
 				out.println(json);
 				break;
 			}

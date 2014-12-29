@@ -20,7 +20,8 @@ public abstract class DBCommon {
 			s.beginTransaction();
 		lista = s.createQuery("from Teachers").list();
 		s.getTransaction().commit();
-		
+		if(s.isOpen())
+			s.close();
 		return lista;
 	}
 	
@@ -33,7 +34,8 @@ public abstract class DBCommon {
 			s.beginTransaction();
 		lista = s.createQuery("from Subject where idTeacher=:id").setParameter("id", teacher_id).list();
 		s.getTransaction().commit();
-		
+		if(s.isOpen())
+			s.close();
 		return lista;
 	}
 	
@@ -46,7 +48,8 @@ public abstract class DBCommon {
 			s.beginTransaction();
 		lista = s.createQuery("from Students order by surname").list();
 		s.getTransaction().commit();
-		
+		if(s.isOpen())
+			s.close();
 		return lista;
 	}
 	

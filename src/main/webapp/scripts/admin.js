@@ -41,7 +41,7 @@ function add_new_t(){
 	
 	var radio_type = $("#add_new_form input:checked").val();
 	if($("#form_add").length == 0)
-		$("#m_content").append("<div id='form_add'>");
+		$("#m_content").append("<div id='form_add' class='form_styles'>");
 	else
 		$("#form_add").html("");
 	

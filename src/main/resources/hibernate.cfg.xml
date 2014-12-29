@@ -13,7 +13,7 @@
 
    <!-- Assume test is the database name -->
    <property name="hibernate.connection.url">
-   jdbc:mysql://localhost:3306/pntmanager
+   jdbc:mysql://localhost:3306/pntmanager?characterEncoding=UTF-8
       </property>
    <property name="hibernate.connection.username">
    root

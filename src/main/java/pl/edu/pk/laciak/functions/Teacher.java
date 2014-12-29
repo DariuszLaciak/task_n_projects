@@ -129,8 +129,8 @@ public class Teacher extends HttpServlet {
 					s.update(task);
 				}
 				
-				s.getTransaction().commit();
-				
+				if(s.isOpen())
+					s.close();
 				json.put("success", 1);
 				out.println(json);
 				break;
