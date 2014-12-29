@@ -37,11 +37,11 @@ public abstract class Common {
 	}
 
 	public static String makeInputPassword(String id, String label){
-		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='password' id='"+id+"' name='"+id+"' size='30' required='required></input></div>";
+		return "<div class='inputs'><label class='l_input'>"+label+":</label><input type='password' id='"+id+"' name='"+id+"' size='30' required='required'></input></div>";
 	}
 
 	public static String makeButton(String value,String onclick, String clas){
-		return "<button class='"+clas+"' type='button' onclick='"+onclick+"'>"+value+"</button>";
+		return "<button class='button "+clas+"' type='button' onclick='"+onclick+"'>"+value+"</button>";
 	}
 
 	public static String makeLink(String page, String name){
@@ -237,11 +237,21 @@ public abstract class Common {
 	}
 	
 	public static String createSubjectTable(List<Subject> lista){
-		String html = "<table>";
+		String html = "<div class='table_wrap'><table class='result_table'>";
+		html += "<thead><tr><th>Nazwa</th><th></th></tr></thead>";
+		int line = 1;
+		String t_class = "odd";
 		for(Subject s : lista){
-			html += "<tr><td>"+s.getName()+"</td><td>"+makeButton("Szczegóły", "sub_details("+s.getId()+")", "b_blue")+"</td></tr>";
+			if(line % 2 == 0){
+				t_class = "even";
+			}
+			else {
+				t_class = "odd";
+			}
+			line++;
+			html += "<tr class='"+t_class+"'><td class='table_fr'>"+s.getName()+"</td><td>"+makeButton("Szczegóły", "sub_details("+s.getId()+")", "b_blue")+"</td></tr>";
 		}
-		html += "</table>";
+		html += "</table></div>";
 		return html;
 	}
 

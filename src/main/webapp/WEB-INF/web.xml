@@ -52,4 +52,14 @@
     <servlet-name>Admin</servlet-name>
     <url-pattern>/Admin</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Teacher</display-name>
+    <servlet-name>Teacher</servlet-name>
+    <servlet-class>pl.edu.pk.laciak.functions.Teacher</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Teacher</servlet-name>
+    <url-pattern>/Teacher</url-pattern>
+  </servlet-mapping>
 </web-app>

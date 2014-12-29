@@ -1,3 +1,4 @@
+<%@page import="pl.edu.pk.laciak.hibernate.DBCommon"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="pl.edu.pk.laciak.DTO.Subject"%>
@@ -7,6 +8,6 @@
 <%! Subject s; 
 List<Subject> lista;%>
 <h1>Lista prowadzonych przedmiotów: </h1>
-<% lista = new ArrayList<Subject>();
-lista.add(new Subject("nowy")); %>
+<% lista = DBCommon.getSubjectList(Long.parseLong(session.getAttribute("userId").toString()));
+ %>
 <%=Common.createSubjectTable(lista) %>

@@ -26,8 +26,8 @@
 			<span><%=session.getAttribute("user_name")%></span>
 		</div>
 		<div id='user_buttons'>
-			<%=Common.makeButton("Profil", "openEditProfileWindow()", "b_blue")%><br />
-			<%=Common.makeButton("Wyloguj", "logout()", "b_blue")%>
+			<%=Common.makeButton("Profil", "openEditProfileWindow()", "b_grey")%><br />
+			<%=Common.makeButton("Wyloguj", "logout()", "b_grey")%>
 		</div>
 	</div>
 </div>

@@ -28,6 +28,59 @@ body {
   	text-align: center;
 }
 
+.table_wrap{
+	border: 1px solid #d7d7d7;
+	background-color: rgba(242, 242, 242, 0.35);
+	padding: 20px;
+	margin-top: 10px;
+	min-width: 200px;
+}
+
+.result_table {
+	border-collapse: collapse;
+    border-spacing: 0;
+    min-width:200px;
+    margin-left:10px;
+    overflow:hidden;
+}
+
+.result_table thead tr{
+	background-color: #666666;
+	color: #ffffff;
+	text-align: center;
+	font-weight: normal;
+}
+
+.result_table th{
+	font-weight: normal;
+}
+
+.result_table th,td {
+	padding: 6px;
+	text-align: center;
+	width: 200px;
+}
+
+tr.odd{
+	background-color: #e4e4e4;
+}
+
+tr.even{
+	background-color: #ffffff;
+}
+
+
+td.table_fr{
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+.result_table tr{
+	display: block;
+}
+
+
 #popup.success{
 	background: #00FF00;
 }
@@ -276,43 +329,38 @@ ul.admin, ul.teacher, ul.student {
 
 #user_buttons button {
 	margin-bottom: 10px;
-	width: 60px;
+	width: 90px;
 	cursor: pointer;
 }
 
+.button {
+    border:none; 
+    padding:6px 20px !important; 
+    display: inline-block;  
+    font-weight:bold; 
+    cursor:pointer;
+    /*border-radius: 5px;-webkit-border-radius: 5px;*/ 
+
+}
+
 .b_blue {
-	border-top: 1px solid #96d1f8;
-	background: #65a9d7;
-	background: -webkit-gradient(linear, left top, left bottom, from(#183e57),
-		to(#65a9d7));
-	background: -webkit-linear-gradient(top, #183e57, #65a9d7);
-	background: -moz-linear-gradient(top, #183e57, #65a9d7);
-	background: -ms-linear-gradient(top, #183e57, #65a9d7);
-	background: -o-linear-gradient(top, #183e57, #65a9d7);
-	padding: 2px 4px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-	-moz-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-	box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-	text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
-	color: white;
-	font-size: 12px;
-	font-family: Helvetica, Arial, Sans-Serif;
-	text-decoration: none;
-	vertical-align: middle;
+	background:#2C3E50;
+	color: #ffffff;
 }
 
-.b_blue:hover {
-	border-top-color: #4d728a;
-	color: #000000;
+.b_blue:hover{
+	background:#888888;
 }
 
-.b_blue:active {
-	border-top-color: #1b435e;
-	background: #1b435e;
+.b_grey {
+    background: #999999
 }
+
+.b_grey:hover{
+	background:#AAA9A9;
+}
+
+
 
 .screen {
 	position: absolute;
