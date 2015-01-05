@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.HibernateError;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
@@ -165,9 +166,14 @@ public class Teacher extends HttpServlet {
 					catch(NumberFormatException e){
 						Common.makeError(json, out, s, 3);
 					}
+					try{
 					stu = (Students) s.load(Students.class, idStudents);
 					studs.add(stu);
 					stu.getTeams().add(team);
+				}
+					catch(HibernateError e){
+						Common.makeError(json, out, s, 2);
+					}
 					
 				}
 				team.getStudents().addAll(studs);

@@ -76,16 +76,13 @@ function confirm_add_group(){
 			var output = jQuery.parseJSON(data);
 			isUserLoggedIn(output);
 			if(output.success == 1){
-				popup("success","Pomyślnie dodano zadanie");
+				popup("success","Pomyślnie dodano grupę");
 			}
 			else if(output.success == 2){
-				popup("error","Zły format daty rozpoczęcia");
+				popup("error","Hibernate error");
 			}
 			else if(output.success == 3){
-				popup("error","Nieprawidłowy student lub przedmiot");
-			}
-			else if(output.success == 4){
-				popup("error","Zły format deadlinu");
+				popup("error","Nieprawidłowy student");
 			}
 			
 		}
