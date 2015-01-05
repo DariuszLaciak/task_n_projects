@@ -120,7 +120,6 @@ public class Teacher extends HttpServlet {
 				
 				if(is_deadline.equals("yes")){
 					try {
-						System.out.println(task_deadline);
 						deadlineTime = sdf.parse(task_deadline);
 					} catch (ParseException e) {
 						json.put("success", "4");
@@ -132,7 +131,7 @@ public class Teacher extends HttpServlet {
 					s.save(deadline);
 					s.update(task);
 				}
-				
+				s.getTransaction().commit();
 				if(s.isOpen())
 					s.close();
 				json.put("success", 1);
