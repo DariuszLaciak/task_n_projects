@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.ObjectNotFoundException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -83,16 +85,16 @@ public class Teacher extends HttpServlet {
 				try {
 					startDate = sdf.parse(task_start);
 				} catch (ParseException e) {
-					json.put("success", "2");
-					out.println(json);
+					Common.makeError(json, out, s, 2);
+					return;
 				}
 				try{
 					idStudent = Long.parseLong(task_student);
 					idSubject = Integer.parseInt(task_subject);
 				}
 				catch(NumberFormatException e){
-					json.put("success", "3");
-					out.println(json);
+					Common.makeError(json, out, s, 3);
+					return;
 				}
 				Task task = new Task(task_name, startDate);
 				Students student = null;
@@ -122,8 +124,8 @@ public class Teacher extends HttpServlet {
 					try {
 						deadlineTime = sdf.parse(task_deadline);
 					} catch (ParseException e) {
-						json.put("success", "4");
-						out.println(json);
+						Common.makeError(json, out, s,4);
+						return;
 					}
 					deadline = new Deadlines(deadlineTime);
 					task.setDeadline(deadline);
@@ -164,14 +166,16 @@ public class Teacher extends HttpServlet {
 					}
 					catch(NumberFormatException e){
 						Common.makeError(json, out, s, 3);
+						return;
 					}
 					try{
 					stu = (Students) s.load(Students.class, idStudents);
 					studs.add(stu);
 					stu.getTeams().add(team);
 				}
-					catch(HibernateError e){
+					catch(ObjectNotFoundException e){
 						Common.makeError(json, out, s, 2);
+						return;
 					}
 					
 				}
