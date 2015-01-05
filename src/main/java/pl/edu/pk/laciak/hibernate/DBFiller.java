@@ -22,7 +22,7 @@ public class DBFiller {
 		admin.setLogin(ld);
 		
 		LoginData ld1  = new LoginData("student", "student", true);
-		Students student = new Students("student", "student", "studentowo", 12345678909L,"099887", new Date(), 2);
+		Students student = new Students("student", "studentę", "studentowo", 12345678909L,"099887", new Date(), 2);
 		student.setLogin(ld1);
 		ld1.setStudents(student);
 		

@@ -318,6 +318,7 @@ ul.admin, ul.teacher, ul.student {
 	font-size: 25px;
 	width: 115px;
 	height: 30px;
+	color: #FFFFFF;
 }
 
 #user_right {
@@ -349,6 +350,16 @@ ul.admin, ul.teacher, ul.student {
 
 }
 
+.smallButton {
+    border:none; 
+    padding:3px 10px !important; 
+    display: inline-block;  
+    font-weight:bold; 
+    cursor:pointer;
+    /*border-radius: 5px;-webkit-border-radius: 5px;*/ 
+
+}
+
 .b_blue {
 	background:#2C3E50;
 	color: #ffffff;
@@ -364,6 +375,24 @@ ul.admin, ul.teacher, ul.student {
 
 .b_grey:hover{
 	background:#AAA9A9;
+}
+
+.b_green{
+	background: darkgreen;
+	color: #FFFFFF;
+}
+
+.b_green:hover{
+	background: green;
+	color: #FFFFFF;
+}
+
+.b_red{
+	background: darkred;
+}
+
+.b_red:hover{
+	background: red;
 }
 
 

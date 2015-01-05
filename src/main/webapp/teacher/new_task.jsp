@@ -14,30 +14,8 @@
 <%=Common.makeInputText("task_name", "Nazwa", "") %>
 <% SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm"); %>
 <%=Common.makeInputTextReadOnly("task_start", "Data rozpoczęcia", sdf.format(new Date())) %>
-<% List<Students> lista = DBCommon.getStudents();
-List<String[]> options = new ArrayList<String[]>();
-for(Students s: lista){
-	String[] str = new String[2];
-	str[0] = s.getId()+"";
-	str[1] = s.getSurname() + " " + s.getName();
-	options.add(str);
-}
-%>
-<%=Common.makeSelect("Student", "task_student", options) %>
-
-<%
-List<Subject> lista1 = DBCommon.getSubjectList(Long.parseLong(session.getAttribute("userId").toString()));
-List<String[]> subjects = new ArrayList<String[]>();
-String[] st = {"0","Bez przedmiotu"};
-subjects.add(st);
-for(Subject s: lista1){
-	String[] str = new String[2];
-	str[0] = s.getId()+"";
-	str[1] = s.getName();
-	subjects.add(str);
-}
-%>
-<%=Common.makeSelect("Przedmiot", "task_subject", subjects) %>
+<%=Common.makeSelect("Student", "task_student", Common.makeSelectOptions("students")) %>
+<%=Common.makeSelect("Przedmiot", "task_subject", Common.makeSelectOptions("subjects",session.getAttribute("userId").toString())) %>
 <%=Common.makeCheckBoxSendUnchecked("Deadline", "isDeadline", "yes","no") %>
 <%=Common.makeInputTextReadOnly("task_deadline", "", sdf.format(new Date())) %>
 <%=Common.makeButton("Dodaj zadanie", "confirm_add_task()", "b_grey") %>

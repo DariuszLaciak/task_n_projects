@@ -14,9 +14,11 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
+import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
 import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.helpers.BorderStyle;
+import pl.edu.pk.laciak.hibernate.DBCommon;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
 
 public abstract class Common {
@@ -75,6 +77,49 @@ public abstract class Common {
 		String html = "<div class='inputs'><label class='l_input'>"+label+"</label><input type='checkbox' id='"+id+"' name='"+id+"' value='"+value+"' ></input></div>";
 		html += "<input type='hidden' id='"+id+"Hidden' name='"+id+"' value='"+uncheckedvalue+"' ></input>";
 		return html;
+	}
+	
+	public static String makeInputPatternSelect(String pattern, int count, List<String[]> options){
+		String select = "<div class='inputs'><label class='l_input'>"+count+"</label><select id='"+pattern+"_"+count+"' name='"+pattern+"_"+count+"' required='required'>";
+		for(String[] elems : options){
+			select += "<option value='"+elems[0]+"'>"+elems[1]+"</option>";
+		}
+		select += "</select></div>";
+		return select;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static JSONObject JsonEncode(String html, String label){
+		JSONObject obj = new JSONObject();
+		obj.put(label, html);
+		return obj;
+	}
+	
+	public static List<String[]> makeSelectOptions(String... data){
+		List<String[]> list = new ArrayList<String[]>();
+		switch(data[0]){
+		case "students":
+			List<Students> lista = DBCommon.getStudents();
+			for(Students s: lista){
+				String[] str = new String[2];
+				str[0] = s.getId()+"";
+				str[1] = s.getSurname() + " " + s.getName();
+				list.add(str);
+			}
+			break;
+		case "subjects":
+			List<Subject> lista1 = DBCommon.getSubjectList(Long.parseLong(data[1]));
+			String[] st = {"0","Bez przedmiotu"};
+			list.add(st);
+			for(Subject s: lista1){
+				String[] str = new String[2];
+				str[0] = s.getId()+"";
+				str[1] = s.getName();
+				list.add(str);
+			}
+			break;
+		}
+		return list;
 	}
 
 	
@@ -137,7 +182,7 @@ public abstract class Common {
 			submenus = new HashMap<String, String>();
 			submenus.put("Lista", "st_list");
 			submenus.put("Dodaj","add_group_teacher");
-			elems.put("Grupy studenckie", submenus);
+			elems.put("Grupy projektowe", submenus);
 
 			submenus = new HashMap<String, String>();
 			submenus.put("Przegladaj", "view_projects");

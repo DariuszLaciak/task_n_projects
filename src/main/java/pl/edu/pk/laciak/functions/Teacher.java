@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +23,7 @@ import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
 import pl.edu.pk.laciak.DTO.Task;
 import pl.edu.pk.laciak.DTO.Teachers;
+import pl.edu.pk.laciak.DTO.Teams;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
 
 /**
@@ -131,6 +134,46 @@ public class Teacher extends HttpServlet {
 				
 				if(s.isOpen())
 					s.close();
+				json.put("success", 1);
+				out.println(json);
+				break;
+			case "add_group":
+				String[] group_data = request.getParameterValues("form_values[]");
+				int i = 0;
+				String group_name = "";
+				List<String> students = new ArrayList<String>();
+				for(String data : group_data){
+					if(i ==0){
+						group_name = data;
+					}
+					else {
+						if(!students.contains(data))
+							students.add(data);
+					}
+					i++;
+				}
+				Teams team = new Teams(group_name);
+				List<Students> studs = new ArrayList<Students>();
+				Students stu;
+				long idStudents=0;
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				s.beginTransaction();
+				for(String st : students){
+					try{
+						idStudents = Long.parseLong(st);
+					}
+					catch(NumberFormatException e){
+						Common.makeError(json, out, s, 3);
+					}
+					stu = (Students) s.load(Students.class, idStudents);
+					studs.add(stu);
+					stu.getTeams().add(team);
+					
+				}
+				team.getStudents().addAll(studs);
+				s.save(team);
+				s.getTransaction().commit();
+				
 				json.put("success", 1);
 				out.println(json);
 				break;

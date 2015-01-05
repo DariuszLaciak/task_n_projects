@@ -186,3 +186,36 @@ function readFileFromInput(callback,id)
 	return return_s;
 }
 
+function nextSelect(form_id){
+	var lastDiv = $("#"+form_id).find(".inputs:last");
+	var lastSelect = lastDiv.find("select");
+	var lastId = lastSelect.attr("id");
+	var lastCount = parseInt(lastId.substring(lastId.lastIndexOf("_")+1,lastId.length));
+	var lastLabelCount = parseInt(lastDiv.children("label").text());
+	var pattern = lastId.substring(0,lastId.lastIndexOf("_")+1);
+	var nextSelect = lastDiv.clone();
+	
+	nextSelect.find("select").attr("id",pattern+(lastCount+1));
+	nextSelect.find("select").attr("name",pattern+(lastCount+1));
+	if(nextSelect.find("button").length == 0)
+		nextSelect.find("select").before("<button class='smallButton b_red' type='button' onclick='delete_select(\""+pattern+(lastCount+1)+"\")'>Usuń</button>");
+	else
+		nextSelect.find("button").attr("onclick","delete_select(\""+pattern+(lastCount+1)+"\")");
+	nextSelect.find("label").text(lastLabelCount+1);
+	
+	lastDiv.after(nextSelect);
+	/*var next = jQuery.parseJSON(nextSelect);
+	lastSelect.after(next.select);*/
+}
+
+function delete_select(id){
+	var thisDiv = $("#"+id).parent();
+	var lastId = parseInt(thisDiv.children("label").text());
+	var nextSelects = thisDiv.nextAll("div");
+	nextSelects.each(function(){
+		lastId = parseInt($(this).children("label").text());
+		$(this).children("label").text(lastId-1);
+	});
+	thisDiv.remove();
+}
+
