@@ -146,7 +146,7 @@ public abstract class Common {
 
 	public static boolean isUserLogged(HttpSession s){
 		try {
-			s.getAttribute("type");
+			s.getAttribute("type").toString();
 		}
 		catch(NullPointerException e){
 			return false;
