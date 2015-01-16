@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
 import pl.edu.pk.laciak.DTO.Teachers;
@@ -33,7 +34,7 @@ public abstract class DBCommon {
 		s = HibernateUtil.getSessionFactory().getCurrentSession();
 		if(!s.getTransaction().isActive())
 			s.beginTransaction();
-		lista = s.createQuery("from Subject where idTeacher=:id").setParameter("id", teacher_id).list();
+		lista = s.createQuery("from Subject where idTeacher=:id order by name").setParameter("id", teacher_id).list();
 		s.getTransaction().commit();
 		if(s.isOpen())
 			s.close();
@@ -47,7 +48,7 @@ public abstract class DBCommon {
 		s = HibernateUtil.getSessionFactory().getCurrentSession();
 		if(!s.getTransaction().isActive())
 			s.beginTransaction();
-		lista = s.createQuery("from Teams").list();
+		lista = s.createQuery("from Teams order by name").list();
 		s.getTransaction().commit();
 		if(s.isOpen())
 			s.close();
@@ -62,6 +63,39 @@ public abstract class DBCommon {
 		if(!s.getTransaction().isActive())
 			s.beginTransaction();
 		lista = s.createQuery("from Students order by surname").list();
+		s.getTransaction().commit();
+		if(s.isOpen())
+			s.close();
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Students> getStudentsOfTeam(long id){
+		List<Students> lista = new ArrayList<>();
+		
+		s = HibernateUtil.getSessionFactory().getCurrentSession();
+		if(!s.getTransaction().isActive())
+			s.beginTransaction();
+		Project t = (Project) s.createQuery("from Project where id=:id").setParameter("id", id).list().get(0);
+		if(t.getTeam() != null)
+			lista.addAll(t.getTeam().getStudents());
+		else
+			lista.add(t.getStudent());
+		
+		s.getTransaction().commit();
+		if(s.isOpen())
+			s.close();
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Project> getProjectsForTeacher(long id){
+		List<Project> lista = new ArrayList<>();
+		
+		s = HibernateUtil.getSessionFactory().getCurrentSession();
+		if(!s.getTransaction().isActive())
+			s.beginTransaction();
+		lista = s.createQuery("from Project p where p.teacher.id=:id order by name").setParameter("id", id).list();
 		s.getTransaction().commit();
 		if(s.isOpen())
 			s.close();

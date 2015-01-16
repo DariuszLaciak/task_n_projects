@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
+import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
 import pl.edu.pk.laciak.DTO.Teams;
@@ -127,6 +128,17 @@ public abstract class Common {
 				list.add(str);
 			}
 			break;
+		case "projects_teacher":
+			List<Project> lista3 = DBCommon.getProjectsForTeacher(Long.parseLong(data[1]));
+			String[] pr = {"0","Wybierz projekt"};
+			list.add(pr);
+			for(Project s: lista3){
+				String[] str = new String[2];
+				str[0] = s.getId()+"";
+				str[1] = s.getName();
+				list.add(str);
+			}
+			break;
 		}
 		return list;
 	}
@@ -195,6 +207,7 @@ public abstract class Common {
 
 			submenus = new HashMap<String, String>();
 			submenus.put("Przegladaj", "view_projects");
+			submenus.put("Zarządzaj","manage_project");
 			submenus.put("Dodaj", "add_project");
 			elems.put("Projekty", submenus);
 

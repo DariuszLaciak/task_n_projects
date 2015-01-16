@@ -15,6 +15,9 @@ $(document).ready(function(){
 	$("#add_project").click(function(){
 		$("#m_content").load("teacher/new_project.jsp");
 	});
+	$("#manage_project").click(function(){
+		$("#m_content").load("teacher/manage_project.jsp");
+	});
 });
 
 function sub_details(id){
@@ -33,7 +36,6 @@ function confirm_add_task(){
 	$.ajax({
 		url: "Teacher",
 		type: "post",
-		async: false,
 		data: {
 			action: "add_task",
 			form_values: values
@@ -70,7 +72,6 @@ function confirm_add_group(){
 	$.ajax({
 		url: "Teacher",
 		type: "post",
-		async: false,
 		data: {
 			action: "add_group",
 			form_values: values
@@ -96,7 +97,6 @@ function makeProjectSelect(value){
 	$.ajax({
 		url: "Teacher",
 		type: "post",
-		async: false,
 		data: {
 			action: "project_type",
 			type: value
@@ -121,7 +121,6 @@ function add_project(){
 	$.ajax({
 		url: "Teacher",
 		type: "post",
-		async: false,
 		data: {
 			action: "add_project",
 			form_values: values
@@ -142,6 +141,36 @@ function add_project(){
 				popup("error","Niepodano wszystkich danych");
 			}
 			
+		}
+	});
+}
+
+function generateManageProject(val){
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "manage_project",
+			id: val
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			$("#manage_fields").html(output.html);
+			$("#isDeadline").change(function(){
+				if(!this.checked){
+			    	$("#new_deadline").hide();
+			    	$("#new_deadline").val(new Date().dateFormat("Y-m-d"));
+				}
+				else {
+					$("#new_deadline").show();
+				}
+			});
+			$("#new_deadline").datetimepicker({
+				timepicker: false,
+				lang: "pl",
+				format:'Y-m-d'
+			});
 		}
 	});
 }

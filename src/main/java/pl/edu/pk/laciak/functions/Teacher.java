@@ -26,6 +26,7 @@ import pl.edu.pk.laciak.DTO.Subject;
 import pl.edu.pk.laciak.DTO.Task;
 import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.DTO.Teams;
+import pl.edu.pk.laciak.hibernate.DBCommon;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
 
 /**
@@ -63,6 +64,7 @@ public class Teacher extends HttpServlet {
 		SimpleDateFormat sdf_date = new SimpleDateFormat("yyyy-MM-dd");
 		HttpSession sess = request.getSession();
 		Teachers teacher = (Teachers) sess.getAttribute("userData");
+		String html = "";
 		try{
 			String function = request.getParameter("action");
 			switch(function){
@@ -188,7 +190,7 @@ public class Teacher extends HttpServlet {
 				break;
 			case "project_type":
 				String type = request.getParameter("type");
-				String html = "<br />";
+				html = "<br />";
 				switch(type){
 				case "indiv":
 					html += Common.makeSelect("Student", "project_student", Common.makeSelectOptions("students"));
@@ -212,9 +214,7 @@ public class Teacher extends HttpServlet {
 					Common.makeError(json, out, s, 4);
 					return;
 				}
-				for(String s : project_data){
-					System.out.println(s);
-				}
+				
 				String p_name = project_data[0];
 				String p_start = project_data[1];
 				String p_subject = project_data[2];
@@ -227,7 +227,7 @@ public class Teacher extends HttpServlet {
 					p_type = project_data[6];
 					student_or_group = project_data[7];
 				}
-				System.out.println(p_name + " " + p_start + " " + p_subject + " " + p_is_deadline + " " + p_deadline + " " + p_type + " " + student_or_group);
+				
 				Date start_date_p = null;
 				Date deadline_p = null;
 				try{
@@ -286,13 +286,37 @@ public class Teacher extends HttpServlet {
 					s.save(dead_p);
 				}
 				
-				
-				
-				
 				s.getTransaction().commit();
 				
 				
 				json.put("success", 1);
+				out.println(json);
+				break;
+			case "manage_project":
+				Long man_id = Long.parseLong(request.getParameter("id"));
+				
+				List<Students> team_students = DBCommon.getStudentsOfTeam(man_id);
+				
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				s.beginTransaction();
+				
+				Project man_p = (Project) s.load(Project.class, man_id);
+				html = Common.makeInputText("name", "Nowa nazwa", man_p.getName());
+				if(man_p.getDeadline() != null)
+					html += Common.makeInputTextReadOnly("deadline", "Nowy deadline", sdf_date.format(man_p.getDeadline().getEndDate()));
+				else {
+					html += Common.makeCheckBoxSendUnchecked("Dodać deadline?", "isDeadline", "yes", "no");
+					html += Common.makeInputTextReadOnly("new_deadline", "", sdf_date.format(new Date()));
+				}
+				
+				html += Common.makeHeader(3, "Przypisz zadania");
+				for(Students s : team_students){
+					this.s.refresh(s);
+					html += Common.makeInputText("student"+s.getId(), s.getName() + " " + s.getSurname(), "");
+				}
+				s.getTransaction().commit();
+				html += Common.makeButton("Edytuj", "manage_project()", "b_grey");
+				json.put("html", html);
 				out.println(json);
 				break;
 			}

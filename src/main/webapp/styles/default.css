@@ -8,7 +8,37 @@ body {
 	
 }
 
+#top_icons{
+	width: 400px;
+	position: relative;
+	text-align: center;
+	padding: 5px;
+	min-width: 400px;
+	float: left;
+}
 
+#top_menu_left{
+	margin: 3px;
+	top: 3px;
+	float:left;
+	left: 200px;
+	position: relative;
+}
+
+#selected_feature{
+	width: 400px;
+	min-width: 400px;
+	position: relative;
+	float: left;
+	text-align: left;
+	top: 6px;
+	margin-left: 150px;
+}
+
+#top_icons img{
+	height: 26px;
+	margin-right: 20px;
+}
 
 #popup{
 	position: relative;
@@ -159,7 +189,12 @@ td.table_fr{
 	display: none;
 }
 
+#new_deadline{
+	display: none;
+}
+
 #clock {
+	position: relative;
 	float:right;
 	margin-top: 15px;
 }
