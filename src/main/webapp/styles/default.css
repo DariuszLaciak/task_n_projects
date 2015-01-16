@@ -155,6 +155,10 @@ td.table_fr{
 	display: none;
 }
 
+#project_deadline{
+	display: none;
+}
+
 #clock {
 	float:right;
 	margin-top: 15px;

@@ -24,6 +24,10 @@ import javax.persistence.Table;
 public class Project implements ObjectDTO {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7412537744897850077L;
 	private long id;
 	private String name;
 	private Date startDate;

@@ -16,6 +16,10 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Comments implements ObjectDTO{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1842195179394431685L;
 	private long id;
 	private Date date;
 	private String text;

@@ -16,7 +16,7 @@ import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
-import pl.edu.pk.laciak.DTO.Teachers;
+import pl.edu.pk.laciak.DTO.Teams;
 import pl.edu.pk.laciak.helpers.BorderStyle;
 import pl.edu.pk.laciak.hibernate.DBCommon;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
@@ -112,6 +112,15 @@ public abstract class Common {
 			String[] st = {"0","Bez przedmiotu"};
 			list.add(st);
 			for(Subject s: lista1){
+				String[] str = new String[2];
+				str[0] = s.getId()+"";
+				str[1] = s.getName();
+				list.add(str);
+			}
+			break;
+		case "project_groups":
+			List<Teams> lista2 = DBCommon.getGroupList();
+			for(Teams s: lista2){
 				String[] str = new String[2];
 				str[0] = s.getId()+"";
 				str[1] = s.getName();
@@ -260,7 +269,7 @@ public abstract class Common {
 	public static void makeError(JSONObject json, PrintWriter out, Session s, int error_nr){
 		json.put("success", error_nr);
 		out.println(json);
-		if(s.isOpen())
+		if(s!= null && s.isOpen())
 		s.getTransaction().rollback();
 	}
 	

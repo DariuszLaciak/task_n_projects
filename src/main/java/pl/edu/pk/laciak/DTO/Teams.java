@@ -18,6 +18,10 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Teams implements ObjectDTO {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5653984065291879549L;
 	private long id;
 	private String name;
 	private Set<Students> students = new HashSet<Students>();

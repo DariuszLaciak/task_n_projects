@@ -17,6 +17,10 @@ import javax.persistence.Table;
 @Table
 public class Notes implements ObjectDTO {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8677945528591417113L;
 	private long id;
 	private float value;
 	private Students student;

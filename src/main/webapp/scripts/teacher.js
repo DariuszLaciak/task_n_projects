@@ -12,6 +12,9 @@ $(document).ready(function(){
 	$("#add_group_teacher").click(function(){
 		$("#m_content").load("teacher/add_group_teacher.jsp");
 	});
+	$("#add_project").click(function(){
+		$("#m_content").load("teacher/new_project.jsp");
+	});
 });
 
 function sub_details(id){
@@ -83,6 +86,60 @@ function confirm_add_group(){
 			}
 			else if(output.success == 3){
 				popup("error","Nieprawidłowy student");
+			}
+			
+		}
+	});
+}
+
+function makeProjectSelect(value){
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		async: false,
+		data: {
+			action: "project_type",
+			type: value
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			$("#project_type_div").html(output.html);
+		}
+	});
+}
+
+function add_project(){
+	var form_values = $("#new_project_form").serializeArray();
+	var values = new Array();
+	
+
+	$.each(form_values, function(index,element){
+		values.push(element.value);
+	});
+	
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		async: false,
+		data: {
+			action: "add_project",
+			form_values: values
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 1){
+				popup("success","Pomyślnie dodano projekt");
+			}
+			else if(output.success == 2){
+				popup("error","Zły format daty rozpoczęcia lub deadline");
+			}
+			else if(output.success == 3){
+				popup("error","Nieprawidłowy student lub grupa lub przedmiot");
+			}
+			else if(output.success == 4){
+				popup("error","Niepodano wszystkich danych");
 			}
 			
 		}

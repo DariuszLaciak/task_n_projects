@@ -22,6 +22,10 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Task implements ObjectDTO {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4737998747592445193L;
 	private long id;
 	private String name;
 	private Date startDate;

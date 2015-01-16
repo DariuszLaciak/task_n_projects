@@ -16,12 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.HibernateError;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Deadlines;
-import pl.edu.pk.laciak.DTO.LoginData;
+import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
 import pl.edu.pk.laciak.DTO.Task;
@@ -61,6 +60,7 @@ public class Teacher extends HttpServlet {
 		JSONObject json = new JSONObject();
 		PrintWriter out = response.getWriter();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat sdf_date = new SimpleDateFormat("yyyy-MM-dd");
 		HttpSession sess = request.getSession();
 		Teachers teacher = (Teachers) sess.getAttribute("userData");
 		try{
@@ -182,6 +182,115 @@ public class Teacher extends HttpServlet {
 				team.getStudents().addAll(studs);
 				s.save(team);
 				s.getTransaction().commit();
+				
+				json.put("success", 1);
+				out.println(json);
+				break;
+			case "project_type":
+				String type = request.getParameter("type");
+				String html = "<br />";
+				switch(type){
+				case "indiv":
+					html += Common.makeSelect("Student", "project_student", Common.makeSelectOptions("students"));
+					html += Common.makeButton("Dodaj projekt", "add_project()", "b_grey");
+					break;
+				case "group":
+					html += Common.makeSelect("Grupa", "project_student", Common.makeSelectOptions("project_groups"));
+					html += Common.makeButton("Dodaj projekt", "add_project()", "b_grey");
+					break;
+					default:
+						html += "<h3>Zły typ</h3>";
+						break;
+				}
+				json.put("html", html);
+				out.println(json);
+				break;
+			case "add_project":
+				String[] project_data = request.getParameterValues("form_values[]");
+				System.out.println(project_data.length);
+				if(project_data.length != 7 && project_data.length != 8 || project_data[0].equals("")){
+					Common.makeError(json, out, s, 4);
+					return;
+				}
+				for(String s : project_data){
+					System.out.println(s);
+				}
+				String p_name = project_data[0];
+				String p_start = project_data[1];
+				String p_subject = project_data[2];
+				String p_is_deadline = project_data[3];
+				String p_deadline = "";
+				String p_type = project_data[5];
+				String student_or_group = project_data[6];
+				if(p_is_deadline.equals("yes")){
+					p_deadline = project_data[5];
+					p_type = project_data[6];
+					student_or_group = project_data[7];
+				}
+				System.out.println(p_name + " " + p_start + " " + p_subject + " " + p_is_deadline + " " + p_deadline + " " + p_type + " " + student_or_group);
+				Date start_date_p = null;
+				Date deadline_p = null;
+				try{
+					start_date_p = sdf_date.parse(p_start);
+					if(p_is_deadline.equals("yes")){
+						deadline_p = sdf_date.parse(p_deadline);
+					}
+				}
+				catch(ParseException e){
+					Common.makeError(json, out, s, 2);
+					return;
+				}
+				long id_sg = 0;
+				int id_subject = 0;
+				try{
+					id_sg = Long.parseLong(student_or_group);
+					id_subject = Integer.parseInt(p_subject);
+				}
+				catch(NumberFormatException e){
+					Common.makeError(json, out, s, 3);
+					return;
+				}
+				
+				Students p_student = null;
+				Teams p_team = null;
+				Subject p_subject_db = null;
+				Project project = new Project(p_name, start_date_p);
+				Teachers p_teacher = (Teachers)sess.getAttribute("userData");
+				
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				s.beginTransaction();
+				
+				if(id_subject != 0){
+					p_subject_db = (Subject) s.load(Subject.class,id_subject);
+					p_subject_db.getProjects().add(project);
+					project.setSubject(p_subject_db);
+				}
+				if(p_type.equals("indiv")){
+					p_student = (Students) s.load(Students.class, id_sg);
+					p_student.getProject().add(project);
+					project.setStudent(p_student);
+				}
+				else{
+					p_team = (Teams) s.load(Teams.class, id_sg);
+					p_team.getProjects().add(project);
+					project.setTeam(p_team);
+				}
+				project.setTeacher(p_teacher);
+				p_teacher.getProjects().add(project);
+				
+				s.persist(project);
+				if(p_is_deadline.equals("yes")){
+					Deadlines dead_p = new Deadlines(deadline_p);
+					project.setDeadline(dead_p);
+					dead_p.setProject(project);
+					s.save(dead_p);
+				}
+				
+				
+				
+				
+				s.getTransaction().commit();
+				
 				
 				json.put("success", 1);
 				out.println(json);

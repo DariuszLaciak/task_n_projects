@@ -1,19 +1,10 @@
 package pl.edu.pk.laciak.functions;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Map.Entry;
-
-import javassist.bytecode.stackmap.BasicBlock.Catch;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +28,6 @@ import javax.servlet.http.HttpSession;
 
 
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;

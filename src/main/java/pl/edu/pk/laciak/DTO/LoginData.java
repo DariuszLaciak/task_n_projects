@@ -15,6 +15,10 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class LoginData implements ObjectDTO {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8737302205042269387L;
 	private long id;
 	private String username;
 	private String password;

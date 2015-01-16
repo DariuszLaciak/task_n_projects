@@ -20,6 +20,10 @@ parameters = @Parameter(name = "property", value = "login"))
 @Table
 public class Admins implements ObjectDTO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8091222393068909228L;
 	private long id;
 	private String name;
 	private String surname;

@@ -17,6 +17,10 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Deadlines implements ObjectDTO {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7229709012552949219L;
 	private long id;
 	private Date endDate;
 	
