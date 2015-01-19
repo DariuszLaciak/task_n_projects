@@ -15,6 +15,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
@@ -255,6 +257,7 @@ public abstract class Common {
 			else {
 				name = "Wybrane zadanie";
 			}
+			
 			switch(user){
 			case "teacher":
 				submenus = new HashMap<String, String>();
@@ -267,6 +270,26 @@ public abstract class Common {
 					submenus.put("Zadania", "teacher_activ_tasks");
 				}
 				elems.put(name, submenus);
+				FTPClient f = new FTPClient();
+			   
+			    try {
+			    	f.connect("localhost");
+					f.login("user", "user");
+					FTPFile[] files = f.listFiles();
+					for(FTPFile f1 : files){
+						System.out.println(f1.getName());
+					}
+				} catch (IOException e) {
+					
+				}
+			    finally{
+			    	try {
+						f.disconnect();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
 				break;
 			case "student":
 				submenus = new HashMap<String, String>();
