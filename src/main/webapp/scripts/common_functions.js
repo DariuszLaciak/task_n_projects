@@ -1,6 +1,3 @@
-function printLogo(){
-	$("#logo").append("<span>PnT Manager</span>");
-}
 function makeLoading(on){
 
 	if(!on){

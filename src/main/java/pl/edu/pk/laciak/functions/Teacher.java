@@ -324,7 +324,7 @@ public class Teacher extends HttpServlet {
 			catch(NullPointerException e){
 			json.put("error", "logged_out");
 			out.println(json);
-			e.printStackTrace();
+			return;
 		}
 	}
 

@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,12 +31,19 @@ import javax.servlet.http.HttpSession;
 
 
 
+
+
+
+
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Admins;
+import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Students;
+import pl.edu.pk.laciak.DTO.Task;
 import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.helpers.BorderStyle;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
@@ -69,11 +79,12 @@ public class User extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		JSONObject json = new JSONObject();
 		PrintWriter out = response.getWriter();
+		String html = "";
 		try{
 			String function = request.getParameter("action");
 			s = request.getSession();
-			
-			
+
+
 			String user_type = (String) s.getAttribute("type");
 			Object user = s.getAttribute("userData");
 			long user_id = (long) s.getAttribute("userId");
@@ -172,6 +183,63 @@ public class User extends HttpServlet {
 				}
 				if(session.isOpen())
 					session.close();
+				out.println(json);
+				break;
+			case "selectItem":
+
+				List<Project> projects = new ArrayList<>();
+				List<Task> tasks = new ArrayList<>();
+				switch(user_type){
+				case "teacher":
+					Teachers tea = (Teachers) user;
+					projects.addAll(tea.getProjects());
+					tasks.addAll(tea.getTasks());
+					break;
+				case "student":
+					Students st = (Students) user;
+					projects.addAll(st.getProject());
+					tasks.addAll(st.getTasks());
+					break;
+				}
+
+				html += Common.createSelectItem(projects,tasks);
+				json.put("html", html);
+				out.println(json);
+				break;
+			case "confirmSelectItem":
+				String type = request.getParameter("type");
+				String id = request.getParameter("id");
+				long id_item = Long.parseLong(id);
+				Project selected = null;
+				Task selectedT = null;
+				if(type.equalsIgnoreCase("p")){
+					selected = Common.selectProject(user_type, user, id_item);
+					if(selected == null){
+						Common.makeError(json, out, session, 2);
+						return;
+					}
+
+				}
+				else if(type.equals("t")){
+					selectedT = Common.selectTask(user_type, user, id_item);
+					if(selectedT == null){
+						Common.makeError(json, out, session, 2);
+						return;
+					}
+				}
+
+				s.setAttribute("selectedItemType", type);
+				if(type.equals("p")){
+					s.setAttribute("selectedItem", selected);
+					s.setAttribute("selectedItemName", selected.getName());
+				}
+				else {
+					s.setAttribute("selectedItem", selectedT);
+					s.setAttribute("selectedItemName", selectedT.getName());
+				}	
+				json.put("name",s.getAttribute("selectedItemName"));
+				json.put("menuToCreate",Common.makeMenu(user_type, s.getAttribute("selectedItemType").toString()));
+				json.put("success", 1);
 				out.println(json);
 				break;
 			}

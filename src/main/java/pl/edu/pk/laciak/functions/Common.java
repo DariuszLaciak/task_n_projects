@@ -3,11 +3,15 @@ package pl.edu.pk.laciak.functions;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,8 +21,12 @@ import org.json.simple.JSONObject;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
+import pl.edu.pk.laciak.DTO.Task;
+import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.DTO.Teams;
 import pl.edu.pk.laciak.helpers.BorderStyle;
+import pl.edu.pk.laciak.helpers.ProjectComparator;
+import pl.edu.pk.laciak.helpers.TaskComparator;
 import pl.edu.pk.laciak.hibernate.DBCommon;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
 
@@ -175,11 +183,12 @@ public abstract class Common {
 		return true;
 	}
 
-	private static Map<String,Map<String, String>> createMenuElements(String user){
+	private static Map<String,Map<String, String>> createMenuElements(String user,String type){
 
 		Map<String,Map<String, String>> elems = new HashMap<String,Map<String, String>>();
 		Map<String,String> submenus;
 
+		if(type.equals("normal"))
 		switch(user){
 		case "admin":
 			submenus = new HashMap<String, String>();
@@ -236,12 +245,48 @@ public abstract class Common {
 		default:
 			break;
 		}
+		else {
+			String name= "";
+			boolean isProject = false;
+			if(type.equals("p")){
+				name = "Wybrany projekt";
+				isProject = true;
+			}
+			else {
+				name = "Wybrane zadanie";
+			}
+			switch(user){
+			case "teacher":
+				submenus = new HashMap<String, String>();
+				submenus.put("Przeglądaj", "teacher_activ_look");
+				submenus.put("Komentarz", "teacher_activ_comment");
+				submenus.put("Pliki", "teacher_activ_files");
+				submenus.put("Oceny", "teacher_activ_notes");
+				if(isProject){
+					submenus.put("Wersja", "teacher_activ_version");
+					submenus.put("Zadania", "teacher_activ_tasks");
+				}
+				elems.put(name, submenus);
+				break;
+			case "student":
+				submenus = new HashMap<String, String>();
+				submenus.put("Przeglądaj", "student_activ_look");
+				submenus.put("Komentarz", "student_activ_comment");
+				submenus.put("Pliki", "student_activ_files");
+				submenus.put("Oceny", "student_activ_notes");
+				if(isProject)
+					submenus.put("Wersja", "student_activ_version");
+				elems.put(name, submenus);
+				break;
+			}
+		}
 
 		return elems;
 	}
 
-	public static String makeMenu(String user){
-		Map<String,Map<String, String>> menu_elements = createMenuElements(user);
+	public static String makeMenu(String user, String type){
+		Map<String,Map<String, String>> menu_elements = createMenuElements(user,type);;
+		
 		String menu = "<ul class='"+user+"'>";
 		for(Entry<String, Map<String, String>> entry : menu_elements.entrySet()){
 			menu += "<li class='mmenu'><a >"+entry.getKey()+"</a><ul class='submenu'>";
@@ -359,6 +404,76 @@ public abstract class Common {
 		}
 		html += "</table></div>";
 		return html;
+	}
+	
+	public static String createSelectItem(List<Project> projects, List<Task> tasks){
+		projects.sort(new ProjectComparator());
+		tasks.sort(new TaskComparator());
+		String html ="<ul>";
+		if(!projects.isEmpty()){
+			html += "<li class='separator'>Projekty</li>";
+			for(Project p : projects){
+				html += "<li class='selectElement'><a onclick='selectItem(\"p\","+p.getId()+")'><span>"+p.getName()+"</span></a></li>";
+			}
+		}
+		if(!tasks.isEmpty()){
+			html += "<li class='separator'>Zadania</li>";
+			for(Task t : tasks){
+				html += "<li class='selectElement'><a onclick='selectItem(\"t\","+t.getId()+")'><span>"+t.getName()+"</span></a></li>";
+			}
+		}
+		html += "</ul>";
+		return html;
+	}
+	
+	public static Project selectProject(String type, Object data, long id){
+		Project pr = null;
+		Set<Project> projects = new HashSet<Project>();
+		switch(type){
+		case "teacher":
+			Teachers t = (Teachers) data;
+			projects.addAll(t.getProjects());
+			break;
+		case "student":
+			Students s = (Students) data;
+			projects.addAll(s.getProject());
+			List<Teams> te = new ArrayList<Teams>(s.getTeams());
+			for(Teams team : te){
+				projects.addAll(team.getProjects());
+			}
+			break;
+		}
+		for(Project p1 : projects){
+			if(p1.getId() == id){
+				pr = p1;
+				break;
+			}
+		}
+		
+		return pr;
+	}
+	
+	public static Task selectTask(String type, Object data, long id){
+		Task pr = null;
+		Set<Task> tasks = new HashSet<Task>();
+		switch(type){
+		case "teacher":
+			Teachers t = (Teachers) data;
+			tasks.addAll(t.getTasks());
+			break;
+		case "student":
+			Students s = (Students) data;
+			tasks.addAll(s.getTasks());
+			break;
+		}
+		for(Task p1 : tasks){
+			if(p1.getId() == id){
+				pr = p1;
+				break;
+			}
+		}
+		
+		return pr;
 	}
 
 }
