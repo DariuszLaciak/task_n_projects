@@ -139,7 +139,7 @@ function isUserLoggedIn(data){
 		popup("error","Sesja wygasła. Zaloguj się ponownie");
 		setTimeout(function(){
 			location.reload();
-		}, 4000);
+		}, 1000);
 	}
 }
 

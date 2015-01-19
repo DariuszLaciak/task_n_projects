@@ -171,6 +171,45 @@ function generateManageProject(val){
 				lang: "pl",
 				format:'Y-m-d'
 			});
+			$("#deadline").datetimepicker({
+				timepicker: false,
+				lang: "pl",
+				format:'Y-m-d'
+			});
+		}
+	});
+}
+
+function manage_project(){
+	var form_values = $("#manage_project_form").serializeArray();
+	var values = new Array();
+	var students = new Array();
+	
+
+	$.each(form_values, function(index,element){
+		if(element.name.indexOf("student") == -1)
+			values.push(element.value);
+		else
+			students.push(element.value);
+	});
+	
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "confirm_manage_project",
+			form_values: values,
+			form_students: students
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 1){
+				popup("success","Pomyślnie edytowano projekt");
+			}
+			else if(output.success == 2){
+				popup("error","Zły format deadline");
+			}
 		}
 	});
 }

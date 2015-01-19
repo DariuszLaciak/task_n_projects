@@ -28,7 +28,6 @@ public class Teams implements ObjectDTO {
 	private Set<Project> projects = new HashSet<Project>();
 	
 	public Teams() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	

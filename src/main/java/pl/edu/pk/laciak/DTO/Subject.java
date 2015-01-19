@@ -32,7 +32,6 @@ public class Subject implements ObjectDTO {
 	private Set<Task> tasks = new HashSet<Task>();
 	
 	public Subject() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	

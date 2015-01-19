@@ -69,7 +69,6 @@ public abstract class DBCommon {
 		return lista;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static List<Students> getStudentsOfTeam(long id){
 		List<Students> lista = new ArrayList<>();
 		

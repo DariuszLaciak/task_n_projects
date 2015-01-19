@@ -28,7 +28,6 @@ public class Deadlines implements ObjectDTO {
 	private Project project;
 	
 	public Deadlines() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	

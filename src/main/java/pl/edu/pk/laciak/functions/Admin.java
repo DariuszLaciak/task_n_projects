@@ -32,7 +32,6 @@ public class Admin extends HttpServlet {
      */
     public Admin() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

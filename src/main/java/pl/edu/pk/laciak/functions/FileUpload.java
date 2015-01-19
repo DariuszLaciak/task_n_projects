@@ -27,7 +27,6 @@ public class FileUpload extends HttpServlet {
 	 */
 	public FileUpload() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

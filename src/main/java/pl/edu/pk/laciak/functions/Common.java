@@ -3,8 +3,6 @@ package pl.edu.pk.laciak.functions;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -223,12 +221,12 @@ public abstract class Common {
 			elems.put("Projekty", submenus);
 
 			submenus = new HashMap<String, String>();
-			submenus.put("Przegladaj", "view_tasks");
+			submenus.put("Przeglądaj", "view_tasks");
 			submenus.put("Dodaj", "add_task");
 			elems.put("Zadania",submenus);
 
 			submenus = new HashMap<String, String>();
-			submenus.put("Przegladaj", "view_subjects");
+			submenus.put("Przeglądaj", "view_subjects");
 			elems.put("Przedmioty", submenus);
 			break;
 		case "student":
@@ -286,7 +284,6 @@ public abstract class Common {
 			    	try {
 						f.disconnect();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 			    }

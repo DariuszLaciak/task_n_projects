@@ -41,14 +41,13 @@ public class Teacher extends HttpServlet {
      */
     public Teacher() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -209,7 +208,6 @@ public class Teacher extends HttpServlet {
 				break;
 			case "add_project":
 				String[] project_data = request.getParameterValues("form_values[]");
-				System.out.println(project_data.length);
 				if(project_data.length != 7 && project_data.length != 8 || project_data[0].equals("")){
 					Common.makeError(json, out, s, 4);
 					return;
@@ -319,11 +317,52 @@ public class Teacher extends HttpServlet {
 				json.put("html", html);
 				out.println(json);
 				break;
+			case "confirm_manage_project":
+				// TODO Students zadania
+				String[] new_project_data = request.getParameterValues("form_values[]");
+				String[] new_project_students = request.getParameterValues("form_students[]");
+				String new_project_id = new_project_data[0];
+				String new_project_name = new_project_data[1];
+				String new_project_deadline = new_project_data[2];
+				Date new_project_dead = null;
+				try{
+				if(new_project_data.length == 5){
+					new_project_deadline = new_project_data[4];
+					new_project_dead = sdf_date.parse(new_project_deadline);
+				}
+				else if(new_project_data.length == 3){
+					new_project_dead = sdf_date.parse(new_project_deadline);
+				}
+				}
+				catch(ParseException e){
+					Common.makeError(json, out, s, 2);
+					return;
+				}
+				long edit_pro_id = Long.parseLong(new_project_id);
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				s.beginTransaction();
+				Project man_p1 = (Project) s.load(Project.class, edit_pro_id);
+				man_p1.setName(new_project_name);
+				if(new_project_data.length == 5){
+					
+					Deadlines d = new Deadlines(new_project_dead);
+					man_p1.setDeadline(d);
+					s.save(d);
+				}
+				else if(new_project_data.length == 3){
+					man_p1.getDeadline().setEndDate(new_project_dead);
+				}
+				s.update(man_p1);
+				s.getTransaction().commit();
+				json.put("success", 1);
+				out.println(json);
+				break;
 			}
 		}
 			catch(NullPointerException e){
 			json.put("error", "logged_out");
 			out.println(json);
+			e.printStackTrace();
 			return;
 		}
 	}

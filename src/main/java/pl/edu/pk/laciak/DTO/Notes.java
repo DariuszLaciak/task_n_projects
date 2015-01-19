@@ -29,7 +29,6 @@ public class Notes implements ObjectDTO {
 	private Task task;
 	
 	public Notes() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	
