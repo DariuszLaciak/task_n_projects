@@ -139,7 +139,7 @@ public class Students implements ObjectDTO {
 		this.period = period;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@PrimaryKeyJoinColumn
 	public LoginData getLogin() {
 		return login;
@@ -148,7 +148,7 @@ public class Students implements ObjectDTO {
 		this.login = login;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
 	public Set<Task> getTasks() {
 		return tasks;
 	}
@@ -157,7 +157,7 @@ public class Students implements ObjectDTO {
 		this.tasks = tasks;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
 	public Set<Project> getProject() {
 		return project;
 	}
@@ -166,7 +166,7 @@ public class Students implements ObjectDTO {
 		this.project = project;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
 	public Set<Notes> getNotes() {
 		return notes;
 	}
@@ -175,7 +175,7 @@ public class Students implements ObjectDTO {
 		this.notes = notes;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "students_teams", joinColumns = { 
 			@JoinColumn(name = "idStudent", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { @JoinColumn(name = "idTeam", 
@@ -189,7 +189,7 @@ public class Students implements ObjectDTO {
 	}
 
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
 	@PrimaryKeyJoinColumn
 	public Set<Comments> getComments() {
 		return comments;
