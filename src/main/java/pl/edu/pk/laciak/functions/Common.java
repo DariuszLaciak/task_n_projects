@@ -268,25 +268,7 @@ public abstract class Common {
 					submenus.put("Zadania", "teacher_activ_tasks");
 				}
 				elems.put(name, submenus);
-				FTPClient f = new FTPClient();
-			   
-			    try {
-			    	f.connect("localhost");
-					f.login("user", "user");
-					FTPFile[] files = f.listFiles();
-					for(FTPFile f1 : files){
-						System.out.println(f1.getName());
-					}
-				} catch (IOException e) {
-					
-				}
-			    finally{
-			    	try {
-						f.disconnect();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-			    }
+				
 				break;
 			case "student":
 				submenus = new HashMap<String, String>();

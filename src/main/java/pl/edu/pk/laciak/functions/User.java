@@ -87,7 +87,7 @@ public class User extends HttpServlet {
 			String user_type = (String) s.getAttribute("type");
 			Object user = s.getAttribute("userData");
 			long user_id = (long) s.getAttribute("userId");
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			switch(function){
 			case "logout":
 				s.invalidate();

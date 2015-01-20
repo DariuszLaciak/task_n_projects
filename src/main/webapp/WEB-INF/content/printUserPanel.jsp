@@ -1,3 +1,6 @@
+<%@page import="java.util.Date"%>
+<%@page import="pl.edu.pk.laciak.functions.FTPCommon"%>
+<%@page import="java.net.URI"%>
 <%@page import="java.io.File"%>
 <%@page import="pl.edu.pk.laciak.functions.Common"%>
 <%@page import="java.util.Properties" %>
@@ -8,11 +11,11 @@
 <div id='userpanel'>
 	<div id='user_photo'>
 		<%	
-			file = new File(Common.getPhotoUrl(request.getSession().getAttribute("userId").toString()));
-			if (file.exists()) {
+			file = FTPCommon.getPhoto(Integer.parseInt(session.getAttribute("userId").toString()));
+			if (file!=null) {
 		%>
 		<img
-			src="images/users/<%=session.getAttribute("userId")%>/photo.jpg" />
+			src="displayPhoto" />
 		<%
 			} else {
 		%>

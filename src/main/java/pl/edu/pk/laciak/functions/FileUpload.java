@@ -21,6 +21,9 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
  */
 public class FileUpload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -49,13 +52,11 @@ public class FileUpload extends HttpServlet {
 				
 				for (FileItem item : multiparts) {
 					if (!item.isFormField()) {
-						String name = new File(item.getName()).getName();
-						String ext = name.substring(name.indexOf(".")).toLowerCase();
-						String path = Common.getProjetProperty("project_dir")+"/images/users/"+request.getSession().getAttribute("userId") + File.separator+"photo" + ext;
-						File f = new File(path);
-						f.getParentFile().mkdirs(); 
-						f.createNewFile();
+						File f = File.createTempFile("photo", ".jpg");
 						item.write(f);
+						long user_id = (long) request.getSession().getAttribute("userId");
+						boolean success = FTPCommon.uploadFile(f, "photo.jpg", "images/"+user_id);
+						response.getWriter().println(success);
 					}
 				}
 			} 

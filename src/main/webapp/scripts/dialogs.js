@@ -41,12 +41,15 @@ function openEditProfileWindow(){
 					$('#edit_profile').html(html.form);
 					$("#edit_profile").dialog("open");
 					$("#user_birthday").datepicker({
-						dateFormat: "yy-mm-dd 00:00:00"
+						dateFormat: "yy-mm-dd"
 					});
 					progressBarUploadPhoto();
 				}
 				else {
-					alert("Problem z serwerem");
+					popup("error","Sesja wygasła. Zaloguj się ponownie");
+					setTimeout(function(){
+						location.reload();
+					}, 1000);
 				}
 			});
 	

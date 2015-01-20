@@ -77,7 +77,18 @@ function progressBarUploadPhoto(){
 
 		'action' : 'FileUpload',
 		'onComplete' : function(response) {
-			popup("success","Zdjęcie wgrane pomyślnie");
+			var v = 
+			xmlDoc = $.parseXML( response ),
+			$xml = $( xmlDoc ),
+			$title = $xml.find( "pre" );
+			
+			var success = $title.text();
+			if(success){
+				popup("success","Zdjęcie wgrane pomyślnie");
+				$("#user_photo img").attr("src","displayPhoto?"+new Date().getTime());
+			}
+			else
+				popup("error","Zły format pliku");
 		},
 		'onStart' : function() {
 
