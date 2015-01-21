@@ -240,6 +240,12 @@ public class User extends HttpServlet {
 				json.put("success", 1);
 				out.println(json);
 				break;
+			case "checkSession":
+				if(s.getAttribute("userId") == null){
+					json.put("error", "logged_out");
+				}
+				out.println(json);
+				break;
 			}
 		}
 

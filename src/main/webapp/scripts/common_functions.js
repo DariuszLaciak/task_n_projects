@@ -78,10 +78,10 @@ function progressBarUploadPhoto(){
 		'action' : 'FileUpload',
 		'onComplete' : function(response) {
 			var v = 
-			xmlDoc = $.parseXML( response ),
-			$xml = $( xmlDoc ),
-			$title = $xml.find( "pre" );
-			
+				xmlDoc = $.parseXML( response ),
+				$xml = $( xmlDoc ),
+				$title = $xml.find( "pre" );
+
 			var success = $title.text();
 			if(success){
 				popup("success","Zdjęcie wgrane pomyślnie");
@@ -154,6 +154,25 @@ function isUserLoggedIn(data){
 	}
 }
 
+function isUserLoggedIn(){
+	$.ajax({
+		url: 'User',
+		type: 'post',
+		async: false,
+		data: {
+			action: "checkSession"
+		},
+		success: function(data){
+			if(data.error == 'logged_out'){
+				popup("error","Sesja wygasła. Zaloguj się ponownie");
+				setTimeout(function(){
+					location.reload();
+				}, 1000);
+			}
+		}
+	});
+}
+
 function insertDatePicker(id){
 	$("#"+id).datepicker({
 		dateFormat: "yy-mm-dd 00:00:00"
@@ -186,10 +205,10 @@ function readFileFromInput(callback,id)
 			return_s = e.target.result;
 			callback(return_s);
 		};
-	
+
 		fr.readAsText(file);
-		
-		
+
+
 	}
 	return return_s;
 }
@@ -202,7 +221,7 @@ function nextSelect(form_id){
 	var lastLabelCount = parseInt(lastDiv.children("label").text());
 	var pattern = lastId.substring(0,lastId.lastIndexOf("_")+1);
 	var nextSelect = lastDiv.clone();
-	
+
 	nextSelect.find("select").attr("id",pattern+(lastCount+1));
 	nextSelect.find("select").attr("name",pattern+(lastCount+1));
 	if(nextSelect.find("button").length == 0)
@@ -210,7 +229,7 @@ function nextSelect(form_id){
 	else
 		nextSelect.find("button").attr("onclick","delete_select(\""+pattern+(lastCount+1)+"\")");
 	nextSelect.find("label").text(lastLabelCount+1);
-	
+
 	lastDiv.after(nextSelect);
 	/*var next = jQuery.parseJSON(nextSelect);
 	lastSelect.after(next.select);*/

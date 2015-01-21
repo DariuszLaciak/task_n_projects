@@ -2,6 +2,7 @@ $(document).ready(function() {
 	var elems = $(".mmenu").find("a");
 	$.each(elems,function(){
 		$(this).click(function(){
+			isUserLoggedIn();
 			$(this).next().slideToggle(500);
 				
 		});
@@ -17,6 +18,7 @@ $(document).ready(function() {
 	$('#user_name').textfill({ maxFontPixels: 25 });
 	
 	$("#toggleSelect").click(function(){
+		isUserLoggedIn();
 		if ($('#selectItem').is(':visible')){
 			$("#selectItem").slideUp();
 		}
@@ -42,6 +44,7 @@ $(document).ready(function() {
 });
 
 function selectItem(type,id){
+	
 	$.ajax({
 		url: "User",
 		type: "POST",
@@ -60,6 +63,7 @@ function selectItem(type,id){
 				var menus = $("#selected_menu").find("a");
 				$.each(menus,function(){
 					$(this).click(function(){
+						isUserLoggedIn();
 						$(this).next().slideToggle(500);
 					});
 				});
