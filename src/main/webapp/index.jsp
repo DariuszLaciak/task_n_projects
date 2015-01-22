@@ -18,6 +18,7 @@
 <script type="text/javascript" src="scripts/jQuery/jquery.datetimepicker.js"></script>
 <script type="text/javascript" src="scripts/login.js"></script>
 <script type="text/javascript" src="scripts/logout.js"></script>
+<script type="text/javascript" src="scripts/session.js"></script>
 <script type="text/javascript" src="scripts/menu.js"></script>
 <script type="text/javascript" src="scripts/common_functions.js"></script>
 <script type="text/javascript" src="scripts/dialogs.js"></script>

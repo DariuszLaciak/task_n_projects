@@ -1,8 +1,7 @@
 function log(){
-	makeLoading(0);
 	var user =$("#username").val();
 	var pass = $("#password").val();
-
+	loading_screen("Trwa logowanie...");
 	
 	$.ajax({
 		url: 'Login',
@@ -17,11 +16,11 @@ function log(){
 				$("#response_login").html("<h3>"+data+"</h3>");
 				$("#username").val("");
 				$("#password").val("");
+				loading_done();
 			}
 			else {
 				location.reload();
 			}
-			makeLoading(1);
 		}
 	});
 }

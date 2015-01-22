@@ -54,7 +54,8 @@ public class Login extends HttpServlet {
 			String pass = request.getParameter("password");
 			
 			session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
+			if(!session.getTransaction().isActive())
+				session.beginTransaction();
 			Query q = session.createQuery("from LoginData where username=:user").setString("user", user);
 			List<?> result = q.list();
 			

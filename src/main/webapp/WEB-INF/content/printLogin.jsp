@@ -4,7 +4,6 @@
 <div id="login">
 	<div id="login_form">
 		<form name='login_form' onsubmit="log()">
-
 			<%=Common.makeHeader(1, "Zaloguj sie")%>
 			<br />
 			<%=Common.makeInputText("username", "Login", "")%>

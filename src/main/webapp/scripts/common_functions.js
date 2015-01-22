@@ -1,13 +1,3 @@
-function makeLoading(on){
-
-	if(!on){
-		$("#loading_login").hide();
-	}
-	else {
-		$("#loading_login").show();
-	}
-}
-
 function progressBarUploadPhoto(){
 	var reader;
 	var progress = document.querySelector('.percent');
@@ -154,25 +144,6 @@ function isUserLoggedIn(data){
 	}
 }
 
-function isUserLoggedIn(){
-	$.ajax({
-		url: 'User',
-		type: 'post',
-		async: false,
-		data: {
-			action: "checkSession"
-		},
-		success: function(data){
-			if(data.error == 'logged_out'){
-				popup("error","Sesja wygasła. Zaloguj się ponownie");
-				setTimeout(function(){
-					location.reload();
-				}, 1000);
-			}
-		}
-	});
-}
-
 function insertDatePicker(id){
 	$("#"+id).datepicker({
 		dateFormat: "yy-mm-dd 00:00:00"
@@ -244,5 +215,15 @@ function delete_select(id){
 		$(this).children("label").text(lastId-1);
 	});
 	thisDiv.remove();
+}
+
+function loading_screen(msg){
+	$("body").append("<div class='screen'>");
+	$('.screen').css({'display': 'block', opacity: 0.6, 'width':$(document).width(),'height':$(document).height()});
+	$('.screen').append("<div id='loading_img'><img src='images/loading.gif'/><span>"+msg+"</span></div>");
+}
+
+function loading_done(){
+	$('.screen').remove();
 }
 

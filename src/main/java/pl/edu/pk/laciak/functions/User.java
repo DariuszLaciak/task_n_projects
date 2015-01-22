@@ -241,9 +241,13 @@ public class User extends HttpServlet {
 				out.println(json);
 				break;
 			case "checkSession":
-				if(s.getAttribute("userId") == null){
-					json.put("error", "logged_out");
+				try {
+					s.getAttribute("userId").toString();
 				}
+					catch(NullPointerException e){
+						json.put("error", "logged_out");
+				}
+				
 				out.println(json);
 				break;
 			}
