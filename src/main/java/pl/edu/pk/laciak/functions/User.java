@@ -245,7 +245,7 @@ public class User extends HttpServlet {
 					s.getAttribute("userId").toString();
 				}
 					catch(NullPointerException e){
-						json.put("error", "logged_out");
+						json.put("success", 1);
 				}
 				
 				out.println(json);

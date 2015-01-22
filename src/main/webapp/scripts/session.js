@@ -18,19 +18,31 @@ function timerIncrement() {
 	var session_time = $("#session_max_time").text();
 	session_time = session_max_time / 60;
 	idleTime = idleTime + 1;
-	if (idleTime > session_time) { 
-		$("body").append("<div class='screen'>");
-		$('.screen').css({'display': 'block', opacity: 0.6, 'width':$(document).width(),'height':$(document).height()});
-		$('.screen').mousemove(function(){
-			window.location.reload();
+	if (idleTime >= session_time) { 
+		$.ajax({
+			url: 'User',
+			type: "POST",
+			data: {
+				action: "checkSession"
+			},
+			success: function(data){
+				var ans = jQuery.parseJSON(data);
+				if(ans.success == 1){
+					$("body").append("<div class='screen'>");
+					$('.screen').css({'display': 'block', opacity: 0.6, 'width':$(document).width(),'height':$(document).height()});
+					$('.screen').mousemove(function(){
+						window.location.reload();
+					});
+					$('.screen').click(function(){
+						window.location.reload();
+					});
+					$('.screen').keypress(function(){
+						window.location.reload();
+					});
+					$('body').append("<div id='const_msg' class='error'>Sesja wygasła. Zaloguj się ponownie</div>");
+					expired = true;
+				}
+			}
 		});
-		$('.screen').click(function(){
-			window.location.reload();
-		});
-		$('.screen').keypress(function(){
-			window.location.reload();
-		});
-		$('body').append("<div id='const_msg' class='error'>Sesja wygasła. Zaloguj się ponownie</div>");
-		expired = true;
 	}
 }
