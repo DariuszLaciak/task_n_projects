@@ -45,6 +45,7 @@ public class Students implements ObjectDTO {
 	private Set<Notes> notes = new HashSet<Notes>();
 	private Set<Teams> teams = new HashSet<Teams>();
 	private Set<Comments> comments = new HashSet<Comments>();
+	private Set<Files> files = new HashSet<Files>();
 	
 	public Students() {}
 	
@@ -199,6 +200,19 @@ public class Students implements ObjectDTO {
 
 	public void setComments(Set<Comments> comments) {
 		this.comments = comments;
+	}
+
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
+	@PrimaryKeyJoinColumn
+	public Set<Files> getFiles() {
+		return files;
+	}
+
+
+
+	public void setFiles(Set<Files> files) {
+		this.files = files;
 	}
 	
 	

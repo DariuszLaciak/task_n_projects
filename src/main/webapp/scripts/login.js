@@ -6,7 +6,6 @@ function log(){
 	$.ajax({
 		url: 'Login',
 		type: "POST",
-		async: false,
 		data: {
 			username: user,
 			password: pass

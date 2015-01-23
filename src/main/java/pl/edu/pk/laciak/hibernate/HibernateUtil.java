@@ -8,7 +8,9 @@ import org.hibernate.service.ServiceRegistry;
 import pl.edu.pk.laciak.DTO.Admins;
 import pl.edu.pk.laciak.DTO.Comments;
 import pl.edu.pk.laciak.DTO.Deadlines;
+import pl.edu.pk.laciak.DTO.Files;
 import pl.edu.pk.laciak.DTO.LoginData;
+import pl.edu.pk.laciak.DTO.Logs;
 import pl.edu.pk.laciak.DTO.Notes;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Students;
@@ -36,6 +38,8 @@ public class HibernateUtil {
     	configuration.addAnnotatedClass(Comments.class);
     	configuration.addAnnotatedClass(Subject.class);
     	configuration.addAnnotatedClass(Admins.class);
+    	configuration.addAnnotatedClass(Logs.class);
+    	configuration.addAnnotatedClass(Files.class);
         configuration.configure();
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).build();

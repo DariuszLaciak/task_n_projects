@@ -2,13 +2,18 @@ package pl.edu.pk.laciak.DTO;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
@@ -26,6 +31,7 @@ public class LoginData implements ObjectDTO {
 	private Students students;
 	private Teachers teachers;
 	private Admins admins;
+	private Set<Logs> logs = new HashSet<Logs>();
 	
 	public LoginData() {}
 	
@@ -100,6 +106,20 @@ public class LoginData implements ObjectDTO {
 	public void setAdmins(Admins admins) {
 		this.admins = admins;
 	}
+
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "id_user")
+	@PrimaryKeyJoinColumn
+	public Set<Logs> getLogs() {
+		return logs;
+	}
+
+
+
+	public void setLogs(Set<Logs> logs) {
+		this.logs = logs;
+	}
+	
 	
 	
 }

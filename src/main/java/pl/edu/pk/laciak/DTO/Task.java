@@ -36,6 +36,7 @@ public class Task implements ObjectDTO {
 	private Notes note;
 	private Teachers teacher;
 	private Subject subject;
+	private Set<Files> files = new HashSet<Files>();
 	
 	public Task(){}
 	
@@ -132,6 +133,19 @@ public class Task implements ObjectDTO {
 	
 	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "id_task")
+	@PrimaryKeyJoinColumn
+	public Set<Files> getFiles() {
+		return files;
+	}
+
+
+
+	public void setFiles(Set<Files> files) {
+		this.files = files;
 	}
 	
 	

@@ -246,6 +246,7 @@ public class User extends HttpServlet {
 				}
 					catch(NullPointerException e){
 						json.put("success", 1);
+						System.err.println("sesja wygasła");
 				}
 				
 				out.println(json);

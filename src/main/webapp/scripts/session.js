@@ -16,7 +16,8 @@ $(document).ready(function () {
 
 function timerIncrement() {
 	var session_time = $("#session_max_time").text();
-	session_time = session_max_time / 60;
+	session_time = session_time / 60;
+	alert(session_time);
 	idleTime = idleTime + 1;
 	if (idleTime >= session_time) { 
 		$.ajax({
