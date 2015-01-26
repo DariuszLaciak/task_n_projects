@@ -12,9 +12,11 @@
 <%=Common.makeSelect("Przedmiot", "project_subject", Common.makeSelectOptions("subjects",session.getAttribute("userId").toString())) %>
 <%=Common.makeCheckBoxSendUnchecked("Deadline", "isDeadline", "yes","no") %>
 <%=Common.makeInputTextReadOnly("project_deadline", "", sdf.format(new Date())) %>
+<%=Common.makeInputTextArea("project_text", "Opis(opcjonalne)", "") %>
 <h4>Typ</h4>
 <%=Common.makeRadio("project_type", "indiv", "Indywidualny") %>
 <%=Common.makeRadio("project_type", "group", "Zespołowy") %>
+
 <div id='project_type_div'></div>
 
 </form>

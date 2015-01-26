@@ -58,7 +58,7 @@ public class Files implements ObjectDTO {
 		return date;
 	}
 	public void setDate(Date date) {
-		this.date = date;
+		this.date = new Date();
 	}
 	
 	@ManyToOne(fetch = FetchType.EAGER)

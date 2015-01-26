@@ -18,7 +18,9 @@
 <%=Common.makeSelect("Przedmiot", "task_subject", Common.makeSelectOptions("subjects",session.getAttribute("userId").toString())) %>
 <%=Common.makeCheckBoxSendUnchecked("Deadline", "isDeadline", "yes","no") %>
 <%=Common.makeInputTextReadOnly("task_deadline", "", sdf.format(new Date())) %>
+<%=Common.makeInputTextArea("task_text", "Opis(opcjonalne)", "") %>
 <%=Common.makeButton("Dodaj zadanie", "confirm_add_task()", "b_grey") %>
+
 </form>
 
 <script>

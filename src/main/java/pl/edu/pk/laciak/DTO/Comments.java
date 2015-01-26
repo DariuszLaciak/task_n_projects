@@ -33,9 +33,8 @@ public class Comments implements ObjectDTO{
 	
 	
 	
-	public Comments(Date date, String text) {
+	public Comments(String text) {
 		super();
-		this.date = date;
 		this.text = text;
 	}
 
@@ -56,7 +55,7 @@ public class Comments implements ObjectDTO{
 		return date;
 	}
 	public void setDate(Date date) {
-		this.date = date;
+		this.date = new Date();
 	}
 	@Column(nullable = false, length = 30)
 	public String getText() {

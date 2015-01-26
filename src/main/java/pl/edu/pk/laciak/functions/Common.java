@@ -13,8 +13,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
@@ -97,6 +95,9 @@ public abstract class Common {
 		return select;
 	}
 	
+	public static String makeInputTextArea(String id, String label, String value){
+		return "<div class='inputs'><label class='l_input'>"+label+"</label><textarea id='"+id+"' name='"+id+"' rows='4' cols='47'>"+value+"</textarea></div>";
+	}
 	@SuppressWarnings("unchecked")
 	public static JSONObject JsonEncode(String html, String label){
 		JSONObject obj = new JSONObject();
@@ -423,6 +424,9 @@ public abstract class Common {
 			for(Task t : tasks){
 				html += "<li class='selectElement'><a onclick='selectItem(\"t\","+t.getId()+")'><span>"+t.getName()+"</span></a></li>";
 			}
+		}
+		if(tasks.isEmpty() && projects.isEmpty()){
+			html += "<li><span><i>Brak przypisanych zadań lub projektów</i></span></li>";
 		}
 		html += "</ul>";
 		return html;

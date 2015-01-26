@@ -30,6 +30,7 @@ public class Task implements ObjectDTO {
 	private String name;
 	private Date startDate;
 	private Students student;
+	private String text;
 	
 	private Deadlines deadline;
 	private Set<Comments> comment = new HashSet<Comments>();
@@ -146,6 +147,18 @@ public class Task implements ObjectDTO {
 
 	public void setFiles(Set<Files> files) {
 		this.files = files;
+	}
+
+
+	@Column(nullable = true, length = 1000)
+	public String getText() {
+		return text;
+	}
+
+
+
+	public void setText(String text) {
+		this.text = text;
 	}
 	
 	

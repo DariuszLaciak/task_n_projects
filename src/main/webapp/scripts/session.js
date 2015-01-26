@@ -27,7 +27,7 @@ function timerIncrement() {
 			},
 			success: function(data){
 				var ans = jQuery.parseJSON(data);
-				if(ans.success == 1){
+				if(ans.success == 1 || ans.error == 'logged_out'){
 					$("body").append("<div class='screen'>");
 					$('.screen').css({'display': 'block', opacity: 0.6, 'width':$(document).width(),'height':$(document).height()});
 					$('.screen').mousemove(function(){

@@ -75,8 +75,10 @@ public class Teacher extends HttpServlet {
 				String task_subject = data_form[3];
 				String is_deadline = data_form[4];
 				String task_deadline = data_form[5];
+				String task_text = data_form[6];
 				if(is_deadline.equals("yes")){
 					task_deadline = data_form[6];
+					task_text = data_form[7];
 				}
 				
 				Date startDate = null;
@@ -101,6 +103,8 @@ public class Teacher extends HttpServlet {
 				Students student = null;
 				Subject subject = null;
 				Deadlines deadline = null;
+				if(task_text != null)
+					task.setText(task_text);
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
 				
@@ -208,7 +212,7 @@ public class Teacher extends HttpServlet {
 				break;
 			case "add_project":
 				String[] project_data = request.getParameterValues("form_values[]");
-				if(project_data.length != 7 && project_data.length != 8 || project_data[0].equals("")){
+				if(project_data.length != 8 && project_data.length != 9 || project_data[0].equals("")){
 					Common.makeError(json, out, s, 4);
 					return;
 				}
@@ -218,12 +222,15 @@ public class Teacher extends HttpServlet {
 				String p_subject = project_data[2];
 				String p_is_deadline = project_data[3];
 				String p_deadline = "";
-				String p_type = project_data[5];
-				String student_or_group = project_data[6];
+				String project_text = project_data[5];
+				String p_type = project_data[6];
+				String student_or_group = project_data[7];
+				
 				if(p_is_deadline.equals("yes")){
 					p_deadline = project_data[5];
-					p_type = project_data[6];
-					student_or_group = project_data[7];
+					project_text = project_data[6];
+					p_type = project_data[7];
+					student_or_group = project_data[8];
 				}
 				
 				Date start_date_p = null;
@@ -254,6 +261,9 @@ public class Teacher extends HttpServlet {
 				Subject p_subject_db = null;
 				Project project = new Project(p_name, start_date_p);
 				Teachers p_teacher = (Teachers)sess.getAttribute("userData");
+				
+				if(project_text != null)
+					project.setText(project_text);
 				
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
