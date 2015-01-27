@@ -81,7 +81,7 @@ public class Project implements ObjectDTO {
 		this.startDate = startDate;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idStudent", nullable = true)
 	public Students getStudent() {
 		return student;
@@ -90,7 +90,7 @@ public class Project implements ObjectDTO {
 		this.student = student;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, optional=true)
+	@OneToOne(fetch = FetchType.EAGER, optional=true)
 	@JoinColumn(name = "idDeadline", nullable = true)
 	public Deadlines getDeadline() {
 		return deadline;
@@ -100,7 +100,7 @@ public class Project implements ObjectDTO {
 		this.deadline = deadline;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
 	@PrimaryKeyJoinColumn
 	public Set<Comments> getComment() {
 		return comment;
@@ -110,7 +110,7 @@ public class Project implements ObjectDTO {
 		this.comment = comment;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idSubject", nullable = true)
 	public Subject getSubject() {
 		return subject;
@@ -120,7 +120,7 @@ public class Project implements ObjectDTO {
 		this.subject = subject;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL, optional=true)
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "project", cascade = CascadeType.ALL, optional=true)
 	public Notes getNote() {
 		return note;
 	}
@@ -129,7 +129,7 @@ public class Project implements ObjectDTO {
 		this.note = note;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idTeacher", nullable = false)
 	public Teachers getTeacher() {
 		return teacher;
@@ -138,7 +138,7 @@ public class Project implements ObjectDTO {
 	public void setTeacher(Teachers teacher) {
 		this.teacher = teacher;
 	}
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idTeam", nullable = true)
 	public Teams getTeam() {
 		return team;
@@ -149,7 +149,7 @@ public class Project implements ObjectDTO {
 	}
 
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id_project")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "id_project")
 	@PrimaryKeyJoinColumn
 	public Set<Files> getFiles() {
 		return files;

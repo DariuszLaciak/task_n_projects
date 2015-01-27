@@ -241,14 +241,10 @@ public class User extends HttpServlet {
 				out.println(json);
 				break;
 			case "checkSession":
-				try {
-					s.getAttribute("userId").toString();
+				if(s.getAttribute("userId") == null) {
+					json.put("success", 1);
+					System.err.println("sesja wygasła");
 				}
-					catch(NullPointerException e){
-						json.put("success", 1);
-						System.err.println("sesja wygasła");
-				}
-				
 				out.println(json);
 				break;
 			}

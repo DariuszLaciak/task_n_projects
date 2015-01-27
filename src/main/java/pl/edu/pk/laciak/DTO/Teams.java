@@ -55,7 +55,7 @@ public class Teams implements ObjectDTO {
 		this.name = name;
 	}
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "teams")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "teams")
 	public Set<Students> getStudents() {
 		return students;
 	}
@@ -63,7 +63,7 @@ public class Teams implements ObjectDTO {
 		this.students = students;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "team")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "team")
 	@PrimaryKeyJoinColumn
 	public Set<Project> getProjects() {
 		return projects;

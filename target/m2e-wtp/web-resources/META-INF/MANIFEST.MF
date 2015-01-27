@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: ldar
-Build-Jdk: 1.8.0_20
+Built-By: Darek
+Build-Jdk: 1.8.0_25
 Created-By: Maven Integration for Eclipse
 
