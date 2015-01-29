@@ -179,8 +179,7 @@ public class User extends HttpServlet {
 				catch (HibernateException e) {
 					json.put("edited", 0);
 				}
-				if(session.isOpen())
-					session.close();
+				
 				out.println(json);
 				break;
 			case "selectItem":
