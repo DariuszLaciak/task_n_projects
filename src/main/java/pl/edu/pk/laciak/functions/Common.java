@@ -260,7 +260,7 @@ public abstract class Common {
 			switch(user){
 			case "teacher":
 				submenus = new HashMap<String, String>();
-				submenus.put("Przeglądaj", "teacher_activ_look");
+				submenus.put("Ewidencja", "teacher_activ_look");
 				submenus.put("Komentarz", "teacher_activ_comment");
 				submenus.put("Pliki", "teacher_activ_files");
 				submenus.put("Oceny", "teacher_activ_notes");
@@ -273,7 +273,7 @@ public abstract class Common {
 				break;
 			case "student":
 				submenus = new HashMap<String, String>();
-				submenus.put("Przeglądaj", "student_activ_look");
+				submenus.put("Ewidencja", "student_activ_look");
 				submenus.put("Komentarz", "student_activ_comment");
 				submenus.put("Pliki", "student_activ_files");
 				submenus.put("Oceny", "student_activ_notes");

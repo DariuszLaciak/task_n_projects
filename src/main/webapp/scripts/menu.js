@@ -64,6 +64,26 @@ function selectItem(type,id){
 					});
 				});
 				$("#selected_menu").show();
+				$(document).ready(function(){
+					$("#teacher_activ_look").click(function(){
+						$("#m_content").load("teacher/manage/look.jsp");
+					});
+					$("#teacher_activ_files").click(function(){
+						$("#m_content").load("teacher/manage/files.jsp");
+					});
+					$("#teacher_activ_comment").click(function(){
+						$("#m_content").load("teacher/manage/comment.jsp");
+					});
+					$("#teacher_activ_tasks").click(function(){
+						$("#m_content").load("teacher/manage/tasks.jsp");
+					});
+					$("#teacher_activ_notes").click(function(){
+						$("#m_content").load("teacher/manage/notes.jsp");
+					});
+					$("#teacher_activ_version").click(function(){
+						$("#m_content").load("teacher/manage/version.jsp");
+					});
+				});
 				$("#selectItem").slideUp(500);
 			}
 			else if(obj.success == 2){

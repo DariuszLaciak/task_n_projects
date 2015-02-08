@@ -41,6 +41,8 @@ public class Project implements ObjectDTO {
 	private Teachers teacher;
 	private Teams team;
 	private Set<Files> files = new HashSet<Files>();
+	private Set<Project_task> tasks = new HashSet<Project_task>();
+	private Set<Project_step> steps = new HashSet<Project_step>();
 	
 	public Project(){}
 	
@@ -171,5 +173,33 @@ public class Project implements ObjectDTO {
 	public void setText(String text) {
 		this.text = text;
 	}
+
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
+	@PrimaryKeyJoinColumn
+	public Set<Project_task> getTasks() {
+		return tasks;
+	}
+
+
+
+	public void setTasks(Set<Project_task> tasks) {
+		this.tasks = tasks;
+	}
+
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
+	@PrimaryKeyJoinColumn
+	public Set<Project_step> getSteps() {
+		return steps;
+	}
+
+
+
+	public void setSteps(Set<Project_step> steps) {
+		this.steps = steps;
+	}
+	
+	
 	
 }

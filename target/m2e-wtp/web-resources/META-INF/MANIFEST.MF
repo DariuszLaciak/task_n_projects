@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: Darek
-Build-Jdk: 1.8.0_25
+Built-By: Ela
+Build-Jdk: 1.8.0_31
 Created-By: Maven Integration for Eclipse
 

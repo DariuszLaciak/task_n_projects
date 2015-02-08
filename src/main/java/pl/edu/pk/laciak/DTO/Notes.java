@@ -27,6 +27,7 @@ public class Notes implements ObjectDTO {
 	private Subject subject;
 	private Project project;
 	private Task task;
+	private Project_task pt_note;
 	
 	public Notes() {
 	}
@@ -90,6 +91,19 @@ public class Notes implements ObjectDTO {
 	}
 	public void setTask(Task task) {
 		this.task = task;
+	}
+
+
+	@OneToOne(fetch = FetchType.EAGER, optional=true)
+	@PrimaryKeyJoinColumn
+	public Project_task getPt_note() {
+		return pt_note;
+	}
+
+
+
+	public void setPt_note(Project_task pt_note) {
+		this.pt_note = pt_note;
 	}
 	
 
