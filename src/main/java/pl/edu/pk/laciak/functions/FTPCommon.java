@@ -9,6 +9,7 @@ import java.io.OutputStream;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 
 public class FTPCommon {
 	static FTPClient client = new FTPClient();
@@ -23,11 +24,13 @@ public class FTPCommon {
 		try {
 			client.connect(ftp_host, ftp_port);
 			client.login(ftp_user,ftp_pass);
+			client.enterLocalPassiveMode();
 			client.setFileType(FTP.BINARY_FILE_TYPE);
 			client.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
 			fis = new FileInputStream(tempFile);
 			ftpCreateDirectoryTree(client,directory);
 			success = client.storeFile(filename, fis);
+			System.out.println(client.getReplyString());
 			fis.close();
 			client.logout();
 		} catch (IOException e) {
@@ -45,10 +48,12 @@ public class FTPCommon {
 		try {
 			client.connect(ftp_host, ftp_port);
 			client.login(ftp_user,ftp_pass);
+			client.enterLocalPassiveMode();
 			client.setFileType(FTP.BINARY_FILE_TYPE);
 			client.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
 			client.changeWorkingDirectory("images/"+user_id);
 			input = client.retrieveFileStream("photo.jpg");
+			System.out.println(client.getReplyString());
 			if(input != null)
 				file = File.createTempFile("temp", ".jpg");
 			else throw new IOException();
@@ -61,10 +66,12 @@ public class FTPCommon {
 			}
 			client.logout();
 		} catch (IOException e) {
-			
+			e.printStackTrace();
 		}
 		finally{
 			try {
+				if(client.isConnected())
+					client.disconnect();
 				if(output != null)
 					output.close();
 				if(input != null)

@@ -15,7 +15,7 @@
 			if (file!=null) {
 		%>
 		<img
-			src="displayPhoto" />
+			src="displayPhoto?<%=new Date().getTime() %>" />
 		<%
 			} else {
 		%>
