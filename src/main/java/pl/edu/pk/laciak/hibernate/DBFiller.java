@@ -8,6 +8,7 @@ import pl.edu.pk.laciak.DTO.Admins;
 import pl.edu.pk.laciak.DTO.LoginData;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Teachers;
+import pl.edu.pk.laciak.functions.Common;
 
 public class DBFiller {
 	
@@ -16,17 +17,17 @@ public class DBFiller {
 		
 		s.beginTransaction();
 		
-		LoginData ld = new LoginData("admin", "admin", true);
+		LoginData ld = new LoginData("admin", Common.sha256("admin"), true);
 		Admins admin = new Admins("admin","admin","adminowo",12345678909L,new Date());
 		ld.setAdmins(admin);
 		admin.setLogin(ld);
 		
-		LoginData ld1  = new LoginData("student", "student", true);
+		LoginData ld1  = new LoginData("student", Common.sha256("student"), true);
 		Students student = new Students("student", "studentę", "studentowo", 12345678909L,"099887", new Date(), 2);
 		student.setLogin(ld1);
 		ld1.setStudents(student);
 		
-		LoginData ld2 = new LoginData("teacher", "teacher", true);
+		LoginData ld2 = new LoginData("teacher", Common.sha256("teacher"), true);
 		Teachers teacher = new Teachers("teacher", "teacher", "teacherowo", 12345678909L, new Date());
 		teacher.setLogin(ld2);
 		ld2.setTeachers(teacher);

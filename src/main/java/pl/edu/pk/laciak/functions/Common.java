@@ -2,6 +2,7 @@ package pl.edu.pk.laciak.functions;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -480,6 +481,25 @@ public abstract class Common {
 		}
 		
 		return pr;
+	}
+	
+	public static String sha256(String base) {
+	    try{
+	    	String cipher_base = getProjetProperty("cipher_base");
+	        MessageDigest digest = MessageDigest.getInstance(cipher_base);
+	        byte[] hash = digest.digest(base.getBytes("UTF-8"));
+	        StringBuffer hexString = new StringBuffer();
+
+	        for (int i = 0; i < hash.length; i++) {
+	            String hex = Integer.toHexString(0xff & hash[i]);
+	            if(hex.length() == 1) hexString.append('0');
+	            hexString.append(hex);
+	        }
+
+	        return hexString.toString();
+	    } catch(Exception ex){
+	       throw new RuntimeException(ex);
+	    }
 	}
 
 }

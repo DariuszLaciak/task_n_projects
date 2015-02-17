@@ -63,7 +63,7 @@ public class LoginData implements ObjectDTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 70)
 	public String getPassword() {
 		return password;
 	}

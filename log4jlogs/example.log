@@ -1,0 +1,303 @@
+DEBUG main org.hibernate.loader.collection.plan.CollectionLoader - Static select for collection pl.edu.pk.laciak.DTO.Task.comment: select comment0_.idTask as idTask6_12_0_, comment0_.id as id1_1_0_, comment0_.id as id1_1_1_, comment0_.date as date2_1_1_, comment0_.idProject as idProjec4_1_1_, comment0_.idStudent as idStuden5_1_1_, comment0_.idTask as idTask6_1_1_, comment0_.idTeacher as idTeache7_1_1_, comment0_.text as text3_1_1_ from Comments comment0_ where comment0_.idTask=?
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:0> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@4a1dda83]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:1> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@7a358613]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : finished
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : text
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:2> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@48567727]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.subject
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.value
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.task
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:3> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@53feeac9]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.finished
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : note.pt_note.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.text
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : note.pt_note.note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.project
+DEBUG main org.hibernate.loader.plan.build.internal.FetchStyleLoadPlanBuildingAssociationVisitationStrategy - Building LoadPlan...
+DEBUG main org.hibernate.loader.plan.exec.internal.LoadQueryJoinAndFetchProcessor - processing queryspace <gen:0>
+DEBUG main org.hibernate.loader.plan.build.spi.LoadPlanTreePrinter - LoadPlan(collection=pl.edu.pk.laciak.DTO.Project.tasks)
+    - Returns
+       - CollectionReturnImpl(collection=pl.edu.pk.laciak.DTO.Project.tasks, querySpaceUid=<gen:0>, path=[pl.edu.pk.laciak.DTO.Project.tasks])
+          - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Project_task, querySpaceUid=<gen:1>, path=[pl.edu.pk.laciak.DTO.Project.tasks].<elements>)
+             - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Notes, querySpaceUid=<gen:2>, path=[pl.edu.pk.laciak.DTO.Project.tasks].<elements>.note)
+                - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Project_task, querySpaceUid=<gen:3>, path=[pl.edu.pk.laciak.DTO.Project.tasks].<elements>.note.pt_note)
+    - QuerySpaces
+       - CollectionQuerySpaceImpl(uid=<gen:0>, collection=pl.edu.pk.laciak.DTO.Project.tasks)
+          - SQL table alias mapping - tasks0_
+          - alias suffix - 0_
+          - suffixed key columns - {idProjec4_7_0_}
+          - entity-element alias suffix - 1_
+          - 1_entity-element suffixed key columns - id1_9_1_
+          - JOIN (JoinDefinedByMetadata(elements)) : <gen:0> -> <gen:1>
+             - EntityQuerySpaceImpl(uid=<gen:1>, entity=pl.edu.pk.laciak.DTO.Project_task)
+                - SQL table alias mapping - tasks0_
+                - alias suffix - 1_
+                - suffixed key columns - {id1_9_1_}
+                - JOIN (JoinDefinedByMetadata(note)) : <gen:1> -> <gen:2>
+                   - EntityQuerySpaceImpl(uid=<gen:2>, entity=pl.edu.pk.laciak.DTO.Notes)
+                      - SQL table alias mapping - notes1_
+                      - alias suffix - 2_
+                      - suffixed key columns - {id1_6_2_}
+                      - JOIN (JoinDefinedByMetadata(pt_note)) : <gen:2> -> <gen:3>
+                         - EntityQuerySpaceImpl(uid=<gen:3>, entity=pl.edu.pk.laciak.DTO.Project_task)
+                            - SQL table alias mapping - project_ta2_
+                            - alias suffix - 3_
+                            - suffixed key columns - {id1_9_3_}
+
+DEBUG main org.hibernate.loader.collection.plan.CollectionLoader - Static select for collection pl.edu.pk.laciak.DTO.Project.tasks: select tasks0_.idProject as idProjec4_7_0_, tasks0_.id as id1_9_0_, tasks0_.id as id1_9_1_, tasks0_.finished as finished2_9_1_, tasks0_.idProject as idProjec4_9_1_, tasks0_.text as text3_9_1_, notes1_.id as id1_6_2_, notes1_.idStudent as idStuden3_6_2_, notes1_.idSubject as idSubjec4_6_2_, notes1_.value as value2_6_2_, project_ta2_.id as id1_9_3_, project_ta2_.finished as finished2_9_3_, project_ta2_.idProject as idProjec4_9_3_, project_ta2_.text as text3_9_3_ from Project_task tasks0_ left outer join Notes notes1_ on tasks0_.id=notes1_.id left outer join Project_task project_ta2_ on notes1_.id=project_ta2_.id where tasks0_.idProject=?
+DEBUG main org.hibernate.internal.SessionFactoryRegistry - Initializing SessionFactoryRegistry : org.hibernate.internal.SessionFactoryRegistry@33bdd01
+DEBUG main org.hibernate.internal.SessionFactoryRegistry - Registering SessionFactory: f48003d8-2e1b-42db-b57b-57def47f9b10 (<unnamed>)
+DEBUG main org.hibernate.internal.SessionFactoryRegistry - Not binding SessionFactory to JNDI, no JNDI name configured
+DEBUG main org.hibernate.internal.SessionFactoryImpl - Instantiated session factory
+INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+DEBUG main org.hibernate.cfg.Configuration - Processing hbm.xml files
+DEBUG main org.hibernate.cfg.Configuration - Process annotated classes
+DEBUG main org.hibernate.cfg.Configuration - Processing fk mappings (*ToOne and JoinedSubclass)
+DEBUG main org.hibernate.cfg.Configuration - Processing extends queue
+DEBUG main org.hibernate.cfg.Configuration - Processing extends queue
+DEBUG main org.hibernate.cfg.Configuration - Processing collection mappings
+DEBUG main org.hibernate.cfg.Configuration - Processing native query and ResultSetMapping mappings
+DEBUG main org.hibernate.cfg.Configuration - Processing association property references
+DEBUG main org.hibernate.cfg.Configuration - Creating tables' unique integer identifiers
+DEBUG main org.hibernate.cfg.Configuration - Processing foreign key constraints
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Project
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Students
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Task
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Teachers
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Project
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Task
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Students
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.LoginData
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Students
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Subject
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Deadlines
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Students
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Subject
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Teachers
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Teams
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Project
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Project
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Teachers
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Deadlines
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Students
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Subject
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Teachers
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Teams
+DEBUG main org.hibernate.cfg.Configuration - Resolving reference to class: pl.edu.pk.laciak.DTO.Students
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Admins
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Comments
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Deadlines
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Files
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: LoginData
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Logs
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Notes
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Project
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Project_step
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Project_task
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Students
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Subject
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Task
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Teachers
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Teams
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: students_teams
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Admins
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Comments
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Deadlines
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Files
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: LoginData
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Logs
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Notes
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Project
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Project_step
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Project_task
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Students
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Subject
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Task
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Teachers
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Teams
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: students_teams
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Admins
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Comments
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Deadlines
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Files
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: LoginData
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Logs
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Notes
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Project
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Project_step
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Project_task
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Students
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Subject
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Task
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Teachers
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: Teams
+INFO main java.sql.DatabaseMetaData - HHH000262: Table not found: students_teams
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory - Setting dialect [org.hibernate.dialect.MySQL5Dialect]
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Admins (id bigint not null, PESEL bigint not null, address varchar(50) not null, birthday datetime not null, name varchar(30) not null, surname varchar(30) not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Comments (id bigint not null auto_increment, date datetime not null, text varchar(30) not null, idProject bigint, idStudent bigint, idTask bigint, idTeacher bigint, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Deadlines (id bigint not null auto_increment, endDate datetime not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Files (id bigint not null auto_increment, date datetime not null, name varchar(20) not null, idProject bigint, idTaskr bigint, idOwner bigint not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table LoginData (id bigint not null auto_increment, active bit not null, password varchar(70) not null, username varchar(20) not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Logs (id bigint not null auto_increment, date datetime not null, id_table bigint not null, log_table integer not null, new_val varchar(30), old_val varchar(30), operation integer not null, idUser bigint not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Notes (id bigint not null auto_increment, value float not null, idStudent bigint not null, idSubject integer, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Project (id bigint not null auto_increment, name varchar(30) not null, startDate datetime not null, text varchar(1000), idDeadline bigint, idStudent bigint, idSubject integer, idTeacher bigint not null, idTeam bigint, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Project_step (id bigint not null auto_increment, finished bit not null, number integer not null, text varchar(300) not null, idProject bigint not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Project_task (id bigint not null auto_increment, finished bit not null, text varchar(300) not null, idProject bigint not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Students (id bigint not null, PESEL bigint not null, address varchar(50) not null, album varchar(15) not null, birthday datetime not null, name varchar(30) not null, period integer not null, surname varchar(30) not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Subject (id integer not null auto_increment, name varchar(30) not null, idTeacher bigint not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Task (id bigint not null auto_increment, name varchar(30) not null, startDate datetime not null, text varchar(1000), idDeadline bigint, idStudent bigint not null, idSubject integer, idTeacher bigint not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Teachers (id bigint not null, PESEL bigint not null, address varchar(50) not null, birthday datetime not null, name varchar(30) not null, surname varchar(30) not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table Teams (id bigint not null auto_increment, name varchar(30) not null, primary key (id))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - create table students_teams (idStudent bigint not null, idTeam bigint not null, primary key (idStudent, idTeam))
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Comments add constraint FK_gqbu83c1n90qebnur56wsssod foreign key (idProject) references Project (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Comments add constraint FK_8ywbjwho45e57k9lhkcg83hka foreign key (idStudent) references Students (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Comments add constraint FK_6hwyrsa1i6wmaoygr8qqe7x8r foreign key (idTask) references Task (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Comments add constraint FK_hdvvf33cqpmg96y60m1rxa75d foreign key (idTeacher) references Teachers (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Files add constraint FK_34vuosqqywddnx06ofbegkw7t foreign key (idProject) references Project (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Files add constraint FK_71ubwnxkvawofhwu67dgjxo47 foreign key (idTaskr) references Task (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Files add constraint FK_ahxe19m67fq60rfvc5l6wihyo foreign key (idOwner) references Students (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Logs add constraint FK_ej31oqqt53uqq45vq9attbtjq foreign key (idUser) references LoginData (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Notes add constraint FK_8r4aqx3fq9v7w1nsa9r3modfy foreign key (idStudent) references Students (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Notes add constraint FK_3irx6v2k24yin6wq1kjqh1x3g foreign key (idSubject) references Subject (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Project add constraint FK_de4233o5llpv44e295n49j9bq foreign key (idDeadline) references Deadlines (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Project add constraint FK_r0phnmfjq7r5i741lt5yfg5l7 foreign key (idStudent) references Students (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Project add constraint FK_poeo6ftlmlec8o45l76rmvm5t foreign key (idSubject) references Subject (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Project add constraint FK_i3q2inqabvqoqsv4hrwk2l075 foreign key (idTeacher) references Teachers (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Project add constraint FK_rrmo2fae0yj7408pxkk41bte9 foreign key (idTeam) references Teams (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Project_step add constraint FK_flk4fpf5vo4tjiee0meri60gg foreign key (idProject) references Project (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Project_task add constraint FK_buvq335gvj6t4m2h4fqitfrf4 foreign key (idProject) references Project (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Subject add constraint FK_2cdncvskhynqdnqa1frxaypbm foreign key (idTeacher) references Teachers (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Task add constraint FK_8k2o84q5njomtnfesll4iycvy foreign key (idDeadline) references Deadlines (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Task add constraint FK_an13mdn1nvmtiss136mtqpag2 foreign key (idStudent) references Students (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Task add constraint FK_2iraf5btlmvonf1j4jr8mh6g3 foreign key (idSubject) references Subject (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table Task add constraint FK_r525vk1g6vwyh6nhlijrhn9be foreign key (idTeacher) references Teachers (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table students_teams add constraint FK_8thk9yfiqra8njtqj4sitwlk9 foreign key (idTeam) references Teams (id)
+DEBUG main org.hibernate.tool.hbm2ddl.SchemaUpdate - alter table students_teams add constraint FK_jqpa6jxir5ue3j2x7ehae7h7d foreign key (idStudent) references Students (id)
+INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+DEBUG main org.hibernate.internal.NamedQueryRepository - Checking 0 named HQL queries
+DEBUG main org.hibernate.internal.NamedQueryRepository - Checking 0 named SQL queries
+DEBUG main org.hibernate.stat.internal.StatisticsInitiator - Statistics initialized [enabled=false]
+DEBUG main org.hibernate.engine.transaction.spi.AbstractTransactionImpl - begin
+DEBUG main org.hibernate.engine.jdbc.internal.LogicalConnectionImpl - Obtaining JDBC connection
+DEBUG main org.hibernate.engine.jdbc.internal.LogicalConnectionImpl - Obtained JDBC connection
+DEBUG main org.hibernate.engine.transaction.internal.jdbc.JdbcTransaction - initial autocommit status: false
+DEBUG main org.hibernate.engine.spi.ActionQueue - Executing identity-insert immediately
+DEBUG main org.hibernate.SQL - 
+    insert 
+    into
+        LoginData
+        (active, password, username) 
+    values
+        (?, ?, ?)
+DEBUG main org.hibernate.id.IdentifierGeneratorHelper - Natively generated identity: 1
+DEBUG main org.hibernate.event.internal.AbstractSaveEventListener - Generated identifier: 1, using strategy: org.hibernate.id.ForeignGenerator
+DEBUG main org.hibernate.SQL - 
+    insert 
+    into
+        Admins
+        (PESEL, address, birthday, name, surname, id) 
+    values
+        (?, ?, ?, ?, ?, ?)
+DEBUG main org.hibernate.engine.spi.ActionQueue - Executing identity-insert immediately
+DEBUG main org.hibernate.SQL - 
+    insert 
+    into
+        LoginData
+        (active, password, username) 
+    values
+        (?, ?, ?)
+DEBUG main org.hibernate.id.IdentifierGeneratorHelper - Natively generated identity: 2
+DEBUG main org.hibernate.event.internal.AbstractSaveEventListener - Generated identifier: 2, using strategy: org.hibernate.id.ForeignGenerator
+DEBUG main org.hibernate.SQL - 
+    insert 
+    into
+        Students
+        (PESEL, address, album, birthday, name, period, surname, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+DEBUG main org.hibernate.engine.spi.ActionQueue - Executing identity-insert immediately
+DEBUG main org.hibernate.SQL - 
+    insert 
+    into
+        LoginData
+        (active, password, username) 
+    values
+        (?, ?, ?)
+DEBUG main org.hibernate.id.IdentifierGeneratorHelper - Natively generated identity: 3
+DEBUG main org.hibernate.event.internal.AbstractSaveEventListener - Generated identifier: 3, using strategy: org.hibernate.id.ForeignGenerator
+DEBUG main org.hibernate.engine.transaction.spi.AbstractTransactionImpl - committing
+DEBUG main org.hibernate.event.internal.AbstractFlushingEventListener - Processing flush-time cascades
+DEBUG main org.hibernate.event.internal.AbstractFlushingEventListener - Dirty checking collections
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.LoginData.logs#1], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.LoginData.logs#2], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.Students.comments#2], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.Students.files#2], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.Students.notes#2], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.Students.project#2], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.Students.tasks#2], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.Students.teams#2], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.LoginData.logs#3], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.Teachers.comment#3], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.Teachers.projects#3], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.Teachers.subjects#3], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.engine.internal.Collections - Collection found: [pl.edu.pk.laciak.DTO.Teachers.tasks#3], was: [<unreferenced>] (initialized)
+DEBUG main org.hibernate.event.internal.AbstractFlushingEventListener - Flushed: 1 insertions, 0 updates, 0 deletions to 6 objects
+DEBUG main org.hibernate.event.internal.AbstractFlushingEventListener - Flushed: 13 (re)creations, 0 updates, 0 removals to 13 collections
+DEBUG main org.hibernate.internal.util.EntityPrinter - Listing entities:
+DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.LoginData{password=1057a9604e04b274da5a4de0c8f4b4868d9b230989f8c8c6a28221143cc5a755, teachers=pl.edu.pk.laciak.DTO.Teachers#3, active=true, students=null, id=3, logs=[], admins=null, username=teacher}
+DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.Teachers{birthday=Tue Feb 17 15:11:07 CET 2015, PESEL=12345678909, address=teacherowo, projects=[], surname=teacher, subjects=[], name=teacher, comment=[], id=3, login=pl.edu.pk.laciak.DTO.LoginData#3, tasks=[]}
+DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.LoginData{password=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918, teachers=null, active=true, students=null, id=1, logs=[], admins=pl.edu.pk.laciak.DTO.Admins#1, username=admin}
+DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.Admins{birthday=Tue Feb 17 15:11:07 CET 2015, PESEL=12345678909, address=adminowo, surname=admin, name=admin, id=1, login=pl.edu.pk.laciak.DTO.LoginData#1}
+DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.LoginData{password=264c8c381bf16c982a4e59b0dd4c6f7808c51a05f64c35db42cc78a2a72875bb, teachers=null, active=true, students=pl.edu.pk.laciak.DTO.Students#2, id=2, logs=[], admins=null, username=student}
+DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.Students{birthday=Tue Feb 17 15:11:07 CET 2015, PESEL=12345678909, period=2, address=studentowo, comments=[], notes=[], teams=[], album=099887, project=[], login=pl.edu.pk.laciak.DTO.LoginData#2, surname=studentę, name=student, files=[], id=2, tasks=[]}
+DEBUG main org.hibernate.SQL - 
+    insert 
+    into
+        Teachers
+        (PESEL, address, birthday, name, surname, id) 
+    values
+        (?, ?, ?, ?, ?, ?)
+DEBUG main org.hibernate.persister.collection.AbstractCollectionPersister - Inserting collection: [pl.edu.pk.laciak.DTO.Students.teams#2]
+DEBUG main org.hibernate.persister.collection.AbstractCollectionPersister - Collection was empty
+DEBUG main org.hibernate.engine.transaction.internal.jdbc.JdbcTransaction - committed JDBC Connection
+DEBUG main org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl - HHH000420: Closing un-released batch
+DEBUG main org.hibernate.engine.jdbc.internal.LogicalConnectionImpl - Releasing JDBC connection
+DEBUG main org.hibernate.engine.jdbc.internal.LogicalConnectionImpl - Released JDBC connection

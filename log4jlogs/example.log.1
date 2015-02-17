@@ -1,0 +1,751 @@
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:40> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@21274afe]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:41> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@61da0413]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.project.name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.project.startDate
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.project.steps
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:42> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@79ca7bea]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:43> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@4bc9ca97]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.project.student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : note.pt_note.project.student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.project.subject
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : note.pt_note.project.subject
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.project.tasks
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : note.pt_note.project.tasks
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.project.teacher
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : note.pt_note.project.teacher
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.project.team
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : note.pt_note.project.team
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.project.text
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.project.note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : note.pt_note.project.note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.text
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.pt_note.note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : note.pt_note.note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : note.project
+DEBUG main org.hibernate.loader.plan.build.internal.FetchStyleLoadPlanBuildingAssociationVisitationStrategy - Building LoadPlan...
+DEBUG main org.hibernate.loader.plan.exec.internal.LoadQueryJoinAndFetchProcessor - processing queryspace <gen:0>
+DEBUG main org.hibernate.loader.plan.build.spi.LoadPlanTreePrinter - LoadPlan(collection=pl.edu.pk.laciak.DTO.Subject.projects)
+    - Returns
+       - CollectionReturnImpl(collection=pl.edu.pk.laciak.DTO.Subject.projects, querySpaceUid=<gen:0>, path=[pl.edu.pk.laciak.DTO.Subject.projects])
+          - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Project, querySpaceUid=<gen:1>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>)
+             - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.comment, querySpaceUid=<gen:2>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.comment)
+                - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:3>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.comment.<elements>)
+             - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Deadlines, querySpaceUid=<gen:4>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.deadline)
+             - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.files, querySpaceUid=<gen:5>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.files)
+                - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Files, querySpaceUid=<gen:6>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.files.<elements>)
+             - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.steps, querySpaceUid=<gen:7>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.steps)
+                - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Project_step, querySpaceUid=<gen:8>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.steps.<elements>)
+             - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Students, querySpaceUid=<gen:9>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student)
+                - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.comments, querySpaceUid=<gen:10>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.comments)
+                   - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:11>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.comments.<elements>)
+                - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.files, querySpaceUid=<gen:12>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.files)
+                   - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Files, querySpaceUid=<gen:13>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.files.<elements>)
+                - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.notes, querySpaceUid=<gen:14>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.notes)
+                   - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Notes, querySpaceUid=<gen:15>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.notes.<elements>)
+                - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.tasks, querySpaceUid=<gen:16>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.tasks)
+                   - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Task, querySpaceUid=<gen:17>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.tasks.<elements>)
+                - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.teams, querySpaceUid=<gen:18>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.teams)
+                   - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Teams, querySpaceUid=<gen:19>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.teams.<elements>)
+                - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.LoginData, querySpaceUid=<gen:20>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.login)
+                   - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.LoginData.logs, querySpaceUid=<gen:21>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.login.logs)
+                      - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Logs, querySpaceUid=<gen:22>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.student.login.logs.<elements>)
+             - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.tasks, querySpaceUid=<gen:23>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.tasks)
+                - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Project_task, querySpaceUid=<gen:24>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.tasks.<elements>)
+             - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Teachers, querySpaceUid=<gen:25>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.teacher)
+                - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teachers.comment, querySpaceUid=<gen:26>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.teacher.comment)
+                   - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:27>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.teacher.comment.<elements>)
+                - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teachers.subjects, querySpaceUid=<gen:28>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.teacher.subjects)
+                   - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Subject, querySpaceUid=<gen:29>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.teacher.subjects.<elements>)
+                - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teachers.tasks, querySpaceUid=<gen:30>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.teacher.tasks)
+                   - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Task, querySpaceUid=<gen:31>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.teacher.tasks.<elements>)
+             - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Teams, querySpaceUid=<gen:32>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.team)
+                - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teams.students, querySpaceUid=<gen:33>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.team.students)
+                   - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Students, querySpaceUid=<gen:34>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.team.students.<elements>)
+             - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Notes, querySpaceUid=<gen:35>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.note)
+                - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Project_task, querySpaceUid=<gen:36>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.note.pt_note)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Project, querySpaceUid=<gen:37>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.note.pt_note.project)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.comment, querySpaceUid=<gen:38>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.note.pt_note.project.comment)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:39>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.note.pt_note.project.comment.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.files, querySpaceUid=<gen:40>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.note.pt_note.project.files)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Files, querySpaceUid=<gen:41>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.note.pt_note.project.files.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.steps, querySpaceUid=<gen:42>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.note.pt_note.project.steps)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Project_step, querySpaceUid=<gen:43>, path=[pl.edu.pk.laciak.DTO.Subject.projects].<elements>.note.pt_note.project.steps.<elements>)
+    - QuerySpaces
+       - CollectionQuerySpaceImpl(uid=<gen:0>, collection=pl.edu.pk.laciak.DTO.Subject.projects)
+          - SQL table alias mapping - projects0_
+          - alias suffix - 0_
+          - suffixed key columns - {idSubjec7_11_0_}
+          - entity-element alias suffix - 1_
+          - 1_entity-element suffixed key columns - id1_7_1_
+          - JOIN (JoinDefinedByMetadata(elements)) : <gen:0> -> <gen:1>
+             - EntityQuerySpaceImpl(uid=<gen:1>, entity=pl.edu.pk.laciak.DTO.Project)
+                - SQL table alias mapping - projects0_
+                - alias suffix - 1_
+                - suffixed key columns - {id1_7_1_}
+                - JOIN (JoinDefinedByMetadata(deadline)) : <gen:1> -> <gen:4>
+                   - EntityQuerySpaceImpl(uid=<gen:4>, entity=pl.edu.pk.laciak.DTO.Deadlines)
+                      - SQL table alias mapping - deadlines1_
+                      - alias suffix - 2_
+                      - suffixed key columns - {id1_2_2_}
+                - JOIN (JoinDefinedByMetadata(student)) : <gen:1> -> <gen:9>
+                   - EntityQuerySpaceImpl(uid=<gen:9>, entity=pl.edu.pk.laciak.DTO.Students)
+                      - SQL table alias mapping - students2_
+                      - alias suffix - 3_
+                      - suffixed key columns - {id1_10_3_}
+                      - JOIN (JoinDefinedByMetadata(login)) : <gen:9> -> <gen:20>
+                         - EntityQuerySpaceImpl(uid=<gen:20>, entity=pl.edu.pk.laciak.DTO.LoginData)
+                            - SQL table alias mapping - logindata3_
+                            - alias suffix - 4_
+                            - suffixed key columns - {id1_4_4_}
+                - JOIN (JoinDefinedByMetadata(teacher)) : <gen:1> -> <gen:25>
+                   - EntityQuerySpaceImpl(uid=<gen:25>, entity=pl.edu.pk.laciak.DTO.Teachers)
+                      - SQL table alias mapping - teachers4_
+                      - alias suffix - 5_
+                      - suffixed key columns - {id1_13_5_}
+                - JOIN (JoinDefinedByMetadata(team)) : <gen:1> -> <gen:32>
+                   - EntityQuerySpaceImpl(uid=<gen:32>, entity=pl.edu.pk.laciak.DTO.Teams)
+                      - SQL table alias mapping - teams5_
+                      - alias suffix - 6_
+                      - suffixed key columns - {id1_14_6_}
+                - JOIN (JoinDefinedByMetadata(note)) : <gen:1> -> <gen:35>
+                   - EntityQuerySpaceImpl(uid=<gen:35>, entity=pl.edu.pk.laciak.DTO.Notes)
+                      - SQL table alias mapping - notes6_
+                      - alias suffix - 7_
+                      - suffixed key columns - {id1_6_7_}
+                      - JOIN (JoinDefinedByMetadata(pt_note)) : <gen:35> -> <gen:36>
+                         - EntityQuerySpaceImpl(uid=<gen:36>, entity=pl.edu.pk.laciak.DTO.Project_task)
+                            - SQL table alias mapping - project_ta7_
+                            - alias suffix - 8_
+                            - suffixed key columns - {id1_9_8_}
+                            - JOIN (JoinDefinedByMetadata(project)) : <gen:36> -> <gen:37>
+                               - EntityQuerySpaceImpl(uid=<gen:37>, entity=pl.edu.pk.laciak.DTO.Project)
+                                  - SQL table alias mapping - project8_
+                                  - alias suffix - 9_
+                                  - suffixed key columns - {id1_7_9_}
+
+DEBUG main org.hibernate.loader.collection.plan.CollectionLoader - Static select for collection pl.edu.pk.laciak.DTO.Subject.projects: select projects0_.idSubject as idSubjec7_11_0_, projects0_.id as id1_7_0_, projects0_.id as id1_7_1_, projects0_.idDeadline as idDeadli5_7_1_, projects0_.name as name2_7_1_, projects0_.startDate as startDat3_7_1_, projects0_.idStudent as idStuden6_7_1_, projects0_.idSubject as idSubjec7_7_1_, projects0_.idTeacher as idTeache8_7_1_, projects0_.idTeam as idTeam9_7_1_, projects0_.text as text4_7_1_, deadlines1_.id as id1_2_2_, deadlines1_.endDate as endDate2_2_2_, students2_.id as id1_10_3_, students2_.PESEL as PESEL2_10_3_, students2_.address as address3_10_3_, students2_.album as album4_10_3_, students2_.birthday as birthday5_10_3_, students2_.name as name6_10_3_, students2_.period as period7_10_3_, students2_.surname as surname8_10_3_, logindata3_.id as id1_4_4_, logindata3_.active as active2_4_4_, logindata3_.password as password3_4_4_, logindata3_.username as username4_4_4_, teachers4_.id as id1_13_5_, teachers4_.PESEL as PESEL2_13_5_, teachers4_.address as address3_13_5_, teachers4_.birthday as birthday4_13_5_, teachers4_.name as name5_13_5_, teachers4_.surname as surname6_13_5_, teams5_.id as id1_14_6_, teams5_.name as name2_14_6_, notes6_.id as id1_6_7_, notes6_.idStudent as idStuden3_6_7_, notes6_.idSubject as idSubjec4_6_7_, notes6_.value as value2_6_7_, project_ta7_.id as id1_9_8_, project_ta7_.finished as finished2_9_8_, project_ta7_.idProject as idProjec4_9_8_, project_ta7_.text as text3_9_8_, project8_.id as id1_7_9_, project8_.idDeadline as idDeadli5_7_9_, project8_.name as name2_7_9_, project8_.startDate as startDat3_7_9_, project8_.idStudent as idStuden6_7_9_, project8_.idSubject as idSubjec7_7_9_, project8_.idTeacher as idTeache8_7_9_, project8_.idTeam as idTeam9_7_9_, project8_.text as text4_7_9_ from Project projects0_ left outer join Deadlines deadlines1_ on projects0_.idDeadline=deadlines1_.id left outer join Students students2_ on projects0_.idStudent=students2_.id left outer join LoginData logindata3_ on students2_.id=logindata3_.id inner join Teachers teachers4_ on projects0_.idTeacher=teachers4_.id left outer join Teams teams5_ on projects0_.idTeam=teams5_.id left outer join Notes notes6_ on projects0_.id=notes6_.id left outer join Project_task project_ta7_ on notes6_.id=project_ta7_.id left outer join Project project8_ on project_ta7_.idProject=project8_.id where projects0_.idSubject=?
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:0> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@1de13f34]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:1> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@6562cc23]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : notes
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : tasks
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : teacher
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : teacher
+DEBUG main org.hibernate.loader.plan.build.internal.FetchStyleLoadPlanBuildingAssociationVisitationStrategy - Building LoadPlan...
+DEBUG main org.hibernate.loader.plan.exec.internal.LoadQueryJoinAndFetchProcessor - processing queryspace <gen:0>
+DEBUG main org.hibernate.loader.plan.build.spi.LoadPlanTreePrinter - LoadPlan(collection=pl.edu.pk.laciak.DTO.Teachers.subjects)
+    - Returns
+       - CollectionReturnImpl(collection=pl.edu.pk.laciak.DTO.Teachers.subjects, querySpaceUid=<gen:0>, path=[pl.edu.pk.laciak.DTO.Teachers.subjects])
+          - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Subject, querySpaceUid=<gen:1>, path=[pl.edu.pk.laciak.DTO.Teachers.subjects].<elements>)
+    - QuerySpaces
+       - CollectionQuerySpaceImpl(uid=<gen:0>, collection=pl.edu.pk.laciak.DTO.Teachers.subjects)
+          - SQL table alias mapping - subjects0_
+          - alias suffix - 0_
+          - suffixed key columns - {idTeache3_13_0_}
+          - entity-element alias suffix - 1_
+          - 1_entity-element suffixed key columns - id1_11_1_
+          - JOIN (JoinDefinedByMetadata(elements)) : <gen:0> -> <gen:1>
+             - EntityQuerySpaceImpl(uid=<gen:1>, entity=pl.edu.pk.laciak.DTO.Subject)
+                - SQL table alias mapping - subjects0_
+                - alias suffix - 1_
+                - suffixed key columns - {id1_11_1_}
+
+DEBUG main org.hibernate.loader.collection.plan.CollectionLoader - Static select for collection pl.edu.pk.laciak.DTO.Teachers.subjects: select subjects0_.idTeacher as idTeache3_13_0_, subjects0_.id as id1_11_0_, subjects0_.id as id1_11_1_, subjects0_.name as name2_11_1_, subjects0_.idTeacher as idTeache3_11_1_ from Subject subjects0_ where subjects0_.idTeacher=?
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:0> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@241b971f]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:1> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@5384ce66]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : date
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : task
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : teacher
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : text
+DEBUG main org.hibernate.loader.plan.build.internal.FetchStyleLoadPlanBuildingAssociationVisitationStrategy - Building LoadPlan...
+DEBUG main org.hibernate.loader.plan.exec.internal.LoadQueryJoinAndFetchProcessor - processing queryspace <gen:0>
+DEBUG main org.hibernate.loader.plan.build.spi.LoadPlanTreePrinter - LoadPlan(collection=pl.edu.pk.laciak.DTO.Project.comment)
+    - Returns
+       - CollectionReturnImpl(collection=pl.edu.pk.laciak.DTO.Project.comment, querySpaceUid=<gen:0>, path=[pl.edu.pk.laciak.DTO.Project.comment])
+          - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:1>, path=[pl.edu.pk.laciak.DTO.Project.comment].<elements>)
+    - QuerySpaces
+       - CollectionQuerySpaceImpl(uid=<gen:0>, collection=pl.edu.pk.laciak.DTO.Project.comment)
+          - SQL table alias mapping - comment0_
+          - alias suffix - 0_
+          - suffixed key columns - {idProjec4_7_0_}
+          - entity-element alias suffix - 1_
+          - 1_entity-element suffixed key columns - id1_1_1_
+          - JOIN (JoinDefinedByMetadata(elements)) : <gen:0> -> <gen:1>
+             - EntityQuerySpaceImpl(uid=<gen:1>, entity=pl.edu.pk.laciak.DTO.Comments)
+                - SQL table alias mapping - comment0_
+                - alias suffix - 1_
+                - suffixed key columns - {id1_1_1_}
+
+DEBUG main org.hibernate.loader.collection.plan.CollectionLoader - Static select for collection pl.edu.pk.laciak.DTO.Project.comment: select comment0_.idProject as idProjec4_7_0_, comment0_.id as id1_1_0_, comment0_.id as id1_1_1_, comment0_.date as date2_1_1_, comment0_.idProject as idProjec4_1_1_, comment0_.idStudent as idStuden5_1_1_, comment0_.idTask as idTask6_1_1_, comment0_.idTeacher as idTeache7_1_1_, comment0_.text as text3_1_1_ from Comments comment0_ where comment0_.idProject=?
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:0> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@3de79067]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:1> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@ca7e37f]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : subject
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : subject
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : value
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : task
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:2> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@1edfedf1]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.finished
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:3> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@6f3bd37f]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.comment
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:4> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@1ecf0ac6]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:5> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@7be94cd6]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.deadline
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:6> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@27ab206]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.deadline.endDate
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.deadline.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.deadline.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.deadline.task
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.files
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:7> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@1e495414]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:8> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@33e3bd2e]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.startDate
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.steps
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:9> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@2f09e6b2]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:10> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@16e1219f]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:11> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@18a98913]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.PESEL
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.address
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.album
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.birthday
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.comments
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:12> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@7911cc15]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:13> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@14e750c5]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.files
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:14> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@597d48ca]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:15> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@2c7c0e36]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.notes
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:16> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@2ab09943]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:17> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@5864e8bf]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.period
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.student.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.surname
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.tasks
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:18> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@7b297740]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:19> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@57ce2898]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.teams
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:20> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@1fe8f5e8]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:21> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@6e3dd5ce]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.login
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:22> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@53125718]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:23> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@743d0d44]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject.name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject.notes
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.subject.notes
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.subject.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject.tasks
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject.teacher
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.tasks
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.tasks
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:24> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@4eb9ae4d]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.PESEL
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.address
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.birthday
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.comment
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:25> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@774d8276]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:26> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@2bf2d6eb]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.teacher.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.subjects
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:27> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@4faf1f4]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:28> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@7f2b584b]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.surname
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.tasks
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:29> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@342beaf6]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:30> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@56cfe6be]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.login
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:31> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@3ca3648]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.team
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:32> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@781654f8]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.team.name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.team.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.team.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.team.students
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:33> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@65600fb3]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:34> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@7ea71fc2]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.text
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:35> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@5f5297e3]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.subject
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.note.subject
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.value
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.task
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.pt_note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.note.pt_note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.text
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : project
+DEBUG main org.hibernate.loader.plan.build.internal.FetchStyleLoadPlanBuildingAssociationVisitationStrategy - Building LoadPlan...
+DEBUG main org.hibernate.loader.plan.exec.internal.LoadQueryJoinAndFetchProcessor - processing queryspace <gen:0>
+DEBUG main org.hibernate.loader.plan.build.spi.LoadPlanTreePrinter - LoadPlan(collection=pl.edu.pk.laciak.DTO.Subject.notes)
+    - Returns
+       - CollectionReturnImpl(collection=pl.edu.pk.laciak.DTO.Subject.notes, querySpaceUid=<gen:0>, path=[pl.edu.pk.laciak.DTO.Subject.notes])
+          - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Notes, querySpaceUid=<gen:1>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>)
+             - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Project_task, querySpaceUid=<gen:2>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note)
+                - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Project, querySpaceUid=<gen:3>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project)
+                   - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.comment, querySpaceUid=<gen:4>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.comment)
+                      - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:5>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.comment.<elements>)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Deadlines, querySpaceUid=<gen:6>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.deadline)
+                   - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.files, querySpaceUid=<gen:7>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.files)
+                      - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Files, querySpaceUid=<gen:8>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.files.<elements>)
+                   - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.steps, querySpaceUid=<gen:9>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.steps)
+                      - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Project_step, querySpaceUid=<gen:10>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.steps.<elements>)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Students, querySpaceUid=<gen:11>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.comments, querySpaceUid=<gen:12>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student.comments)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:13>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student.comments.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.files, querySpaceUid=<gen:14>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student.files)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Files, querySpaceUid=<gen:15>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student.files.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.notes, querySpaceUid=<gen:16>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student.notes)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Notes, querySpaceUid=<gen:17>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student.notes.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.tasks, querySpaceUid=<gen:18>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student.tasks)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Task, querySpaceUid=<gen:19>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student.tasks.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.teams, querySpaceUid=<gen:20>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student.teams)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Teams, querySpaceUid=<gen:21>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student.teams.<elements>)
+                      - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.LoginData, querySpaceUid=<gen:22>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.student.login)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Subject, querySpaceUid=<gen:23>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.subject)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Teachers, querySpaceUid=<gen:24>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.teacher)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teachers.comment, querySpaceUid=<gen:25>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.teacher.comment)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:26>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.teacher.comment.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teachers.subjects, querySpaceUid=<gen:27>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.teacher.subjects)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Subject, querySpaceUid=<gen:28>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.teacher.subjects.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teachers.tasks, querySpaceUid=<gen:29>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.teacher.tasks)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Task, querySpaceUid=<gen:30>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.teacher.tasks.<elements>)
+                      - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.LoginData, querySpaceUid=<gen:31>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.teacher.login)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Teams, querySpaceUid=<gen:32>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.team)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teams.students, querySpaceUid=<gen:33>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.team.students)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Students, querySpaceUid=<gen:34>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.team.students.<elements>)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Notes, querySpaceUid=<gen:35>, path=[pl.edu.pk.laciak.DTO.Subject.notes].<elements>.pt_note.project.note)
+    - QuerySpaces
+       - CollectionQuerySpaceImpl(uid=<gen:0>, collection=pl.edu.pk.laciak.DTO.Subject.notes)
+          - SQL table alias mapping - notes0_
+          - alias suffix - 0_
+          - suffixed key columns - {idSubjec4_11_0_}
+          - entity-element alias suffix - 1_
+          - 1_entity-element suffixed key columns - id1_6_1_
+          - JOIN (JoinDefinedByMetadata(elements)) : <gen:0> -> <gen:1>
+             - EntityQuerySpaceImpl(uid=<gen:1>, entity=pl.edu.pk.laciak.DTO.Notes)
+                - SQL table alias mapping - notes0_
+                - alias suffix - 1_
+                - suffixed key columns - {id1_6_1_}
+                - JOIN (JoinDefinedByMetadata(pt_note)) : <gen:1> -> <gen:2>
+                   - EntityQuerySpaceImpl(uid=<gen:2>, entity=pl.edu.pk.laciak.DTO.Project_task)
+                      - SQL table alias mapping - project_ta1_
+                      - alias suffix - 2_
+                      - suffixed key columns - {id1_9_2_}
+                      - JOIN (JoinDefinedByMetadata(project)) : <gen:2> -> <gen:3>
+                         - EntityQuerySpaceImpl(uid=<gen:3>, entity=pl.edu.pk.laciak.DTO.Project)
+                            - SQL table alias mapping - project2_
+                            - alias suffix - 3_
+                            - suffixed key columns - {id1_7_3_}
+                            - JOIN (JoinDefinedByMetadata(deadline)) : <gen:3> -> <gen:6>
+                               - EntityQuerySpaceImpl(uid=<gen:6>, entity=pl.edu.pk.laciak.DTO.Deadlines)
+                                  - SQL table alias mapping - deadlines3_
+                                  - alias suffix - 4_
+                                  - suffixed key columns - {id1_2_4_}
+                            - JOIN (JoinDefinedByMetadata(student)) : <gen:3> -> <gen:11>
+                               - EntityQuerySpaceImpl(uid=<gen:11>, entity=pl.edu.pk.laciak.DTO.Students)
+                                  - SQL table alias mapping - students4_
+                                  - alias suffix - 5_
+                                  - suffixed key columns - {id1_10_5_}
+                            - JOIN (JoinDefinedByMetadata(subject)) : <gen:3> -> <gen:23>
+                               - EntityQuerySpaceImpl(uid=<gen:23>, entity=pl.edu.pk.laciak.DTO.Subject)
+                                  - SQL table alias mapping - subject5_
+                                  - alias suffix - 6_
+                                  - suffixed key columns - {id1_11_6_}
+                            - JOIN (JoinDefinedByMetadata(teacher)) : <gen:3> -> <gen:24>
+                               - EntityQuerySpaceImpl(uid=<gen:24>, entity=pl.edu.pk.laciak.DTO.Teachers)
+                                  - SQL table alias mapping - teachers6_
+                                  - alias suffix - 7_
+                                  - suffixed key columns - {id1_13_7_}
+                            - JOIN (JoinDefinedByMetadata(team)) : <gen:3> -> <gen:32>
+                               - EntityQuerySpaceImpl(uid=<gen:32>, entity=pl.edu.pk.laciak.DTO.Teams)
+                                  - SQL table alias mapping - teams7_
+                                  - alias suffix - 8_
+                                  - suffixed key columns - {id1_14_8_}
+                            - JOIN (JoinDefinedByMetadata(note)) : <gen:3> -> <gen:35>
+                               - EntityQuerySpaceImpl(uid=<gen:35>, entity=pl.edu.pk.laciak.DTO.Notes)
+                                  - SQL table alias mapping - notes8_
+                                  - alias suffix - 9_
+                                  - suffixed key columns - {id1_6_9_}
+
+DEBUG main org.hibernate.loader.collection.plan.CollectionLoader - Static select for collection pl.edu.pk.laciak.DTO.Subject.notes: select notes0_.idSubject as idSubjec4_11_0_, notes0_.id as id1_6_0_, notes0_.id as id1_6_1_, notes0_.idStudent as idStuden3_6_1_, notes0_.idSubject as idSubjec4_6_1_, notes0_.value as value2_6_1_, project_ta1_.id as id1_9_2_, project_ta1_.finished as finished2_9_2_, project_ta1_.idProject as idProjec4_9_2_, project_ta1_.text as text3_9_2_, project2_.id as id1_7_3_, project2_.idDeadline as idDeadli5_7_3_, project2_.name as name2_7_3_, project2_.startDate as startDat3_7_3_, project2_.idStudent as idStuden6_7_3_, project2_.idSubject as idSubjec7_7_3_, project2_.idTeacher as idTeache8_7_3_, project2_.idTeam as idTeam9_7_3_, project2_.text as text4_7_3_, deadlines3_.id as id1_2_4_, deadlines3_.endDate as endDate2_2_4_, students4_.id as id1_10_5_, students4_.PESEL as PESEL2_10_5_, students4_.address as address3_10_5_, students4_.album as album4_10_5_, students4_.birthday as birthday5_10_5_, students4_.name as name6_10_5_, students4_.period as period7_10_5_, students4_.surname as surname8_10_5_, subject5_.id as id1_11_6_, subject5_.name as name2_11_6_, subject5_.idTeacher as idTeache3_11_6_, teachers6_.id as id1_13_7_, teachers6_.PESEL as PESEL2_13_7_, teachers6_.address as address3_13_7_, teachers6_.birthday as birthday4_13_7_, teachers6_.name as name5_13_7_, teachers6_.surname as surname6_13_7_, teams7_.id as id1_14_8_, teams7_.name as name2_14_8_, notes8_.id as id1_6_9_, notes8_.idStudent as idStuden3_6_9_, notes8_.idSubject as idSubjec4_6_9_, notes8_.value as value2_6_9_ from Notes notes0_ left outer join Project_task project_ta1_ on notes0_.id=project_ta1_.id left outer join Project project2_ on project_ta1_.idProject=project2_.id left outer join Deadlines deadlines3_ on project2_.idDeadline=deadlines3_.id left outer join Students students4_ on project2_.idStudent=students4_.id left outer join Subject subject5_ on project2_.idSubject=subject5_.id left outer join Teachers teachers6_ on project2_.idTeacher=teachers6_.id left outer join Teams teams7_ on project2_.idTeam=teams7_.id left outer join Notes notes8_ on project2_.id=notes8_.id where notes0_.idSubject=?
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:0> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@76e4212]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:1> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@72af90e8]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : projects
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:2> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@6a8a551e]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:3> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@53982523]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : students
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : students
+DEBUG main org.hibernate.loader.plan.build.internal.FetchStyleLoadPlanBuildingAssociationVisitationStrategy - Building LoadPlan...
+DEBUG main org.hibernate.loader.plan.exec.internal.LoadQueryJoinAndFetchProcessor - processing queryspace <gen:0>
+DEBUG main org.hibernate.loader.plan.build.spi.LoadPlanTreePrinter - LoadPlan(collection=pl.edu.pk.laciak.DTO.Students.teams)
+    - Returns
+       - CollectionReturnImpl(collection=pl.edu.pk.laciak.DTO.Students.teams, querySpaceUid=<gen:0>, path=[pl.edu.pk.laciak.DTO.Students.teams])
+          - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Teams, querySpaceUid=<gen:1>, path=[pl.edu.pk.laciak.DTO.Students.teams].<elements>)
+             - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teams.projects, querySpaceUid=<gen:2>, path=[pl.edu.pk.laciak.DTO.Students.teams].<elements>.projects)
+                - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Project, querySpaceUid=<gen:3>, path=[pl.edu.pk.laciak.DTO.Students.teams].<elements>.projects.<elements>)
+    - QuerySpaces
+       - CollectionQuerySpaceImpl(uid=<gen:0>, collection=pl.edu.pk.laciak.DTO.Students.teams)
+          - SQL table alias mapping - teams0_
+          - alias suffix - 0_
+          - suffixed key columns - {idStuden1_10_0_}
+          - entity-element alias suffix - 1_
+          - 1_entity-element suffixed key columns - id1_14_1_
+          - JOIN (JoinDefinedByMetadata(elements)) : <gen:0> -> <gen:1>
+             - EntityQuerySpaceImpl(uid=<gen:1>, entity=pl.edu.pk.laciak.DTO.Teams)
+                - SQL table alias mapping - teams1_
+                - alias suffix - 1_
+                - suffixed key columns - {id1_14_1_}
+
+DEBUG main org.hibernate.loader.collection.plan.CollectionLoader - Static select for collection pl.edu.pk.laciak.DTO.Students.teams: select teams0_.idStudent as idStuden1_10_0_, teams0_.idTeam as idTeam2_15_0_, teams1_.id as id1_14_1_, teams1_.name as name2_14_1_ from students_teams teams0_ inner join Teams teams1_ on teams0_.idTeam=teams1_.id where teams0_.idStudent=?
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:0> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@77c66a4f]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:1> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@7a3f08b6]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : date
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : task
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : teacher
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : teacher
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : text
+DEBUG main org.hibernate.loader.plan.build.internal.FetchStyleLoadPlanBuildingAssociationVisitationStrategy - Building LoadPlan...
+DEBUG main org.hibernate.loader.plan.exec.internal.LoadQueryJoinAndFetchProcessor - processing queryspace <gen:0>
+DEBUG main org.hibernate.loader.plan.build.spi.LoadPlanTreePrinter - LoadPlan(collection=pl.edu.pk.laciak.DTO.Teachers.comment)
+    - Returns
+       - CollectionReturnImpl(collection=pl.edu.pk.laciak.DTO.Teachers.comment, querySpaceUid=<gen:0>, path=[pl.edu.pk.laciak.DTO.Teachers.comment])
+          - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:1>, path=[pl.edu.pk.laciak.DTO.Teachers.comment].<elements>)
+    - QuerySpaces
+       - CollectionQuerySpaceImpl(uid=<gen:0>, collection=pl.edu.pk.laciak.DTO.Teachers.comment)
+          - SQL table alias mapping - comment0_
+          - alias suffix - 0_
+          - suffixed key columns - {idTeache7_13_0_}
+          - entity-element alias suffix - 1_
+          - 1_entity-element suffixed key columns - id1_1_1_
+          - JOIN (JoinDefinedByMetadata(elements)) : <gen:0> -> <gen:1>
+             - EntityQuerySpaceImpl(uid=<gen:1>, entity=pl.edu.pk.laciak.DTO.Comments)
+                - SQL table alias mapping - comment0_
+                - alias suffix - 1_
+                - suffixed key columns - {id1_1_1_}
+
+DEBUG main org.hibernate.loader.collection.plan.CollectionLoader - Static select for collection pl.edu.pk.laciak.DTO.Teachers.comment: select comment0_.idTeacher as idTeache7_13_0_, comment0_.id as id1_1_0_, comment0_.id as id1_1_1_, comment0_.date as date2_1_1_, comment0_.idProject as idProjec4_1_1_, comment0_.idStudent as idStuden5_1_1_, comment0_.idTask as idTask6_1_1_, comment0_.idTeacher as idTeache7_1_1_, comment0_.text as text3_1_1_ from Comments comment0_ where comment0_.idTeacher=?
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:0> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@62cf6a84]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:1> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@6b2aafbc]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : PESEL
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : address
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : album
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : birthday
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : comments
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:2> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@4b93dd6a]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:3> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@2b0454d2]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : files
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:4> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@7ac058a0]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:5> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@60deefed]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : notes
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:6> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@cf01c2e]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:7> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@1eb9bf60]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : period
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : project
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:8> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@2becfd4c]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:9> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@4cc8d70d]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : surname
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : tasks
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:10> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@682e445e]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:11> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@70fede7d]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : teams
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : teams
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : login
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:12> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@65bd19bf]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : login.active
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : login.logs
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:13> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@19526f1d]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:14> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@79be91eb]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : login.password
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : login.username
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : login.admins
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : login.students
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : login.teachers
+DEBUG main org.hibernate.loader.plan.build.internal.FetchStyleLoadPlanBuildingAssociationVisitationStrategy - Building LoadPlan...
+DEBUG main org.hibernate.loader.plan.exec.internal.LoadQueryJoinAndFetchProcessor - processing queryspace <gen:0>
+DEBUG main org.hibernate.loader.plan.build.spi.LoadPlanTreePrinter - LoadPlan(collection=pl.edu.pk.laciak.DTO.Teams.students)
+    - Returns
+       - CollectionReturnImpl(collection=pl.edu.pk.laciak.DTO.Teams.students, querySpaceUid=<gen:0>, path=[pl.edu.pk.laciak.DTO.Teams.students])
+          - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Students, querySpaceUid=<gen:1>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>)
+             - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.comments, querySpaceUid=<gen:2>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.comments)
+                - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:3>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.comments.<elements>)
+             - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.files, querySpaceUid=<gen:4>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.files)
+                - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Files, querySpaceUid=<gen:5>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.files.<elements>)
+             - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.notes, querySpaceUid=<gen:6>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.notes)
+                - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Notes, querySpaceUid=<gen:7>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.notes.<elements>)
+             - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.project, querySpaceUid=<gen:8>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.project)
+                - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Project, querySpaceUid=<gen:9>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.project.<elements>)
+             - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.tasks, querySpaceUid=<gen:10>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.tasks)
+                - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Task, querySpaceUid=<gen:11>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.tasks.<elements>)
+             - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.LoginData, querySpaceUid=<gen:12>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.login)
+                - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.LoginData.logs, querySpaceUid=<gen:13>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.login.logs)
+                   - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Logs, querySpaceUid=<gen:14>, path=[pl.edu.pk.laciak.DTO.Teams.students].<elements>.login.logs.<elements>)
+    - QuerySpaces
+       - CollectionQuerySpaceImpl(uid=<gen:0>, collection=pl.edu.pk.laciak.DTO.Teams.students)
+          - SQL table alias mapping - students0_
+          - alias suffix - 0_
+          - suffixed key columns - {idTeam2_14_0_}
+          - entity-element alias suffix - 1_
+          - 1_entity-element suffixed key columns - id1_10_1_
+          - JOIN (JoinDefinedByMetadata(elements)) : <gen:0> -> <gen:1>
+             - EntityQuerySpaceImpl(uid=<gen:1>, entity=pl.edu.pk.laciak.DTO.Students)
+                - SQL table alias mapping - students1_
+                - alias suffix - 1_
+                - suffixed key columns - {id1_10_1_}
+                - JOIN (JoinDefinedByMetadata(login)) : <gen:1> -> <gen:12>
+                   - EntityQuerySpaceImpl(uid=<gen:12>, entity=pl.edu.pk.laciak.DTO.LoginData)
+                      - SQL table alias mapping - logindata2_
+                      - alias suffix - 2_
+                      - suffixed key columns - {id1_4_2_}
+
+DEBUG main org.hibernate.loader.collection.plan.CollectionLoader - Static select for collection pl.edu.pk.laciak.DTO.Teams.students: select students0_.idTeam as idTeam2_14_0_, students0_.idStudent as idStuden1_15_0_, students1_.id as id1_10_1_, students1_.PESEL as PESEL2_10_1_, students1_.address as address3_10_1_, students1_.album as album4_10_1_, students1_.birthday as birthday5_10_1_, students1_.name as name6_10_1_, students1_.period as period7_10_1_, students1_.surname as surname8_10_1_, logindata2_.id as id1_4_2_, logindata2_.active as active2_4_2_, logindata2_.password as password3_4_2_, logindata2_.username as username4_4_2_ from students_teams students0_ inner join Students students1_ on students0_.idStudent=students1_.id left outer join LoginData logindata2_ on students1_.id=logindata2_.id where students0_.idTeam=?
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:0> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@437281c5]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:1> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@24a4e2c5]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : subject
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : value
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : task
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:2> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@1304e0d7]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.finished
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:3> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@4dd2ef54]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.comment
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:4> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@5bf4764d]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:5> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@23ee2ccf]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.deadline
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:6> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@5b0902b4]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.deadline.endDate
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.deadline.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.deadline.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.deadline.task
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.files
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:7> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@6206b4a7]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:8> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@5c1b89ac]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.startDate
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.steps
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:9> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@66756662]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:10> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@38cfecf3]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:11> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@5f0f70c7]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.PESEL
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.address
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.album
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.birthday
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.comments
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:12> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@74e497ae]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:13> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@35d7386b]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.files
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:14> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@69f080ad]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:15> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@45d4421d]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.notes
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.student.notes
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.period
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.student.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.surname
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.tasks
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:16> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@1d91fa02]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:17> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@414b2df5]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.teams
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:18> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@26275b46]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:19> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@2f15a964]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.student.login
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:20> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@4c7d7430]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:21> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@5ed0b4e3]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject.name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject.notes
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.subject.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject.tasks
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.subject.teacher
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.tasks
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.tasks
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:22> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@5f193335]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.PESEL
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.address
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.birthday
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.comment
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:23> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@6ed18d80]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:24> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@783b3aa0]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.teacher.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.subjects
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:25> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@1d60059f]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:26> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@427308f8]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.surname
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.tasks
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:27> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@5463f035]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:28> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@44fd7ba4]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.teacher.login
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:29> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@5b742bc8]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.team
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:30> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@722531ab]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.team.name
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.team.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.team.projects
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.team.students
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:31> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@207dd1b7]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:32> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@23ad2d17]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.text
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:33> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@120df990]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.note.student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.subject
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.value
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.task
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.pt_note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.project.note.pt_note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.project.note.project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.text
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : pt_note.note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : pt_note.note
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : project
+DEBUG main org.hibernate.loader.plan.build.internal.FetchStyleLoadPlanBuildingAssociationVisitationStrategy - Building LoadPlan...
+DEBUG main org.hibernate.loader.plan.exec.internal.LoadQueryJoinAndFetchProcessor - processing queryspace <gen:0>
+DEBUG main org.hibernate.loader.plan.build.spi.LoadPlanTreePrinter - LoadPlan(collection=pl.edu.pk.laciak.DTO.Students.notes)
+    - Returns
+       - CollectionReturnImpl(collection=pl.edu.pk.laciak.DTO.Students.notes, querySpaceUid=<gen:0>, path=[pl.edu.pk.laciak.DTO.Students.notes])
+          - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Notes, querySpaceUid=<gen:1>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>)
+             - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Project_task, querySpaceUid=<gen:2>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note)
+                - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Project, querySpaceUid=<gen:3>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project)
+                   - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.comment, querySpaceUid=<gen:4>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.comment)
+                      - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:5>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.comment.<elements>)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Deadlines, querySpaceUid=<gen:6>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.deadline)
+                   - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.files, querySpaceUid=<gen:7>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.files)
+                      - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Files, querySpaceUid=<gen:8>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.files.<elements>)
+                   - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Project.steps, querySpaceUid=<gen:9>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.steps)
+                      - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Project_step, querySpaceUid=<gen:10>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.steps.<elements>)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Students, querySpaceUid=<gen:11>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.student)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.comments, querySpaceUid=<gen:12>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.student.comments)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:13>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.student.comments.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.files, querySpaceUid=<gen:14>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.student.files)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Files, querySpaceUid=<gen:15>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.student.files.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.tasks, querySpaceUid=<gen:16>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.student.tasks)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Task, querySpaceUid=<gen:17>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.student.tasks.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Students.teams, querySpaceUid=<gen:18>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.student.teams)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Teams, querySpaceUid=<gen:19>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.student.teams.<elements>)
+                      - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.LoginData, querySpaceUid=<gen:20>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.student.login)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Subject, querySpaceUid=<gen:21>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.subject)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Teachers, querySpaceUid=<gen:22>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.teacher)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teachers.comment, querySpaceUid=<gen:23>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.teacher.comment)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:24>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.teacher.comment.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teachers.subjects, querySpaceUid=<gen:25>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.teacher.subjects)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Subject, querySpaceUid=<gen:26>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.teacher.subjects.<elements>)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teachers.tasks, querySpaceUid=<gen:27>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.teacher.tasks)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Task, querySpaceUid=<gen:28>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.teacher.tasks.<elements>)
+                      - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.LoginData, querySpaceUid=<gen:29>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.teacher.login)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Teams, querySpaceUid=<gen:30>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.team)
+                      - CollectionAttributeFetchImpl(collection=pl.edu.pk.laciak.DTO.Teams.students, querySpaceUid=<gen:31>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.team.students)
+                         - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Students, querySpaceUid=<gen:32>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.team.students.<elements>)
+                   - EntityAttributeFetchImpl(entity=pl.edu.pk.laciak.DTO.Notes, querySpaceUid=<gen:33>, path=[pl.edu.pk.laciak.DTO.Students.notes].<elements>.pt_note.project.note)
+    - QuerySpaces
+       - CollectionQuerySpaceImpl(uid=<gen:0>, collection=pl.edu.pk.laciak.DTO.Students.notes)
+          - SQL table alias mapping - notes0_
+          - alias suffix - 0_
+          - suffixed key columns - {idStuden3_10_0_}
+          - entity-element alias suffix - 1_
+          - 1_entity-element suffixed key columns - id1_6_1_
+          - JOIN (JoinDefinedByMetadata(elements)) : <gen:0> -> <gen:1>
+             - EntityQuerySpaceImpl(uid=<gen:1>, entity=pl.edu.pk.laciak.DTO.Notes)
+                - SQL table alias mapping - notes0_
+                - alias suffix - 1_
+                - suffixed key columns - {id1_6_1_}
+                - JOIN (JoinDefinedByMetadata(pt_note)) : <gen:1> -> <gen:2>
+                   - EntityQuerySpaceImpl(uid=<gen:2>, entity=pl.edu.pk.laciak.DTO.Project_task)
+                      - SQL table alias mapping - project_ta1_
+                      - alias suffix - 2_
+                      - suffixed key columns - {id1_9_2_}
+                      - JOIN (JoinDefinedByMetadata(project)) : <gen:2> -> <gen:3>
+                         - EntityQuerySpaceImpl(uid=<gen:3>, entity=pl.edu.pk.laciak.DTO.Project)
+                            - SQL table alias mapping - project2_
+                            - alias suffix - 3_
+                            - suffixed key columns - {id1_7_3_}
+                            - JOIN (JoinDefinedByMetadata(deadline)) : <gen:3> -> <gen:6>
+                               - EntityQuerySpaceImpl(uid=<gen:6>, entity=pl.edu.pk.laciak.DTO.Deadlines)
+                                  - SQL table alias mapping - deadlines3_
+                                  - alias suffix - 4_
+                                  - suffixed key columns - {id1_2_4_}
+                            - JOIN (JoinDefinedByMetadata(student)) : <gen:3> -> <gen:11>
+                               - EntityQuerySpaceImpl(uid=<gen:11>, entity=pl.edu.pk.laciak.DTO.Students)
+                                  - SQL table alias mapping - students4_
+                                  - alias suffix - 5_
+                                  - suffixed key columns - {id1_10_5_}
+                            - JOIN (JoinDefinedByMetadata(subject)) : <gen:3> -> <gen:21>
+                               - EntityQuerySpaceImpl(uid=<gen:21>, entity=pl.edu.pk.laciak.DTO.Subject)
+                                  - SQL table alias mapping - subject5_
+                                  - alias suffix - 6_
+                                  - suffixed key columns - {id1_11_6_}
+                            - JOIN (JoinDefinedByMetadata(teacher)) : <gen:3> -> <gen:22>
+                               - EntityQuerySpaceImpl(uid=<gen:22>, entity=pl.edu.pk.laciak.DTO.Teachers)
+                                  - SQL table alias mapping - teachers6_
+                                  - alias suffix - 7_
+                                  - suffixed key columns - {id1_13_7_}
+                            - JOIN (JoinDefinedByMetadata(team)) : <gen:3> -> <gen:30>
+                               - EntityQuerySpaceImpl(uid=<gen:30>, entity=pl.edu.pk.laciak.DTO.Teams)
+                                  - SQL table alias mapping - teams7_
+                                  - alias suffix - 8_
+                                  - suffixed key columns - {id1_14_8_}
+                            - JOIN (JoinDefinedByMetadata(note)) : <gen:3> -> <gen:33>
+                               - EntityQuerySpaceImpl(uid=<gen:33>, entity=pl.edu.pk.laciak.DTO.Notes)
+                                  - SQL table alias mapping - notes8_
+                                  - alias suffix - 9_
+                                  - suffixed key columns - {id1_6_9_}
+
+DEBUG main org.hibernate.loader.collection.plan.CollectionLoader - Static select for collection pl.edu.pk.laciak.DTO.Students.notes: select notes0_.idStudent as idStuden3_10_0_, notes0_.id as id1_6_0_, notes0_.id as id1_6_1_, notes0_.idStudent as idStuden3_6_1_, notes0_.idSubject as idSubjec4_6_1_, notes0_.value as value2_6_1_, project_ta1_.id as id1_9_2_, project_ta1_.finished as finished2_9_2_, project_ta1_.idProject as idProjec4_9_2_, project_ta1_.text as text3_9_2_, project2_.id as id1_7_3_, project2_.idDeadline as idDeadli5_7_3_, project2_.name as name2_7_3_, project2_.startDate as startDat3_7_3_, project2_.idStudent as idStuden6_7_3_, project2_.idSubject as idSubjec7_7_3_, project2_.idTeacher as idTeache8_7_3_, project2_.idTeam as idTeam9_7_3_, project2_.text as text4_7_3_, deadlines3_.id as id1_2_4_, deadlines3_.endDate as endDate2_2_4_, students4_.id as id1_10_5_, students4_.PESEL as PESEL2_10_5_, students4_.address as address3_10_5_, students4_.album as album4_10_5_, students4_.birthday as birthday5_10_5_, students4_.name as name6_10_5_, students4_.period as period7_10_5_, students4_.surname as surname8_10_5_, subject5_.id as id1_11_6_, subject5_.name as name2_11_6_, subject5_.idTeacher as idTeache3_11_6_, teachers6_.id as id1_13_7_, teachers6_.PESEL as PESEL2_13_7_, teachers6_.address as address3_13_7_, teachers6_.birthday as birthday4_13_7_, teachers6_.name as name5_13_7_, teachers6_.surname as surname6_13_7_, teams7_.id as id1_14_8_, teams7_.name as name2_14_8_, notes8_.id as id1_6_9_, notes8_.idStudent as idStuden3_6_9_, notes8_.idSubject as idSubjec4_6_9_, notes8_.value as value2_6_9_ from Notes notes0_ left outer join Project_task project_ta1_ on notes0_.id=project_ta1_.id left outer join Project project2_ on project_ta1_.idProject=project2_.id left outer join Deadlines deadlines3_ on project2_.idDeadline=deadlines3_.id left outer join Students students4_ on project2_.idStudent=students4_.id left outer join Subject subject5_ on project2_.idSubject=subject5_.id left outer join Teachers teachers6_ on project2_.idTeacher=teachers6_.id left outer join Teams teams7_ on project2_.idTeam=teams7_.id left outer join Notes notes8_ on project2_.id=notes8_.id where notes0_.idStudent=?
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:0> -> org.hibernate.loader.plan.build.internal.spaces.CollectionQuerySpaceImpl@720f56e2]
+DEBUG main org.hibernate.loader.plan.build.internal.spaces.QuerySpacesImpl - Adding QuerySpace : uid = <gen:1> -> org.hibernate.loader.plan.build.internal.spaces.EntityQuerySpaceImpl@4466cf5d]
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : date
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : project
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : student
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : task
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Property path deemed to be circular : task
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : teacher
+DEBUG main org.hibernate.persister.walking.spi.MetamodelGraphWalker - Visiting attribute path : text
+DEBUG main org.hibernate.loader.plan.build.internal.FetchStyleLoadPlanBuildingAssociationVisitationStrategy - Building LoadPlan...
+DEBUG main org.hibernate.loader.plan.exec.internal.LoadQueryJoinAndFetchProcessor - processing queryspace <gen:0>
+DEBUG main org.hibernate.loader.plan.build.spi.LoadPlanTreePrinter - LoadPlan(collection=pl.edu.pk.laciak.DTO.Task.comment)
+    - Returns
+       - CollectionReturnImpl(collection=pl.edu.pk.laciak.DTO.Task.comment, querySpaceUid=<gen:0>, path=[pl.edu.pk.laciak.DTO.Task.comment])
+          - (collection element) CollectionFetchableElementEntityGraph(entity=pl.edu.pk.laciak.DTO.Comments, querySpaceUid=<gen:1>, path=[pl.edu.pk.laciak.DTO.Task.comment].<elements>)
+    - QuerySpaces
+       - CollectionQuerySpaceImpl(uid=<gen:0>, collection=pl.edu.pk.laciak.DTO.Task.comment)
+          - SQL table alias mapping - comment0_
+          - alias suffix - 0_
+          - suffixed key columns - {idTask6_12_0_}
+          - entity-element alias suffix - 1_
+          - 1_entity-element suffixed key columns - id1_1_1_
+          - JOIN (JoinDefinedByMetadata(elements)) : <gen:0> -> <gen:1>
+             - EntityQuerySpaceImpl(uid=<gen:1>, entity=pl.edu.pk.laciak.DTO.Comments)
+                - SQL table alias mapping - comment0_
+                - alias suffix - 1_
+                - suffixed key columns - {id1_1_1_}
+

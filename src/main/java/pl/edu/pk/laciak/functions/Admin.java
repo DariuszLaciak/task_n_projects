@@ -101,7 +101,7 @@ public class Admin extends HttpServlet {
 						Common.makeError(json,out,s,6);
 						return;
 					}
-					ld = new LoginData(username, values[4], true);
+					ld = new LoginData(username, Common.sha256(values[4]), true);
 					
 					if(values[0].equals("student")){
 						if(values.length != 8){
@@ -235,7 +235,7 @@ public class Admin extends HttpServlet {
 					Common.makeError(json,out,s,6);
 					return;
 				}
-				ld = new LoginData(username, pESEL.toString(), true);
+				ld = new LoginData(username, Common.sha256(pESEL.toString()), true);
 				
 				if(user_type.equals("student")){
 					String index = data_form[6];

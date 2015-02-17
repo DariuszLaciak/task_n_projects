@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import pl.edu.pk.laciak.DTO.LoginData;
+import pl.edu.pk.laciak.functions.Common;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
 
 /**
@@ -69,7 +70,7 @@ public class Login extends HttpServlet {
 					response_msg = "Konto nie zostalo aktywowane! Sprawdz e-maila";
 					
 				}
-				else if(!login.getPassword().equals(pass)){
+				else if(!login.getPassword().equals(Common.sha256(pass))){
 					response_msg = "Zla nazwa uzytkownika lub haslo!";
 				}
 				else {
