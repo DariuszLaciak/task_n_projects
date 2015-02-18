@@ -554,6 +554,7 @@ ul.admin, ul.teacher, ul.student {
 	left: 0;
 	top: 0;
 	background: #000;
+	z-index: 2;
 }
 
  #progress_bar {

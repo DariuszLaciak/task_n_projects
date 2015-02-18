@@ -7,13 +7,16 @@
 	Powiadomienia
 	</div>
 	<div id='selected_feature'>
-	<% if(session.getAttribute("selectedItem")==null && !session.getAttribute("type").equals("admin")){ %>
+	<% 
+	if(!session.getAttribute("type").equals("admin")){
+	if(session.getAttribute("selectedItem")==null){ %>
 	<div id='toggleSelect'>Wybierz projekt lub zadanie</div>
 	<div id='selectItem'></div>
 	<% } else {%>
 	<div id='toggleSelect'>Wybrana aktywność: <span id='activ_name'><%=session.getAttribute("selectedItemName") %></span></div>
 	<div id='selectItem'></div>
-	<% } %>
+	<% }
+	}%>
 	</div>
 	<% } %>
 	</div>

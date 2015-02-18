@@ -54,13 +54,13 @@ public class Admin extends HttpServlet {
 				
 				if(type.equals("group")){
 					form += Common.makeHeader(3, "Format");
-					form += Common.makeHeader(4, "typ,imie,nazwisko,adres,pesel,data_urodzenia,album(student),semestr(student);");
+					form += Common.makeHeader(4, "typ,imie,nazwisko,email,pesel,data_urodzenia,album(student),semestr(student);");
 					form += Common.makeUploadFile("new_group_users");
 				}
 				else {
 					form += Common.makeInputText("new_name", "Imię", "");
 					form += Common.makeInputText("new_surname", "Nazwisko", "");
-					form += Common.makeInputText("new_address", "Adres", "");
+					form += Common.makeInputText("new_address", "E-mail", "");
 					form += Common.makeInputText("new_pesel", "PESEL", "");
 					form += Common.makeInputTextReadOnly("new_birthday", "Data urodzenia", "");
 					form += Common.makeHeader(4, "Typ");

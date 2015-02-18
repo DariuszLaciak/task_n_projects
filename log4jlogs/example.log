@@ -53,7 +53,7 @@ DEBUG main org.hibernate.loader.plan.build.spi.LoadPlanTreePrinter - LoadPlan(co
 
 DEBUG main org.hibernate.loader.collection.plan.CollectionLoader - Static select for collection pl.edu.pk.laciak.DTO.Project.tasks: select tasks0_.idProject as idProjec4_7_0_, tasks0_.id as id1_9_0_, tasks0_.id as id1_9_1_, tasks0_.finished as finished2_9_1_, tasks0_.idProject as idProjec4_9_1_, tasks0_.text as text3_9_1_, notes1_.id as id1_6_2_, notes1_.idStudent as idStuden3_6_2_, notes1_.idSubject as idSubjec4_6_2_, notes1_.value as value2_6_2_, project_ta2_.id as id1_9_3_, project_ta2_.finished as finished2_9_3_, project_ta2_.idProject as idProjec4_9_3_, project_ta2_.text as text3_9_3_ from Project_task tasks0_ left outer join Notes notes1_ on tasks0_.id=notes1_.id left outer join Project_task project_ta2_ on notes1_.id=project_ta2_.id where tasks0_.idProject=?
 DEBUG main org.hibernate.internal.SessionFactoryRegistry - Initializing SessionFactoryRegistry : org.hibernate.internal.SessionFactoryRegistry@33bdd01
-DEBUG main org.hibernate.internal.SessionFactoryRegistry - Registering SessionFactory: f48003d8-2e1b-42db-b57b-57def47f9b10 (<unnamed>)
+DEBUG main org.hibernate.internal.SessionFactoryRegistry - Registering SessionFactory: 0a034ed7-aca9-476d-9c9f-aa16699ed83a (<unnamed>)
 DEBUG main org.hibernate.internal.SessionFactoryRegistry - Not binding SessionFactory to JNDI, no JNDI name configured
 DEBUG main org.hibernate.internal.SessionFactoryImpl - Instantiated session factory
 INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
@@ -283,11 +283,11 @@ DEBUG main org.hibernate.event.internal.AbstractFlushingEventListener - Flushed:
 DEBUG main org.hibernate.event.internal.AbstractFlushingEventListener - Flushed: 13 (re)creations, 0 updates, 0 removals to 13 collections
 DEBUG main org.hibernate.internal.util.EntityPrinter - Listing entities:
 DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.LoginData{password=1057a9604e04b274da5a4de0c8f4b4868d9b230989f8c8c6a28221143cc5a755, teachers=pl.edu.pk.laciak.DTO.Teachers#3, active=true, students=null, id=3, logs=[], admins=null, username=teacher}
-DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.Teachers{birthday=Tue Feb 17 15:11:07 CET 2015, PESEL=12345678909, address=teacherowo, projects=[], surname=teacher, subjects=[], name=teacher, comment=[], id=3, login=pl.edu.pk.laciak.DTO.LoginData#3, tasks=[]}
+DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.Teachers{birthday=Wed Feb 18 19:58:54 CET 2015, PESEL=12345678909, address=teacherowo, projects=[], surname=teacher, subjects=[], name=teacher, comment=[], id=3, login=pl.edu.pk.laciak.DTO.LoginData#3, tasks=[]}
 DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.LoginData{password=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918, teachers=null, active=true, students=null, id=1, logs=[], admins=pl.edu.pk.laciak.DTO.Admins#1, username=admin}
-DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.Admins{birthday=Tue Feb 17 15:11:07 CET 2015, PESEL=12345678909, address=adminowo, surname=admin, name=admin, id=1, login=pl.edu.pk.laciak.DTO.LoginData#1}
+DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.Admins{birthday=Wed Feb 18 19:58:54 CET 2015, PESEL=12345678909, address=adminowo, surname=admin, name=admin, id=1, login=pl.edu.pk.laciak.DTO.LoginData#1}
 DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.LoginData{password=264c8c381bf16c982a4e59b0dd4c6f7808c51a05f64c35db42cc78a2a72875bb, teachers=null, active=true, students=pl.edu.pk.laciak.DTO.Students#2, id=2, logs=[], admins=null, username=student}
-DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.Students{birthday=Tue Feb 17 15:11:07 CET 2015, PESEL=12345678909, period=2, address=studentowo, comments=[], notes=[], teams=[], album=099887, project=[], login=pl.edu.pk.laciak.DTO.LoginData#2, surname=studentę, name=student, files=[], id=2, tasks=[]}
+DEBUG main org.hibernate.internal.util.EntityPrinter - pl.edu.pk.laciak.DTO.Students{birthday=Wed Feb 18 19:58:54 CET 2015, PESEL=12345678909, period=2, address=studentowo, comments=[], notes=[], teams=[], album=099887, project=[], login=pl.edu.pk.laciak.DTO.LoginData#2, surname=studentę, name=student, files=[], id=2, tasks=[]}
 DEBUG main org.hibernate.SQL - 
     insert 
     into

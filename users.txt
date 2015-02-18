@@ -1,0 +1,11 @@
+﻿admin,Adam,Kowalski,ak@gmail.com,12345628909,1999-02-12;
+admin,Franek,Nowak,fn@gmail.com,12343678909,1999-02-18;
+student,Michał,Michałowski,mm@gmail.com,12315678909,1991-02-22,12345678,1;
+student,Józek,Podbipięta,jp@gmail.com,12315678909,1988-02-24,12225678,2;
+student,Elżbieta,Kochman,ek@gmail.com,12345278909,1984-02-09,12341118,1;
+student,Mariusz,Jędziński,mj@gmail.com,12315678909,1989-02-19,12365678,3;
+student,Jadwiga,Ochońska,jo@gmail.com,12344478909,1990-02-04,12345228,4;
+student,Ewa,Łaciak,el@gmail.com,12345678119,1992-02-11,12345118,6;
+student,Mirosław,Paker,mp@gmail.com,12341678909,1979-02-11,12333678,5;
+teacher,Leszek,Cichy,lc@gmail.com,12225678909,1966-02-11;
+teacher,Anna,Teresa,at@gmail.com,12345478909,1959-02-11;

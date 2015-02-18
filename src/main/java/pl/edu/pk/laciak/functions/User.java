@@ -102,7 +102,7 @@ public class User extends HttpServlet {
 					Admins adm = (Admins)user;
 					form += Common.makeInputText("user_formname", "Imie", adm.getName());
 					form += Common.makeInputText("user_surname", "Nazwisko", adm.getSurname());
-					form += Common.makeInputText("user_address", "Adres", adm.getAddress());
+					form += Common.makeInputText("user_address", "E-mail", adm.getAddress());
 					form += Common.makeInputTextMaxLength("user_pesel", "PESEL", ""+adm.getPESEL(),11);
 					form += Common.makeInputTextReadOnly("user_birthday", "Data urodzenia", format.format(adm.getBirthday()));
 				}
@@ -110,7 +110,7 @@ public class User extends HttpServlet {
 					Teachers t = (Teachers)user;
 					form += Common.makeInputText("user_formname", "Imie", t.getName());
 					form += Common.makeInputText("user_surname", "Nazwisko", t.getSurname());
-					form += Common.makeInputText("user_address", "Adres", t.getAddress());
+					form += Common.makeInputText("user_address", "E-mail", t.getAddress());
 					form += Common.makeInputTextMaxLength("user_pesel", "PESEL", ""+t.getPESEL(),11);
 					form += Common.makeInputTextReadOnly("user_birthday", "Data urodzenia", format.format(t.getBirthday()));
 				}
@@ -118,7 +118,7 @@ public class User extends HttpServlet {
 					Students st = (Students)user;
 					form += Common.makeInputText("user_formname", "Imie", st.getName());
 					form += Common.makeInputText("user_surname", "Nazwisko", st.getSurname());
-					form += Common.makeInputText("user_address", "Adres", st.getAddress());
+					form += Common.makeInputText("user_address", "E-mail", st.getAddress());
 					form += Common.makeInputTextMaxLength("user_pesel", "PESEL", ""+st.getPESEL(),11);
 					form += Common.makeInputTextReadOnly("user_birthday", "Data urodzenia", format.format(st.getBirthday()));
 
