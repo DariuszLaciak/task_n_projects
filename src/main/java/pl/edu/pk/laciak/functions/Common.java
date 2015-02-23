@@ -18,6 +18,7 @@ import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Project;
+import pl.edu.pk.laciak.DTO.Project_step;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
 import pl.edu.pk.laciak.DTO.Task;
@@ -500,6 +501,28 @@ public abstract class Common {
 	    } catch(Exception ex){
 	       throw new RuntimeException(ex);
 	    }
+	}
+	
+	public static List<List<String>> createTableDataProjectSteps(Project proj){
+		List<List<String>> list = new ArrayList<List<String>>();
+		List<Project_step> elements = new ArrayList<Project_step>(proj.getSteps());
+		List<String> ps_elems = new ArrayList<String>();
+		for(Project_step ps : elements){
+			ps_elems = new ArrayList<String>();
+			ps_elems.add(""+ps.getNumber());
+			ps_elems.add(ps.getText());
+			ps_elems.add(""+ps.isFinished());
+			list.add(ps_elems);
+		}
+		return list;
+	}
+	
+	public static List<String> createTableDataProjectStepsHeaders(){
+		List<String> ps_elems = new ArrayList<String>();
+		ps_elems.add("Numer");
+		ps_elems.add("Opis");
+		ps_elems.add("Zakończony");
+		return ps_elems;
 	}
 
 }

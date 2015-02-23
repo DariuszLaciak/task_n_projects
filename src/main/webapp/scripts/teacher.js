@@ -19,22 +19,22 @@ $(document).ready(function(){
 		$("#m_content").load("teacher/manage_project.jsp");
 	});
 	$("#teacher_activ_look").click(function(){
-		$("#m_content").load("teacher/manage/look.jsp");
+		$("#m_content").load("manage/look.jsp");
 	});
 	$("#teacher_activ_files").click(function(){
-		$("#m_content").load("teacher/manage/files.jsp");
+		$("#m_content").load("manage/files.jsp");
 	});
 	$("#teacher_activ_comment").click(function(){
-		$("#m_content").load("teacher/manage/comment.jsp");
+		$("#m_content").load("manage/comment.jsp");
 	});
 	$("#teacher_activ_tasks").click(function(){
-		$("#m_content").load("teacher/manage/tasks.jsp");
+		$("#m_content").load("manage/tasks.jsp");
 	});
 	$("#teacher_activ_notes").click(function(){
-		$("#m_content").load("teacher/manage/notes.jsp");
+		$("#m_content").load("manage/notes.jsp");
 	});
 	$("#teacher_activ_version").click(function(){
-		$("#m_content").load("teacher/manage/version.jsp");
+		$("#m_content").load("manage/version.jsp");
 	});
 });
 
@@ -227,6 +227,52 @@ function manage_project(){
 			}
 			else if(output.success == 2){
 				popup("error","Zły format deadline");
+			}
+		}
+	});
+}
+
+function add_new_step(){
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "add_new_step"
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			$("#new_step_form").html(output.html);
+		}
+	});
+}
+
+function confirm_add_new_step(){
+	var form_values = $("#new_step_form").serializeArray();
+	var values = new Array();
+	
+	var number = $("#new_step_form").find("h4").text();
+	var num = number.substring(number.lastIndexOf(" ")+1,number.length);
+	values.push(num);
+	$.each(form_values, function(index,element){
+		values.push(element.value);
+	});
+	
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "confirm_add_new_step",
+			form_values: values
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 2){
+				popup("error", "Podaj opis");
+			}
+			else if(output.success == 1){
+				popup("success","Pomyślnie dodano etap");
 			}
 		}
 	});

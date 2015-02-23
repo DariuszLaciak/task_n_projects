@@ -21,6 +21,7 @@ import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Deadlines;
 import pl.edu.pk.laciak.DTO.Project;
+import pl.edu.pk.laciak.DTO.Project_step;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
 import pl.edu.pk.laciak.DTO.Task;
@@ -363,6 +364,35 @@ public class Teacher extends HttpServlet {
 					man_p1.getDeadline().setEndDate(new_project_dead);
 				}
 				s.update(man_p1);
+				s.getTransaction().commit();
+				json.put("success", 1);
+				out.println(json);
+				break;
+			case "add_new_step":
+				html = "";
+				Project p = (Project) sess.getAttribute("selectedItem");
+				int step_number = p.getSteps().size() + 1;
+				html += Common.makeHeader(4, "Krok numer "+step_number);
+				html += Common.makeInputTextArea("new_step_text", "Komentarz", "");
+				html += Common.makeButton("Dodaj", "confirm_add_new_step()", "b_green");
+				json.put("html", html);
+				out.println(json);
+				break;
+			case "confirm_add_new_step":
+				String[] new_step_data = request.getParameterValues("form_values[]");
+				String number = new_step_data[0];
+				String desc = new_step_data[1];
+				Project pr = (Project) sess.getAttribute("selectedItem");
+				if(new_step_data.length !=2){
+					Common.makeError(json, out, s, 2);
+				}
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				s.beginTransaction();
+				Project_step step = new Project_step(desc, Integer.parseInt(number));
+				step.setProject(pr);
+				s.save(step);
+				pr.getSteps().add(step);
+				s.update(pr);
 				s.getTransaction().commit();
 				json.put("success", 1);
 				out.println(json);
