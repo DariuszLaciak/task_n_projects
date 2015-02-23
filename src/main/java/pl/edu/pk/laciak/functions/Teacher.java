@@ -383,8 +383,9 @@ public class Teacher extends HttpServlet {
 				String number = new_step_data[0];
 				String desc = new_step_data[1];
 				Project pr = (Project) sess.getAttribute("selectedItem");
-				if(new_step_data.length !=2){
+				if(desc.trim().equals("")){
 					Common.makeError(json, out, s, 2);
+					return;
 				}
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();

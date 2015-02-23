@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -26,6 +28,7 @@ import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.DTO.Teams;
 import pl.edu.pk.laciak.helpers.BorderStyle;
 import pl.edu.pk.laciak.helpers.ProjectComparator;
+import pl.edu.pk.laciak.helpers.ProjectStepsComp;
 import pl.edu.pk.laciak.helpers.TaskComparator;
 import pl.edu.pk.laciak.hibernate.DBCommon;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
@@ -506,6 +509,7 @@ public abstract class Common {
 	public static List<List<String>> createTableDataProjectSteps(Project proj){
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Project_step> elements = new ArrayList<Project_step>(proj.getSteps());
+		Collections.sort(elements, new ProjectStepsComp());
 		List<String> ps_elems = new ArrayList<String>();
 		for(Project_step ps : elements){
 			ps_elems = new ArrayList<String>();
@@ -514,6 +518,7 @@ public abstract class Common {
 			ps_elems.add(""+ps.isFinished());
 			list.add(ps_elems);
 		}
+		
 		return list;
 	}
 	
