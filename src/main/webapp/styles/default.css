@@ -159,7 +159,7 @@ td.table_fr{
 }
 
 .result_table tr{
-	display: block;
+	display: table-row;
 }
 
 

@@ -398,6 +398,23 @@ public class Teacher extends HttpServlet {
 				json.put("success", 1);
 				out.println(json);
 				break;
+			case "finishStep":
+				String id_step = request.getParameter("id");
+				long real_id = Long.parseLong(id_step);
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				s.beginTransaction();
+				Project_step step_edit = (Project_step) s.get(Project_step.class, real_id);
+				if(step_edit.getProject().getTeacher().getId() != (long)sess.getAttribute("userId")){
+					Common.makeError(json, out, s, 2);
+					return;
+				}
+				step_edit.setFinished(true);
+				s.update(step_edit);
+				s.getTransaction().commit();
+				sess.setAttribute("selectedItem", step_edit.getProject());
+				json.put("success", 1);
+				out.println(json);
+				break;
 			}
 		}
 			catch(NullPointerException e){

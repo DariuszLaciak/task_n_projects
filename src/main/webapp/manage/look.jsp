@@ -20,5 +20,5 @@ else if(session.getAttribute("type").equals("teacher")){
 }
 Project p = (Project) session.getAttribute("selectedItem");
 if(!p.getSteps().isEmpty())
-	out.println(Common.createTable(Common.createTableDataProjectSteps(p), Common.createTableDataProjectStepsHeaders()));
+	out.println(Common.createTable(Common.createTableDataProjectSteps(p,session.getAttribute("type").toString()), Common.createTableDataProjectStepsHeaders()));
 %>

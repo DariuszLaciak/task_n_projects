@@ -204,6 +204,15 @@ public class User extends HttpServlet {
 				out.println(json);
 				break;
 			case "confirmSelectItem":
+				session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
+				if(user instanceof Teachers){
+					user = session.get(Teachers.class, ((Teachers) user).getId());
+				}
+				else{
+					user = session.get(Students.class, ((Students) user).getId());
+				}
+				session.getTransaction().commit();
 				String type = request.getParameter("type");
 				String id = request.getParameter("id");
 				long id_item = Long.parseLong(id);

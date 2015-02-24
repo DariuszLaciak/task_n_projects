@@ -506,7 +506,7 @@ public abstract class Common {
 	    }
 	}
 	
-	public static List<List<String>> createTableDataProjectSteps(Project proj){
+	public static List<List<String>> createTableDataProjectSteps(Project proj, String type){
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Project_step> elements = new ArrayList<Project_step>(proj.getSteps());
 		Collections.sort(elements, new ProjectStepsComp());
@@ -516,6 +516,12 @@ public abstract class Common {
 			ps_elems.add(""+ps.getNumber());
 			ps_elems.add(ps.getText());
 			ps_elems.add(""+ps.isFinished());
+			if(type.equals("teacher") && !ps.isFinished()){
+				ps_elems.add(makeButton("Zakończ", "finishStep("+ps.getId()+")", "smallButton b_green"));
+			}
+			else {
+				ps_elems.add("");
+			}
 			list.add(ps_elems);
 		}
 		
@@ -527,6 +533,7 @@ public abstract class Common {
 		ps_elems.add("Numer");
 		ps_elems.add("Opis");
 		ps_elems.add("Zakończony");
+		ps_elems.add("");
 		return ps_elems;
 	}
 

@@ -277,3 +277,32 @@ function confirm_add_new_step(){
 		}
 	});
 }
+
+function finishStep(id){
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "finishStep",
+			id: id
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 1){
+				popup("success", "Zakończono etap");
+				var trs = $(".result_table").find("tr");
+				$.each(trs,function(index,value){
+					if($(this).find("td").first().text() == id){
+						$(this).find("td:nth-child(3)").text("true");
+						$(this).find("td:nth-child(4)").html("");
+					}
+					
+				});
+			}
+			else if(output.success == 2){
+				popup("error","Projekt nie jest przypisany do Ciebie");
+			}
+		}
+	});
+}
