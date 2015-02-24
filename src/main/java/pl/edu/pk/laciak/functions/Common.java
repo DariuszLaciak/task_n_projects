@@ -21,6 +21,7 @@ import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Project_step;
+import pl.edu.pk.laciak.DTO.Project_task;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
 import pl.edu.pk.laciak.DTO.Task;
@@ -150,6 +151,15 @@ public abstract class Common {
 				String[] str = new String[2];
 				str[0] = s.getId()+"";
 				str[1] = s.getName();
+				list.add(str);
+			}
+			break;
+		case "studentsOfTeam":
+			List<Students> studs = DBCommon.getStudentsOfTeam(Long.parseLong(data[1]));
+			for(Students s: studs){
+				String[] str = new String[2];
+				str[0] = s.getId()+"";
+				str[1] = s.getSurname() + " " + s.getName();
 				list.add(str);
 			}
 			break;
@@ -515,7 +525,10 @@ public abstract class Common {
 			ps_elems = new ArrayList<String>();
 			ps_elems.add(""+ps.getNumber());
 			ps_elems.add(ps.getText());
-			ps_elems.add(""+ps.isFinished());
+			if(ps.isFinished())
+				ps_elems.add("Tak");
+			else
+				ps_elems.add("Nie");
 			if(type.equals("teacher") && !ps.isFinished()){
 				ps_elems.add(makeButton("Zakończ", "finishStep("+ps.getId()+")", "smallButton b_green"));
 			}
@@ -533,6 +546,45 @@ public abstract class Common {
 		ps_elems.add("Numer");
 		ps_elems.add("Opis");
 		ps_elems.add("Zakończony");
+		ps_elems.add("");
+		return ps_elems;
+	}
+	
+	public static List<List<String>> createTableDataProjectTasks(Project proj, String type){
+		List<List<String>> list = new ArrayList<List<String>>();
+		List<Project_task> elements = new ArrayList<Project_task>(proj.getTasks());
+		List<String> ps_elems = new ArrayList<String>();
+		for(Project_task ps : elements){
+			ps_elems = new ArrayList<String>();
+			if(ps.getStudent() != null){
+				ps_elems.add(ps.getStudent().getSurname() +" "+ ps.getStudent().getName());
+			}
+			else {
+				ps_elems.add("Bez przypisania");
+			}
+			ps_elems.add(ps.getText());
+			if(ps.isFinished())
+				ps_elems.add("Tak");
+			else
+				ps_elems.add("Nie");
+			
+			if(type.equals("teacher") && !ps.isFinished()){
+				ps_elems.add(makeButton("Zakończ", "finishProjectTask("+ps.getId()+")", "smallButton b_green"));
+			}
+			else {
+				ps_elems.add("");
+			}
+			list.add(ps_elems);
+		}
+		
+		return list;
+	}
+	
+	public static List<String> createTableDataProjectTaskHeaders(){
+		List<String> ps_elems = new ArrayList<String>();
+		ps_elems.add("Student");
+		ps_elems.add("Treść");
+		ps_elems.add("Zakończone");
 		ps_elems.add("");
 		return ps_elems;
 	}

@@ -19,6 +19,7 @@ else if(session.getAttribute("type").equals("teacher")){
 	
 	%>
 	<button class='button b_grey' onclick='add_new_step()'>Dodaj nowy etap</button>
+	<br /><br />
 	<form id='new_step_form' class= 'form_styles'></form>
 	
 	<%
@@ -38,6 +39,12 @@ catch(ClassCastException e){
 		else {
 			out.println(Common.makeHeader(2, "Zadanie jest już zakończone"));
 		}
+	}
+	else {
+		if(t.isFinished())
+			out.println(Common.makeHeader(2, "Zadanie jest już zakończone"));
+		else
+			out.println(Common.makeHeader(2, "Zadanie nie jest jeszcze zakończone"));
 	}
 }
 

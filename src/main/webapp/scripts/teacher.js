@@ -324,3 +324,56 @@ function finishTask(){
 		}
 	});
 }
+
+function add_new_projectTask(){
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "add_new_projectTask"
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			$("#projectTaskForm").html(output.html);
+			$(document).ready(function(){
+				$("#add_student").change(function(){
+					if(this.checked){
+						$("#studentsTask").show();
+					}
+					else {
+						$("#studentsTask").hide();
+					}
+				});
+			})
+		}
+	});
+}
+
+function confirm_addProjectTask(){
+	var form_values = $("#projectTaskForm").serializeArray();
+	var values = new Array();
+	
+	$.each(form_values, function(index,element){
+		values.push(element.value);
+	});
+	
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "confirm_addProjectTask",
+			form_values: values
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 1){
+				popup("success", "Pomyslnie dodano zadanie");
+			}
+			else if(output.success == 2){
+				popup("error", "Podaj treść zadania");
+			}
+		}
+	});
+}

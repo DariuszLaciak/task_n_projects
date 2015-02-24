@@ -30,6 +30,8 @@ public class Project_task implements ObjectDTO {
 	private Project project;
 	private Notes note;
 	
+	private Students student;
+	
 	public Project_task(){};
 	
 	public Project_task(String text) {
@@ -78,6 +80,16 @@ public class Project_task implements ObjectDTO {
 	}
 	public void setNote(Notes note) {
 		this.note = note;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idStudent", nullable = true)
+	public Students getStudent() {
+		return student;
+	}
+
+	public void setStudent(Students student) {
+		this.student = student;
 	}
 	
 	

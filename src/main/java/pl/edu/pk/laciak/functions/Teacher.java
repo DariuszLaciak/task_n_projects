@@ -22,6 +22,7 @@ import org.json.simple.JSONObject;
 import pl.edu.pk.laciak.DTO.Deadlines;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Project_step;
+import pl.edu.pk.laciak.DTO.Project_task;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
 import pl.edu.pk.laciak.DTO.Task;
@@ -304,8 +305,6 @@ public class Teacher extends HttpServlet {
 			case "manage_project":
 				Long man_id = Long.parseLong(request.getParameter("id"));
 				
-				List<Students> team_students = DBCommon.getStudentsOfTeam(man_id);
-				
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
 				
@@ -318,20 +317,13 @@ public class Teacher extends HttpServlet {
 					html += Common.makeInputTextReadOnly("new_deadline", "", sdf_date.format(new Date()));
 				}
 				
-				html += Common.makeHeader(3, "Przypisz zadania");
-				for(Students s : team_students){
-					this.s.refresh(s);
-					html += Common.makeInputText("student"+s.getId(), s.getName() + " " + s.getSurname(), "");
-				}
 				s.getTransaction().commit();
 				html += Common.makeButton("Edytuj", "manage_project()", "b_grey");
 				json.put("html", html);
 				out.println(json);
 				break;
 			case "confirm_manage_project":
-				// TODO Students zadania
 				String[] new_project_data = request.getParameterValues("form_values[]");
-				String[] new_project_students = request.getParameterValues("form_students[]");
 				String new_project_id = new_project_data[0];
 				String new_project_name = new_project_data[1];
 				String new_project_deadline = new_project_data[2];
@@ -403,7 +395,7 @@ public class Teacher extends HttpServlet {
 				long real_id = Long.parseLong(id_step);
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
-				Project_step step_edit = (Project_step) s.get(Project_step.class, real_id);
+				Project_step step_edit = (Project_step) s.load(Project_step.class, real_id);
 				if(step_edit.getProject().getTeacher().getId() != (long)sess.getAttribute("userId")){
 					Common.makeError(json, out, s, 2);
 					return;
@@ -423,6 +415,50 @@ public class Teacher extends HttpServlet {
 				s.update(edit_task);
 				s.getTransaction().commit();
 				sess.setAttribute("selectedItem", edit_task);
+				json.put("success", 1);
+				out.println(json);
+				break;
+			case "add_new_projectTask":
+				html = Common.makeInputTextArea("taskText", "Treść zadania", "");
+				Project proj = (Project) sess.getAttribute("selectedItem");
+				
+				if(proj.getTeam() != null){
+					html += Common.makeCheckBoxSendUnchecked("Przypisać do studenta?", "add_student", "yes", "no");
+					html += Common.makeSelect("", "studentsTask", Common.makeSelectOptions("studentsOfTeam",""+proj.getId()));
+				}
+				html += Common.makeButton("Dodaj", "confirm_addProjectTask()", "b_green");
+				json.put("html", html);
+				out.println(json);
+				break;
+			case "confirm_addProjectTask":
+				String[] new_task_data = request.getParameterValues("form_values[]");
+				String taskText = new_task_data[0];
+				Project proj_task = (Project) sess.getAttribute("selectedItem");
+				String id_student = "";
+				if(new_task_data[0].equals("")){
+					Common.makeError(json, out, s, 2);
+					return;
+				}
+				if(new_task_data.length > 1){
+					if(new_task_data[1].equals("yes")){
+						id_student = new_task_data[3];
+					}
+				}
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				s.beginTransaction();
+				proj_task = (Project) s.load(Project.class, proj_task.getId());
+				Project_task pt = new Project_task(taskText);
+				pt.setProject(proj_task);
+				if(!id_student.equals("")){
+					Students taskStudent = (Students) s.load(Students.class, Long.parseLong(id_student));
+					pt.setStudent(taskStudent);
+					taskStudent.getProjectTasks().add(pt);
+				}
+				s.save(pt);
+				proj_task.getTasks().add(pt);
+				s.update(proj_task);
+				s.getTransaction().commit();
+				sess.setAttribute("selectedItem", proj_task);
 				json.put("success", 1);
 				out.println(json);
 				break;

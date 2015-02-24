@@ -624,3 +624,7 @@ ul.admin, ul.teacher, ul.student {
 	position: relative;
 	float: right;
 }
+
+#studentsTask{
+	display: none;
+}
