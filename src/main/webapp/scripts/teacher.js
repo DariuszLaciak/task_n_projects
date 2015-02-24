@@ -306,3 +306,21 @@ function finishStep(id){
 		}
 	});
 }
+
+function finishTask(){
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "finishTask"
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 1){
+				popup("success", "Zakończono zadanie");
+				$("#m_content").html("<h2>Zadanie jest już zakończone</h2>");
+			}
+		}
+	});
+}

@@ -226,6 +226,7 @@ td.table_fr{
 	padding-right: 10px;
 	color: #ffffff;
 	overflow: auto;
+	min-width: 470px;
 }
 
 #task_deadline{

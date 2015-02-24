@@ -415,6 +415,17 @@ public class Teacher extends HttpServlet {
 				json.put("success", 1);
 				out.println(json);
 				break;
+			case "finishTask":
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				s.beginTransaction();
+				Task edit_task = (Task) sess.getAttribute("selectedItem");
+				edit_task.setFinished(true);
+				s.update(edit_task);
+				s.getTransaction().commit();
+				sess.setAttribute("selectedItem", edit_task);
+				json.put("success", 1);
+				out.println(json);
+				break;
 			}
 		}
 			catch(NullPointerException e){
