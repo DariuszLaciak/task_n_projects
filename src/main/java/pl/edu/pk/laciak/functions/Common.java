@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
+import pl.edu.pk.laciak.DTO.Notes;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Project_step;
 import pl.edu.pk.laciak.DTO.Project_task;
@@ -30,6 +31,7 @@ import pl.edu.pk.laciak.DTO.Teams;
 import pl.edu.pk.laciak.helpers.BorderStyle;
 import pl.edu.pk.laciak.helpers.ProjectComparator;
 import pl.edu.pk.laciak.helpers.ProjectStepsComp;
+import pl.edu.pk.laciak.helpers.ProjectTaskComparator;
 import pl.edu.pk.laciak.helpers.TaskComparator;
 import pl.edu.pk.laciak.hibernate.DBCommon;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
@@ -47,7 +49,7 @@ public abstract class Common {
 	public static String makeInputTextReadOnly(String id, String label, String value){
 		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' readonly='readonly' ></input></div>";
 	}
-	
+
 
 	public static String makeInputTextMaxLength(String id, String label, String value, int maxLength){
 		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='text' id='"+id+"' name='"+id+"' value='"+value+"' size='30' maxlength="+maxLength+" required='required' ></input></div>";
@@ -55,6 +57,10 @@ public abstract class Common {
 
 	public static String makeInputPassword(String id, String label){
 		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='password' id='"+id+"' name='"+id+"' size='30' required='required'></input></div>";
+	}
+	
+	public static String makeInputNumber(String id, String label, double value, double step, double max, double min){
+		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='number' id='"+id+"' name='"+id+"' value='"+value+"' step='"+step+"' min='"+min+"' max='"+max+"' size='4' required='required'></input></div>";
 	}
 
 	public static String makeButton(String value,String onclick, String clas){
@@ -68,11 +74,11 @@ public abstract class Common {
 	public static String makeUploadFile(String id){
 		return "<div class='inputs'><label class='l_input'>Wybierz plik </label><input type='file' name='"+id+"' id='"+id+"'></input></div>";
 	}
-	
+
 	public static String makeRadio(String name, String value, String label){
 		return label+":<input type='radio' name='"+name+"' value='"+value+"'></input>";
 	}
-	
+
 	public static String makeSelect(String label, String id, List<String[]> options){
 		String select = "<div class='inputs'><label class='l_input'>"+label+"</label><select id='"+id+"' name='"+id+"' required='required'>";
 		for(String[] elems : options){
@@ -81,17 +87,17 @@ public abstract class Common {
 		select += "</select></div>";
 		return select;
 	}
-	
+
 	public static String makeCheckBox(String label, String id, String value){
 		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='checkbox' id='"+id+"' name='"+id+"' value='"+value+"' ></input></div>";
 	}
-	
+
 	public static String makeCheckBoxSendUnchecked(String label, String id, String value, String uncheckedvalue){
 		String html = "<div class='inputs'><label class='l_input'>"+label+"</label><input type='checkbox' id='"+id+"' name='"+id+"' value='"+value+"' ></input></div>";
 		html += "<input type='hidden' id='"+id+"Hidden' name='"+id+"' value='"+uncheckedvalue+"' ></input>";
 		return html;
 	}
-	
+
 	public static String makeInputPatternSelect(String pattern, int count, List<String[]> options){
 		String select = "<div class='inputs'><label class='l_input'>"+count+"</label><select id='"+pattern+"_"+count+"' name='"+pattern+"_"+count+"' required='required'>";
 		for(String[] elems : options){
@@ -100,7 +106,7 @@ public abstract class Common {
 		select += "</select></div>";
 		return select;
 	}
-	
+
 	public static String makeInputTextArea(String id, String label, String value){
 		return "<div class='inputs'><label class='l_input'>"+label+"</label><textarea id='"+id+"' name='"+id+"' rows='4' cols='47'>"+value+"</textarea></div>";
 	}
@@ -110,7 +116,7 @@ public abstract class Common {
 		obj.put(label, html);
 		return obj;
 	}
-	
+
 	public static List<String[]> makeSelectOptions(String... data){
 		List<String[]> list = new ArrayList<String[]>();
 		switch(data[0]){
@@ -167,7 +173,7 @@ public abstract class Common {
 		return list;
 	}
 
-	
+
 	public static String br(int num){
 		String html = "";
 		for(int i = 0 ; i < num ; i++){
@@ -205,62 +211,62 @@ public abstract class Common {
 		Map<String,String> submenus;
 
 		if(type.equals("normal"))
-		switch(user){
-		case "admin":
-			submenus = new HashMap<String, String>();
-			submenus.put("Przeglądaj","db_look");
-			elems.put("Zarządznie bazą", submenus);
+			switch(user){
+			case "admin":
+				submenus = new HashMap<String, String>();
+				submenus.put("Przeglądaj","db_look");
+				elems.put("Zarządznie bazą", submenus);
 
-			submenus = new HashMap<String, String>();
-			submenus.put("Aktywuj", "activate");
-			submenus.put("Dodaj", "add_new");
-			submenus.put("Szukaj", "search");
-			submenus.put("Przeglądaj", "look");
+				submenus = new HashMap<String, String>();
+				submenus.put("Aktywuj", "activate");
+				submenus.put("Dodaj", "add_new");
+				submenus.put("Szukaj", "search");
+				submenus.put("Przeglądaj", "look");
 
-			elems.put("Zarządzanie kontami",submenus);
-			
-			submenus = new HashMap<String, String>();
-			submenus.put("Dodaj", "add_new_subject");
-			submenus.put("Zarządzaj", "manage_subject");
-			elems.put("Zarządzenie przedmiotami",submenus);
-			break;
-		case "teacher":
-			submenus = new HashMap<String, String>();
-			submenus.put("Lista", "st_list");
-			submenus.put("Dodaj","add_group_teacher");
-			elems.put("Grupy projektowe", submenus);
+				elems.put("Zarządzanie kontami",submenus);
 
-			submenus = new HashMap<String, String>();
-			submenus.put("Przegladaj", "view_projects");
-			submenus.put("Zarządzaj","manage_project");
-			submenus.put("Dodaj", "add_project");
-			elems.put("Projekty", submenus);
+				submenus = new HashMap<String, String>();
+				submenus.put("Dodaj", "add_new_subject");
+				submenus.put("Zarządzaj", "manage_subject");
+				elems.put("Zarządzenie przedmiotami",submenus);
+				break;
+			case "teacher":
+				submenus = new HashMap<String, String>();
+				submenus.put("Lista", "st_list");
+				submenus.put("Dodaj","add_group_teacher");
+				elems.put("Grupy projektowe", submenus);
 
-			submenus = new HashMap<String, String>();
-			submenus.put("Przeglądaj", "view_tasks");
-			submenus.put("Dodaj", "add_task");
-			elems.put("Zadania",submenus);
+				submenus = new HashMap<String, String>();
+				submenus.put("Przegladaj", "view_projects");
+				submenus.put("Zarządzaj","manage_project");
+				submenus.put("Dodaj", "add_project");
+				elems.put("Projekty", submenus);
 
-			submenus = new HashMap<String, String>();
-			submenus.put("Przeglądaj", "view_subjects");
-			elems.put("Przedmioty", submenus);
-			break;
-		case "student":
-			submenus = new HashMap<String, String>();
-			submenus.put("Lista", "project_list_st");
-			elems.put("Projekty", submenus);
+				submenus = new HashMap<String, String>();
+				submenus.put("Przeglądaj", "view_tasks");
+				submenus.put("Dodaj", "add_task");
+				elems.put("Zadania",submenus);
 
-			submenus = new HashMap<String, String>();
-			submenus.put("Lista", "task_list_st");
-			elems.put("Zadania", submenus);
+				submenus = new HashMap<String, String>();
+				submenus.put("Przeglądaj", "view_subjects");
+				elems.put("Przedmioty", submenus);
+				break;
+			case "student":
+				submenus = new HashMap<String, String>();
+				submenus.put("Lista", "project_list_st");
+				elems.put("Projekty", submenus);
 
-			submenus = new HashMap<String, String>();
-			submenus.put("Lista", "subject_list_st");
-			elems.put("Przemioty", submenus);
-			break;
-		default:
-			break;
-		}
+				submenus = new HashMap<String, String>();
+				submenus.put("Lista", "task_list_st");
+				elems.put("Zadania", submenus);
+
+				submenus = new HashMap<String, String>();
+				submenus.put("Lista", "subject_list_st");
+				elems.put("Przemioty", submenus);
+				break;
+			default:
+				break;
+			}
 		else {
 			String name= "";
 			boolean isProject = false;
@@ -271,7 +277,7 @@ public abstract class Common {
 			else {
 				name = "Wybrane zadanie";
 			}
-			
+
 			switch(user){
 			case "teacher":
 				submenus = new HashMap<String, String>();
@@ -284,7 +290,7 @@ public abstract class Common {
 					submenus.put("Zadania", "teacher_activ_tasks");
 				}
 				elems.put(name, submenus);
-				
+
 				break;
 			case "student":
 				submenus = new HashMap<String, String>();
@@ -304,7 +310,7 @@ public abstract class Common {
 
 	public static String makeMenu(String user, String type){
 		Map<String,Map<String, String>> menu_elements = createMenuElements(user,type);;
-		
+
 		String menu = "<ul class='"+user+"'>";
 		for(Entry<String, Map<String, String>> entry : menu_elements.entrySet()){
 			menu += "<li class='mmenu'><a >"+entry.getKey()+"</a><ul class='submenu'>";
@@ -328,7 +334,7 @@ public abstract class Common {
 		url = properties.getProperty("project_dir")+"/images/users/"+user_id+ "/photo.jpg";
 		return url;
 	}
-	
+
 	public static String getProjetProperty(String prop){
 		String value;
 		Properties properties = new Properties();
@@ -340,15 +346,15 @@ public abstract class Common {
 		value = properties.getProperty(prop);
 		return value;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static void makeError(JSONObject json, PrintWriter out, Session s, int error_nr){
 		json.put("success", error_nr);
 		out.println(json);
 		if(s!= null && s.isOpen())
-		s.getTransaction().rollback();
+			s.getTransaction().rollback();
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public static boolean isLoginUsed(String login){
 		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -358,13 +364,13 @@ public abstract class Common {
 		s.getTransaction().commit();
 		return !l.isEmpty();
 	}
-	
+
 	public static String makeLogin(String name, String surname, String pESEL){
 		name = replacePolishLetter(name);
 		surname = replacePolishLetter(surname);
-		 return name.substring(0,1).toLowerCase()+surname.toLowerCase()+pESEL.substring(8);
+		return name.substring(0,1).toLowerCase()+surname.toLowerCase()+pESEL.substring(8);
 	}
-	
+
 	public static String replacePolishLetter(String word){
 		word = word.replace("ł", "l");
 		word = word.replace("ą", "a");
@@ -377,13 +383,13 @@ public abstract class Common {
 		word = word.replace("ń", "n");
 		return word;
 	}
-	
+
 	public static String createSubjectTable(List<Subject> lista){
-		
+
 		List<String> headers = new ArrayList<String>();
 		headers.add("Nazwa");
 		headers.add("");
-		
+
 		List<List<String>> subjects = new ArrayList<List<String>>();
 		for(Subject s : lista){
 			List<String> l = new ArrayList<String>();
@@ -391,19 +397,19 @@ public abstract class Common {
 			l.add(makeButton("Szczegóły", "sub_details("+s.getId()+")", "b_blue"));
 			subjects.add(l);
 		}
-		
+
 		String html = createTable(subjects,headers);
-		
+
 		return html;
 	}
-	
+
 	public static String createTable(List<List<String>> lista, List<String> headers){
 		String html = "<div class='table_wrap'><table class='result_table'>";
 		html += "<thead><tr>";
 		for(String h : headers)
 			html += "<th>"+h+"</th>";
 		html += "</tr></thead>";
-		
+
 		int line = 1;
 		String t_class = "odd";
 		for(List<String> s : lista){
@@ -423,7 +429,7 @@ public abstract class Common {
 		html += "</table></div>";
 		return html;
 	}
-	
+
 	public static String createSelectItem(List<Project> projects, List<Task> tasks){
 		projects.sort(new ProjectComparator());
 		tasks.sort(new TaskComparator());
@@ -446,7 +452,7 @@ public abstract class Common {
 		html += "</ul>";
 		return html;
 	}
-	
+
 	public static Project selectProject(String type, Object data, long id){
 		Project pr = null;
 		Set<Project> projects = new HashSet<Project>();
@@ -470,10 +476,10 @@ public abstract class Common {
 				break;
 			}
 		}
-		
+
 		return pr;
 	}
-	
+
 	public static Task selectTask(String type, Object data, long id){
 		Task pr = null;
 		Set<Task> tasks = new HashSet<Task>();
@@ -493,29 +499,29 @@ public abstract class Common {
 				break;
 			}
 		}
-		
+
 		return pr;
 	}
-	
+
 	public static String sha256(String base) {
-	    try{
-	    	String cipher_base = getProjetProperty("cipher_base");
-	        MessageDigest digest = MessageDigest.getInstance(cipher_base);
-	        byte[] hash = digest.digest(base.getBytes("UTF-8"));
-	        StringBuffer hexString = new StringBuffer();
+		try{
+			String cipher_base = getProjetProperty("cipher_base");
+			MessageDigest digest = MessageDigest.getInstance(cipher_base);
+			byte[] hash = digest.digest(base.getBytes("UTF-8"));
+			StringBuffer hexString = new StringBuffer();
 
-	        for (int i = 0; i < hash.length; i++) {
-	            String hex = Integer.toHexString(0xff & hash[i]);
-	            if(hex.length() == 1) hexString.append('0');
-	            hexString.append(hex);
-	        }
+			for (int i = 0; i < hash.length; i++) {
+				String hex = Integer.toHexString(0xff & hash[i]);
+				if(hex.length() == 1) hexString.append('0');
+				hexString.append(hex);
+			}
 
-	        return hexString.toString();
-	    } catch(Exception ex){
-	       throw new RuntimeException(ex);
-	    }
+			return hexString.toString();
+		} catch(Exception ex){
+			throw new RuntimeException(ex);
+		}
 	}
-	
+
 	public static List<List<String>> createTableDataProjectSteps(Project proj, String type){
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Project_step> elements = new ArrayList<Project_step>(proj.getSteps());
@@ -537,10 +543,10 @@ public abstract class Common {
 			}
 			list.add(ps_elems);
 		}
-		
+
 		return list;
 	}
-	
+
 	public static List<String> createTableDataProjectStepsHeaders(){
 		List<String> ps_elems = new ArrayList<String>();
 		ps_elems.add("Numer");
@@ -549,10 +555,11 @@ public abstract class Common {
 		ps_elems.add("");
 		return ps_elems;
 	}
-	
+
 	public static List<List<String>> createTableDataProjectTasks(Project proj, String type){
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Project_task> elements = new ArrayList<Project_task>(proj.getTasks());
+		Collections.sort(elements,new ProjectTaskComparator());
 		List<String> ps_elems = new ArrayList<String>();
 		for(Project_task ps : elements){
 			ps_elems = new ArrayList<String>();
@@ -567,7 +574,7 @@ public abstract class Common {
 				ps_elems.add("Tak");
 			else
 				ps_elems.add("Nie");
-			
+
 			if(type.equals("teacher") && !ps.isFinished()){
 				ps_elems.add(makeButton("Zakończ", "finishProjectTask("+ps.getId()+")", "smallButton b_green"));
 			}
@@ -576,10 +583,10 @@ public abstract class Common {
 			}
 			list.add(ps_elems);
 		}
-		
+
 		return list;
 	}
-	
+
 	public static List<String> createTableDataProjectTaskHeaders(){
 		List<String> ps_elems = new ArrayList<String>();
 		ps_elems.add("Student");
@@ -589,5 +596,45 @@ public abstract class Common {
 		return ps_elems;
 	}
 
+	public static List<List<String>> createTableDataNotes(Project proj){
+		List<List<String>> list = new ArrayList<List<String>>();
+		List<Notes> notes = new ArrayList<Notes>();
+		for(Project_step ps : proj.getSteps()){
+			notes.add(ps.getNote());
+		}
+		for(Project_task pt : proj.getTasks()){
+			notes.add(pt.getNote());
+		}
+		notes.add(proj.getNote());
+
+		//Collections.sort(elements,new ProjectTaskComparator());
+		List<String> ps_elems = new ArrayList<String>();
+		for(Notes note : notes){
+			if(note != null){
+				ps_elems = new ArrayList<String>();
+				ps_elems.add(String.valueOf(note.getValue()));
+				if(note.getPs_note() != null){
+					ps_elems.add("Za etap: "+note.getPs_note().getNumber());
+				}
+				else if(note.getPt_note() != null){
+					ps_elems.add("Za zadanie: "+note.getPt_note().getText().substring(0, 10) + "... , przez: "
+							+ (note.getPt_note().getStudent())!=null?note.getPt_note().getStudent().getSurname()
+									+ " "+note.getPt_note().getStudent().getName():"Ogólne" );
+				}
+				else {
+					ps_elems.add("Za projekt");
+				}
+				list.add(ps_elems);
+			}
+		}
+
+		return list;
+	}
+	public static List<String> createTableDataNotesHeaders(){
+		List<String> ps_elems = new ArrayList<String>();
+		ps_elems.add("Ocena");
+		ps_elems.add("Komentarz");
+		return ps_elems;
+	}
 }
 

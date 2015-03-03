@@ -273,6 +273,7 @@ function confirm_add_new_step(){
 			}
 			else if(output.success == 1){
 				popup("success","Pomyślnie dodano etap");
+				$("#m_content").load("manage/look.jsp");
 			}
 		}
 	});
@@ -291,14 +292,7 @@ function finishStep(id){
 			isUserLoggedIn(output);
 			if(output.success == 1){
 				popup("success", "Zakończono etap");
-				var trs = $(".result_table").find("tr");
-				$.each(trs,function(index,value){
-					if($(this).find("td").first().text() == id){
-						$(this).find("td:nth-child(3)").text("true");
-						$(this).find("td:nth-child(4)").html("");
-					}
-					
-				});
+				$("#m_content").load("manage/look.jsp");
 			}
 			else if(output.success == 2){
 				popup("error","Projekt nie jest przypisany do Ciebie");
@@ -370,10 +364,64 @@ function confirm_addProjectTask(){
 			isUserLoggedIn(output);
 			if(output.success == 1){
 				popup("success", "Pomyslnie dodano zadanie");
+				$("#m_content").load("manage/tasks.jsp");
 			}
 			else if(output.success == 2){
 				popup("error", "Podaj treść zadania");
 			}
+		}
+	});
+}
+
+function finishProjectTask(id){
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "finishProjectTask",
+			id: id
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 1){
+				popup("success", "Zakończono zadanie");
+				$("#m_content").load("manage/tasks.jsp");
+			}
+			else if(output.success == 2){
+				popup("error","Projekt nie jest przypisany do Ciebie");
+			}
+		}
+	});
+}
+
+function addNote(){
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "addNote"
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			$("#newNoteForm").html(output.html);
+			$(document).ready(function(){
+				var type = $(this).val();
+				$.ajax({
+					url: "Teacher",
+					type: "post",
+					data: {
+						action: "addNoteType",
+						type: type
+					},
+					success: function(data){
+						var output = jQuery.parseJSON(data);
+						isUserLoggedIn(output);
+						$("#newNoteFormType").html(output.html);
+					}
+				});
+			});
 		}
 	});
 }

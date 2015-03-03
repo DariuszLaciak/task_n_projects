@@ -2,6 +2,7 @@ package pl.edu.pk.laciak.DTO;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +29,7 @@ public class Project_step implements ObjectDTO {
 	private int number;
 	
 	private Project project;
+	private Notes note;
 
 	public Project_step() {
 		super();
@@ -87,6 +90,18 @@ public class Project_step implements ObjectDTO {
 
 	public void setProject(Project project) {
 		this.project = project;
+	}
+
+
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "ps_note", cascade = CascadeType.ALL, optional=true)
+	public Notes getNote() {
+		return note;
+	}
+
+
+
+	public void setNote(Notes note) {
+		this.note = note;
 	}
 	
 	

@@ -462,6 +462,62 @@ public class Teacher extends HttpServlet {
 				json.put("success", 1);
 				out.println(json);
 				break;
+			case "finishProjectTask":
+				String id_task = request.getParameter("id");
+				long real_id_task = Long.parseLong(id_task);
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				s.beginTransaction();
+				Project_task task_edit = (Project_task) s.load(Project_task.class, real_id_task);
+				if(task_edit.getProject().getTeacher().getId() != (long)sess.getAttribute("userId")){
+					Common.makeError(json, out, s, 2);
+					return;
+				}
+				task_edit.setFinished(true);
+				s.update(task_edit);
+				s.getTransaction().commit();
+				sess.setAttribute("selectedItem", task_edit.getProject());
+				json.put("success", 1);
+				out.println(json);
+				break;
+			case "addNote":
+				html = "";
+				try{
+					Project p_note = (Project)sess.getAttribute("selectedItem");
+					html += Common.makeHeader(4, "Typ oceny");
+					html += Common.makeRadio("note_type", "step", "Za etap");
+					html += Common.makeRadio("note_type", "task", "Za zadanie");
+					html += Common.makeRadio("note_type", "project", "Za projekt");
+					html += Common.br(1);
+					html += "<div id='newNoteFormType'></div>";
+					html += Common.br(2);
+				}
+				catch(ClassCastException e){
+					Task t_note = (Task)sess.getAttribute("selectedItem");
+				}
+				html += Common.makeInputNumber("note_val", "Ocena", Double.parseDouble(Common.getProjetProperty("min_note")),
+						Double.parseDouble(Common.getProjetProperty("note_step")), 
+						Double.parseDouble(Common.getProjetProperty("max_note")), Double.parseDouble(Common.getProjetProperty("min_note")));
+				html += Common.br(2);
+				html += Common.makeButton("Dodaj", "confirmNewNote()", "b_green");
+				json.put("html", html);
+				out.println(json);
+				break;
+			case "addNoteType":
+				String note_type = request.getParameter("type");
+				Project pr_note = (Project) sess.getAttribute("selectedItem");
+				html = "";
+				switch(note_type){
+				case "task":
+					html += Common.makeSelect("", "task_note", Common.makeSelectOptions("project_task",String.valueOf(pr_note.getId())));
+					break;
+				case "step":
+					break;
+				case "project":
+					break;
+				}
+				json.put("html", html);
+				out.println(json);
+				break;
 			}
 		}
 			catch(NullPointerException e){
