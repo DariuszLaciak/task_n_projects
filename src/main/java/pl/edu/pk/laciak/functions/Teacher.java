@@ -493,26 +493,30 @@ public class Teacher extends HttpServlet {
 				}
 				catch(ClassCastException e){
 					Task t_note = (Task)sess.getAttribute("selectedItem");
+					html += Common.makeHeader(3, "Ocena sumaryczna z zadania");
+					html += Common.br(1);
 				}
-				html += Common.makeInputNumber("note_val", "Ocena", Double.parseDouble(Common.getProjetProperty("min_note")),
+				html += Common.makeInputNumber("note_val", "Ocena", Double.parseDouble(Common.getProjetProperty("max_note")),
 						Double.parseDouble(Common.getProjetProperty("note_step")), 
 						Double.parseDouble(Common.getProjetProperty("max_note")), Double.parseDouble(Common.getProjetProperty("min_note")));
 				html += Common.br(2);
-				html += Common.makeButton("Dodaj", "confirmNewNote()", "b_green");
+				html += Common.makeButton("Wystaw", "confirmNewNote()", "b_green");
 				json.put("html", html);
 				out.println(json);
 				break;
 			case "addNoteType":
 				String note_type = request.getParameter("type");
 				Project pr_note = (Project) sess.getAttribute("selectedItem");
-				html = "";
+				html = Common.br(1);
 				switch(note_type){
 				case "task":
-					html += Common.makeSelect("", "task_note", Common.makeSelectOptions("project_task",String.valueOf(pr_note.getId())));
+					html += Common.makeSelect("Zadanie", "task_note", Common.makeSelectOptions("project_task",String.valueOf(pr_note.getId())));
 					break;
 				case "step":
+					html += Common.makeSelect("Etap numer", "step_note", Common.makeSelectOptions("project_step",String.valueOf(pr_note.getId())));
 					break;
 				case "project":
+					html += Common.makeHeader(3, "Ocena sumaryczna z projektu");
 					break;
 				}
 				json.put("html", html);

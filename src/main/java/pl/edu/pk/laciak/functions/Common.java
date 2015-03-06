@@ -169,6 +169,31 @@ public abstract class Common {
 				list.add(str);
 			}
 			break;
+		case "project_step":
+			List<Project_step> steps = DBCommon.getStepsOfProject(Long.parseLong(data[1]));
+			for(Project_step pt : steps){
+				String[] str = new String[2];
+				str[0] = pt.getId()+"";
+				str[1] = pt.getNumber()+"";
+				list.add(str);
+			}
+			break;
+		case "project_task":
+			List<Project_task> tasks = DBCommon.getTasksOfProject(Long.parseLong(data[1]));
+			for(Project_task pt : tasks){
+				String[] str = new String[2];
+				str[0] = pt.getId()+"";
+				String textTask = "";
+				if(pt.getText().length() < 10){
+					textTask = pt.getText();
+				}
+				else {
+					textTask = pt.getText().substring(0, 10);
+				}
+				str[1] = textTask+"..."+"(Przez: "+(pt.getStudent()==null?"Bez przyspisania":pt.getStudent().getAlbum())+")";
+				list.add(str);
+			}
+			break;
 		}
 		return list;
 	}

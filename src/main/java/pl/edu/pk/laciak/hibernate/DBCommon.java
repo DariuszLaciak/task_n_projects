@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import pl.edu.pk.laciak.DTO.Project;
+import pl.edu.pk.laciak.DTO.Project_step;
 import pl.edu.pk.laciak.DTO.Project_task;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Subject;
@@ -110,6 +111,20 @@ public abstract class DBCommon {
 		if(!s.getTransaction().isActive())
 			s.beginTransaction();
 		lista = s.createQuery("from Project_task p where p.project.id=:id order by id").setParameter("id", id).list();
+		s.getTransaction().commit();
+		if(s.isOpen())
+			s.close();
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Project_step> getStepsOfProject(long id){
+		List<Project_step> lista = new ArrayList<>();
+		
+		s = HibernateUtil.getSessionFactory().getCurrentSession();
+		if(!s.getTransaction().isActive())
+			s.beginTransaction();
+		lista = s.createQuery("from Project_step p where p.project.id=:id order by id").setParameter("id", id).list();
 		s.getTransaction().commit();
 		if(s.isOpen())
 			s.close();

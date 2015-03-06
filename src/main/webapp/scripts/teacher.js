@@ -407,19 +407,21 @@ function addNote(){
 			isUserLoggedIn(output);
 			$("#newNoteForm").html(output.html);
 			$(document).ready(function(){
-				var type = $(this).val();
-				$.ajax({
-					url: "Teacher",
-					type: "post",
-					data: {
-						action: "addNoteType",
-						type: type
-					},
-					success: function(data){
-						var output = jQuery.parseJSON(data);
-						isUserLoggedIn(output);
-						$("#newNoteFormType").html(output.html);
-					}
+				$("[name='note_type']").change(function(){
+					var type = $(this).val();
+					$.ajax({
+						url: "Teacher",
+						type: "post",
+						data: {
+							action: "addNoteType",
+							type: type
+						},
+						success: function(data){
+							var output = jQuery.parseJSON(data);
+							isUserLoggedIn(output);
+							$("#newNoteFormType").html(output.html);
+						}
+					});
 				});
 			});
 		}
