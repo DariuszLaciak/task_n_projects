@@ -26,6 +26,7 @@ public class Teams implements ObjectDTO {
 	private String name;
 	private Set<Students> students = new HashSet<Students>();
 	private Set<Project> projects = new HashSet<Project>();
+	private Set<Notes> notes = new HashSet<Notes>();
 	
 	public Teams() {
 	}
@@ -70,6 +71,16 @@ public class Teams implements ObjectDTO {
 	}
 	public void setProjects(Set<Project> projects) {
 		this.projects = projects;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "team")
+	public Set<Notes> getNotes() {
+		return notes;
+	}
+
+
+	public void setNotes(Set<Notes> notes) {
+		this.notes = notes;
 	}
 	
 	

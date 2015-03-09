@@ -20,6 +20,7 @@ import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Deadlines;
+import pl.edu.pk.laciak.DTO.Notes;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Project_step;
 import pl.edu.pk.laciak.DTO.Project_task;
@@ -486,7 +487,12 @@ public class Teacher extends HttpServlet {
 					html += Common.makeHeader(4, "Typ oceny");
 					html += Common.makeRadio("note_type", "step", "Za etap");
 					html += Common.makeRadio("note_type", "task", "Za zadanie");
-					html += Common.makeRadio("note_type", "project", "Za projekt");
+					if(Common.isProjectNoted(p_note)){
+						html += Common.makeRadioDisabled("note_type", "project_d", "Za projekt","Projekt jest już oceniony");
+					}
+					else {
+						html += Common.makeRadio("note_type", "project", "Za projekt");
+					}
 					html += Common.br(1);
 					html += "<div id='newNoteFormType'></div>";
 					html += Common.br(2);
@@ -521,6 +527,123 @@ public class Teacher extends HttpServlet {
 				}
 				json.put("html", html);
 				out.println(json);
+				break;
+			case "confirmNewNote":
+				String[] new_note_data = request.getParameterValues("form_values[]");
+				
+				if(sess.getAttribute("selectedItemType").equals("t")){
+					String valueT = new_note_data[0];
+					Task tnote = (Task) sess.getAttribute("selectedItem");
+					Float exValue = null;
+					try{
+						exValue = Float.parseFloat(valueT);
+					}
+					catch(NumberFormatException e){
+						Common.makeError(json, out, s, 2); // parse
+						return;
+					}
+					s = HibernateUtil.getSessionFactory().getCurrentSession();
+					s.beginTransaction();
+					Notes noteT = new Notes(exValue);
+					noteT.setTask(tnote);
+					tnote.setNote(noteT);
+					if(tnote.getSubject() != null){
+						tnote.setSubject(tnote.getSubject());
+					}
+					noteT.setStudent(tnote.getStudent());
+					noteT.setDate(new Date());
+					s.save(noteT);
+					s.update(tnote);
+					sess.setAttribute("selectedItem", tnote);
+					s.getTransaction().commit();
+					json.put("success", 1);
+					out.println(json);
+				}
+				else {
+					s = HibernateUtil.getSessionFactory().getCurrentSession();
+					s.beginTransaction();
+					Project pnote = (Project) sess.getAttribute("selectedItem");
+					String noteType = new_note_data[0];
+					if(new_note_data.length < 2){
+						Common.makeError(json, out, s, 4); // brak typu
+						return;
+					}
+					String pValue = new_note_data[1];
+					
+					Notes prNote = new Notes();
+					prNote.setDate(new Date());
+					prNote.setProject(pnote);
+					if(pnote.getSubject() != null)
+						prNote.setSubject(pnote.getSubject());
+					
+					if(pnote.getStudent() == null){
+						prNote.setTeam(pnote.getTeam());
+					}
+					else {
+						prNote.setStudent(pnote.getStudent());
+					}
+					
+					if(!noteType.equals("project")){
+						if(new_note_data.length < 3){
+							Common.makeError(json, out, s, 3); 
+							return;
+						}
+						pValue = new_note_data[2];
+						Float prNoteVal = null;
+						try{
+							prNoteVal = Float.parseFloat(pValue);
+						}
+						catch(NumberFormatException e){
+							Common.makeError(json, out, s, 2);
+							return;
+						}
+						prNote.setValue(prNoteVal);
+						if(noteType.equals("step")){
+							String idStep = new_note_data[1];
+							Project_step psNote = (Project_step) s.load(Project_step.class, Long.parseLong(idStep));
+							prNote.setPs_note(psNote);
+							s.save(prNote);
+							psNote.setNote(prNote);
+							s.update(psNote);
+						}
+						else if(noteType.equals("task")){
+							String idTask = new_note_data[1];
+							Project_task ptNote = (Project_task) s.load(Project_task.class, Long.parseLong(idTask));
+							if(ptNote.getStudent() != null){
+								prNote.setTeam(null);
+								prNote.setStudent(ptNote.getStudent());
+							}
+							prNote.setPt_note(ptNote);
+							s.save(prNote);
+							ptNote.setNote(prNote);
+							s.update(ptNote);
+						}
+						else {
+							Common.makeError(json, out, s, 3); // bledny typ oceny
+							return;
+						}
+					}
+					else {
+						pValue = new_note_data[1];
+						Float prNoteVal = null;
+						try{
+							prNoteVal = Float.parseFloat(pValue);
+						}
+						catch(NumberFormatException e){
+							Common.makeError(json, out, s, 2);
+							return;
+						}
+						prNote.setValue(prNoteVal);
+						s.save(prNote);
+						
+					}
+					pnote.getNotes().add(prNote);
+					s.getTransaction().commit();
+					sess.setAttribute("selectedItem", pnote);
+					json.put("success", 1);
+					out.println(json);
+				}
+				
 				break;
 			}
 		}

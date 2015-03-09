@@ -13,6 +13,7 @@ import pl.edu.pk.laciak.DTO.LoginData;
 import pl.edu.pk.laciak.DTO.Logs;
 import pl.edu.pk.laciak.DTO.Notes;
 import pl.edu.pk.laciak.DTO.Project;
+import pl.edu.pk.laciak.DTO.ProjectVersion;
 import pl.edu.pk.laciak.DTO.Project_step;
 import pl.edu.pk.laciak.DTO.Project_task;
 import pl.edu.pk.laciak.DTO.Students;
@@ -44,6 +45,7 @@ public class HibernateUtil {
     	configuration.addAnnotatedClass(Files.class);
     	configuration.addAnnotatedClass(Project_task.class);
     	configuration.addAnnotatedClass(Project_step.class);
+    	configuration.addAnnotatedClass(ProjectVersion.class);
         configuration.configure();
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).build();

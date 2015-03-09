@@ -2,6 +2,8 @@ package pl.edu.pk.laciak.DTO;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +25,9 @@ public class Notes implements ObjectDTO {
 	private static final long serialVersionUID = 8677945528591417113L;
 	private long id;
 	private float value;
+	private Date date;
 	private Students student;
+	private Teams team;
 	private Subject subject;
 	private Project project;
 	private Task task;
@@ -61,13 +65,29 @@ public class Notes implements ObjectDTO {
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idStudent", nullable = false)
+	@JoinColumn(name = "idStudent", nullable = true)
 	public Students getStudent() {
 		return student;
 	}
 	public void setStudent(Students student) {
 		this.student = student;
 	}
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idTeam", nullable = true)
+	public Teams getTeam() {
+		return team;
+	}
+
+
+
+	public void setTeam(Teams team) {
+		this.team = team;
+	}
+
+
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idSubject", nullable = true)
 	public Subject getSubject() {
@@ -77,8 +97,8 @@ public class Notes implements ObjectDTO {
 		this.subject = subject;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY, optional=true)
-	@PrimaryKeyJoinColumn
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idProject", nullable = true)
 	public Project getProject() {
 		return project;
 	}
@@ -86,7 +106,7 @@ public class Notes implements ObjectDTO {
 		this.project = project;
 	}
 	@OneToOne(fetch = FetchType.LAZY, optional=true)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "idTask", nullable = true)
 	public Task getTask() {
 		return task;
 	}
@@ -96,7 +116,7 @@ public class Notes implements ObjectDTO {
 
 
 	@OneToOne(fetch = FetchType.EAGER, optional=true)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "idPT", nullable = true)
 	public Project_task getPt_note() {
 		return pt_note;
 	}
@@ -109,7 +129,7 @@ public class Notes implements ObjectDTO {
 
 
 	@OneToOne(fetch = FetchType.EAGER, optional=true)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "idPS", nullable = true)
 	public Project_step getPs_note() {
 		return ps_note;
 	}
@@ -119,6 +139,32 @@ public class Notes implements ObjectDTO {
 	public void setPs_note(Project_step ps_note) {
 		this.ps_note = ps_note;
 	}
+
+
+	@Column(nullable = false)
+	public Date getDate() {
+		return date;
+	}
+
+
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 	
+	public Notes clone(){
+		
+		Notes note = new Notes();
+		note.setDate(this.date);
+		note.setValue(this.value);
+		note.setProject(this.project);
+		note.setPs_note(this.ps_note);
+		note.setPt_note(this.pt_note);
+		note.setTask(this.task);
+		note.setSubject(this.subject);
+		
+		return note;
+		
+	}
 
 }

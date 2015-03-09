@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import pl.edu.pk.laciak.DTO.Notes;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Project_step;
 import pl.edu.pk.laciak.DTO.Project_task;
@@ -130,6 +131,8 @@ public abstract class DBCommon {
 			s.close();
 		return lista;
 	}
+	
+	
 	
 	
 }

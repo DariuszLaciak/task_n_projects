@@ -3,6 +3,7 @@ package pl.edu.pk.laciak.functions;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -30,6 +31,7 @@ import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.DTO.Teams;
 import pl.edu.pk.laciak.helpers.BorderStyle;
 import pl.edu.pk.laciak.helpers.ProjectComparator;
+import pl.edu.pk.laciak.helpers.ProjectNotesComparator;
 import pl.edu.pk.laciak.helpers.ProjectStepsComp;
 import pl.edu.pk.laciak.helpers.ProjectTaskComparator;
 import pl.edu.pk.laciak.helpers.TaskComparator;
@@ -58,7 +60,7 @@ public abstract class Common {
 	public static String makeInputPassword(String id, String label){
 		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='password' id='"+id+"' name='"+id+"' size='30' required='required'></input></div>";
 	}
-	
+
 	public static String makeInputNumber(String id, String label, double value, double step, double max, double min){
 		return "<div class='inputs'><label class='l_input'>"+label+"</label><input type='number' id='"+id+"' name='"+id+"' value='"+value+"' step='"+step+"' min='"+min+"' max='"+max+"' size='4' required='required'></input></div>";
 	}
@@ -77,6 +79,10 @@ public abstract class Common {
 
 	public static String makeRadio(String name, String value, String label){
 		return label+":<input type='radio' name='"+name+"' value='"+value+"'></input>";
+	}
+	
+	public static String makeRadioDisabled(String name, String value, String label, String title){
+		return label+":<input type='radio' name='"+name+"' value='"+value+"' disabled='true' title='"+title+"'></input>";
 	}
 
 	public static String makeSelect(String label, String id, List<String[]> options){
@@ -172,26 +178,30 @@ public abstract class Common {
 		case "project_step":
 			List<Project_step> steps = DBCommon.getStepsOfProject(Long.parseLong(data[1]));
 			for(Project_step pt : steps){
-				String[] str = new String[2];
-				str[0] = pt.getId()+"";
-				str[1] = pt.getNumber()+"";
-				list.add(str);
+				if(pt.getNote() == null){
+					String[] str = new String[2];
+					str[0] = pt.getId()+"";
+					str[1] = pt.getNumber()+"";
+					list.add(str);
+				}
 			}
 			break;
 		case "project_task":
 			List<Project_task> tasks = DBCommon.getTasksOfProject(Long.parseLong(data[1]));
 			for(Project_task pt : tasks){
-				String[] str = new String[2];
-				str[0] = pt.getId()+"";
-				String textTask = "";
-				if(pt.getText().length() < 10){
-					textTask = pt.getText();
+				if(pt.getNote() == null){
+					String[] str = new String[2];
+					str[0] = pt.getId()+"";
+					String textTask = "";
+					if(pt.getText().length() < 10){
+						textTask = pt.getText();
+					}
+					else {
+						textTask = pt.getText().substring(0, 10);
+					}
+					str[1] = textTask+"..."+"(Przez: "+(pt.getStudent()==null?"Bez przyspisania":pt.getStudent().getAlbum())+")";
+					list.add(str);
 				}
-				else {
-					textTask = pt.getText().substring(0, 10);
-				}
-				str[1] = textTask+"..."+"(Przez: "+(pt.getStudent()==null?"Bez przyspisania":pt.getStudent().getAlbum())+")";
-				list.add(str);
 			}
 			break;
 		}
@@ -623,17 +633,10 @@ public abstract class Common {
 
 	public static List<List<String>> createTableDataNotes(Project proj){
 		List<List<String>> list = new ArrayList<List<String>>();
-		List<Notes> notes = new ArrayList<Notes>();
-		for(Project_step ps : proj.getSteps()){
-			notes.add(ps.getNote());
-		}
-		for(Project_task pt : proj.getTasks()){
-			notes.add(pt.getNote());
-		}
-		notes.add(proj.getNote());
-
-		//Collections.sort(elements,new ProjectTaskComparator());
+		List<Notes> notes = new ArrayList<Notes>(proj.getNotes());
+		Collections.sort(notes,new ProjectNotesComparator());
 		List<String> ps_elems = new ArrayList<String>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		for(Notes note : notes){
 			if(note != null){
 				ps_elems = new ArrayList<String>();
@@ -642,24 +645,49 @@ public abstract class Common {
 					ps_elems.add("Za etap: "+note.getPs_note().getNumber());
 				}
 				else if(note.getPt_note() != null){
-					ps_elems.add("Za zadanie: "+note.getPt_note().getText().substring(0, 10) + "... , przez: "
-							+ (note.getPt_note().getStudent())!=null?note.getPt_note().getStudent().getSurname()
-									+ " "+note.getPt_note().getStudent().getName():"Ogólne" );
+					String task_text;
+					if(note.getPt_note().getText().length() < 10){
+						task_text = note.getPt_note().getText();
+					}
+					else {
+						task_text = note.getPt_note().getText().substring(0, 10)+ "... ";
+					}
+					String student;
+					if(note.getPt_note().getStudent()!=null){
+						student = note.getPt_note().getStudent().getSurname()+ " "+note.getPt_note().getStudent().getName();
+					}
+					else {
+						student = "Ogólne";
+					}
+					ps_elems.add("Za zadanie: "+task_text +", przez: "
+							+ student);
 				}
 				else {
 					ps_elems.add("Za projekt");
 				}
+				ps_elems.add(sdf.format(note.getDate()));
 				list.add(ps_elems);
 			}
 		}
-
 		return list;
 	}
 	public static List<String> createTableDataNotesHeaders(){
 		List<String> ps_elems = new ArrayList<String>();
 		ps_elems.add("Ocena");
-		ps_elems.add("Komentarz");
+		ps_elems.add("Powód");
+		ps_elems.add("Data wystawienia");
 		return ps_elems;
+	}
+
+	public static boolean isProjectNoted(Project project){
+
+		for(Notes n : project.getNotes()){
+			if(n.getPs_note() == null && n.getPt_note() == null){
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
 

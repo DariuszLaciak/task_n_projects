@@ -427,3 +427,38 @@ function addNote(){
 		}
 	});
 }
+
+function confirmNewNote(){
+	var form_values = $("#newNoteForm").serializeArray();
+	var values = new Array();
+	
+	$.each(form_values, function(index,element){
+		values.push(element.value);
+	});
+	
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "confirmNewNote",
+			form_values: values
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 1){
+				popup("success", "Pomyslnie wystawiono ocenę");
+				$("#m_content").load("manage/notes.jsp");
+			}
+			else if(output.success == 2){
+				popup("error", "Błędny format oceny");
+			}
+			else if(output.success == 3){
+				popup("error", "Błędne dane oceny");
+			}
+			else if(output.success == 4){
+				popup("error", "Podaj typ oceny");
+			}
+		}
+	});
+}

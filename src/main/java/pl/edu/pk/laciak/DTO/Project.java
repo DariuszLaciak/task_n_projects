@@ -37,12 +37,13 @@ public class Project implements ObjectDTO {
 	private Deadlines deadline;
 	private Set<Comments> comment = new HashSet<Comments>();
 	private Subject subject;
-	private Notes note;
 	private Teachers teacher;
 	private Teams team;
 	private Set<Files> files = new HashSet<Files>();
 	private Set<Project_task> tasks = new HashSet<Project_task>();
 	private Set<Project_step> steps = new HashSet<Project_step>();
+	private Set<Notes> notes = new HashSet<Notes>();
+	private Set<ProjectVersion> version = new HashSet<ProjectVersion>();
 	
 	public Project(){}
 	
@@ -122,15 +123,21 @@ public class Project implements ObjectDTO {
 		this.subject = subject;
 	}
 	
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "project", cascade = CascadeType.ALL, optional=true)
-	public Notes getNote() {
-		return note;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
+	@PrimaryKeyJoinColumn
+	public Set<Notes> getNotes() {
+		return notes;
 	}
 
-	public void setNote(Notes note) {
-		this.note = note;
+
+
+	public void setNotes(Set<Notes> notes) {
+		this.notes = notes;
 	}
-	
+
+
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idTeacher", nullable = false)
 	public Teachers getTeacher() {
@@ -198,6 +205,19 @@ public class Project implements ObjectDTO {
 
 	public void setSteps(Set<Project_step> steps) {
 		this.steps = steps;
+	}
+
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
+	@PrimaryKeyJoinColumn
+	public Set<ProjectVersion> getVersion() {
+		return version;
+	}
+
+
+
+	public void setVersion(Set<ProjectVersion> version) {
+		this.version = version;
 	}
 	
 	
