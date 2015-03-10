@@ -22,6 +22,7 @@ import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Notes;
 import pl.edu.pk.laciak.DTO.Project;
+import pl.edu.pk.laciak.DTO.ProjectVersion;
 import pl.edu.pk.laciak.DTO.Project_step;
 import pl.edu.pk.laciak.DTO.Project_task;
 import pl.edu.pk.laciak.DTO.Students;
@@ -687,6 +688,35 @@ public abstract class Common {
 			}
 		}
 
+		return false;
+	}
+	
+	public static ProjectVersion getLastVersionOfProject(Project project){
+		ProjectVersion version = null;
+		long id = 0;
+		for(ProjectVersion v: project.getVersion()){
+			if(id < v.getId()){
+				id = v.getId();
+				version = v;
+			}
+		}
+		
+		return version;
+	}
+	
+	public static boolean isTeamLeader(Project project, Students student){
+		
+		if(project.getTeam() == null){
+			return true;
+		}
+		else if(project.getTeam().getLeader() != null){
+			if(project.getTeam().getLeader().getId() == student.getId()){
+				return true;
+			}
+		}
+		else if(project.getTeam().getLeader() == null){
+			return true;
+		}
 		return false;
 	}
 }

@@ -24,7 +24,7 @@ public class ProjectVersion implements ObjectDTO {
 
 	
 	private long id;
-	private float version;
+	private String version;
 	private String changes;
 	private Date date;
 	
@@ -37,10 +37,11 @@ public class ProjectVersion implements ObjectDTO {
 	
 	
 	
-	public ProjectVersion(float version, String changes) {
+	public ProjectVersion(String version, String changes) {
 		super();
 		this.version = version;
 		this.changes = changes;
+		this.date = new Date();
 	}
 
 
@@ -55,14 +56,20 @@ public class ProjectVersion implements ObjectDTO {
 		this.id = id;
 	}
 	
-	@Column(nullable = false)
-	public float getVersion() {
+	
+	@Column(nullable = false, length = 40)
+	public String getVersion() {
 		return version;
 	}
-	public void setVersion(float version) {
+
+
+
+	public void setVersion(String version) {
 		this.version = version;
 	}
-	
+
+
+
 	@Column(nullable = false, length = 1000)
 	public String getChanges() {
 		return changes;

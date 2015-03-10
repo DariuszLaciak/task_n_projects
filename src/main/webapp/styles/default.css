@@ -628,3 +628,7 @@ ul.admin, ul.teacher, ul.student {
 #studentsTask{
 	display: none;
 }
+
+#repoUrl{
+	text-decoration: underline;
+}

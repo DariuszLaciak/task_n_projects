@@ -39,6 +39,7 @@ public class Project implements ObjectDTO {
 	private Subject subject;
 	private Teachers teacher;
 	private Teams team;
+	private ProjectRepository repository;
 	private Set<Files> files = new HashSet<Files>();
 	private Set<Project_task> tasks = new HashSet<Project_task>();
 	private Set<Project_step> steps = new HashSet<Project_step>();
@@ -218,6 +219,19 @@ public class Project implements ObjectDTO {
 
 	public void setVersion(Set<ProjectVersion> version) {
 		this.version = version;
+	}
+
+
+	@OneToOne(fetch = FetchType.EAGER, optional=true)
+	@PrimaryKeyJoinColumn
+	public ProjectRepository getRepository() {
+		return repository;
+	}
+
+
+
+	public void setRepository(ProjectRepository repository) {
+		this.repository = repository;
 	}
 	
 	

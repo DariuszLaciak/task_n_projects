@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -24,6 +26,8 @@ public class Teams implements ObjectDTO {
 	private static final long serialVersionUID = -5653984065291879549L;
 	private long id;
 	private String name;
+	
+	private Students leader;
 	private Set<Students> students = new HashSet<Students>();
 	private Set<Project> projects = new HashSet<Project>();
 	private Set<Notes> notes = new HashSet<Notes>();
@@ -81,6 +85,17 @@ public class Teams implements ObjectDTO {
 
 	public void setNotes(Set<Notes> notes) {
 		this.notes = notes;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idLeader", nullable = true)
+	public Students getLeader() {
+		return leader;
+	}
+
+
+	public void setLeader(Students leader) {
+		this.leader = leader;
 	}
 	
 	

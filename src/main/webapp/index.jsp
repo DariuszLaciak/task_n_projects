@@ -24,6 +24,7 @@
 <script type="text/javascript" src="scripts/dialogs.js"></script>
 <script type="text/javascript" src="scripts/admin.js"></script>
 <script type="text/javascript" src="scripts/teacher.js"></script>
+<script type="text/javascript" src="scripts/student.js"></script>
 
 
 <title>PnT Manager</title>

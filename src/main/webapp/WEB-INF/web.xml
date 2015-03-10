@@ -72,4 +72,14 @@
     <servlet-name>displayPhoto</servlet-name>
     <url-pattern>/displayPhoto</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Student</display-name>
+    <servlet-name>Student</servlet-name>
+    <servlet-class>pl.edu.pk.laciak.functions.Student</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Student</servlet-name>
+    <url-pattern>/Student</url-pattern>
+  </servlet-mapping>
 </web-app>

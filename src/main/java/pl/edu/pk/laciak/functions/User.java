@@ -36,6 +36,7 @@ import javax.servlet.http.HttpSession;
 
 
 
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
@@ -45,6 +46,7 @@ import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Task;
 import pl.edu.pk.laciak.DTO.Teachers;
+import pl.edu.pk.laciak.DTO.Teams;
 import pl.edu.pk.laciak.helpers.BorderStyle;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
 
@@ -195,6 +197,9 @@ public class User extends HttpServlet {
 				case "student":
 					Students st = (Students) user;
 					projects.addAll(st.getProject());
+					for(Teams t : st.getTeams()){
+						projects.addAll(t.getProjects());
+					}
 					tasks.addAll(st.getTasks());
 					break;
 				}

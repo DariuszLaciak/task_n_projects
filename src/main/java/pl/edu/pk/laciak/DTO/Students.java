@@ -40,6 +40,7 @@ public class Students implements ObjectDTO {
 	private Date birthday;
 	private int period;
 	private LoginData login;
+	private Set<Teams> leaderTeams = new HashSet<Teams>();
 	private Set<Task> tasks = new HashSet<Task>();
 	private Set<Project> project = new HashSet<Project>();
 	private Set<Notes> notes = new HashSet<Notes>();
@@ -241,6 +242,19 @@ public class Students implements ObjectDTO {
 
 	public void setVersion(Set<ProjectVersion> version) {
 		this.version = version;
+	}
+
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "leader")
+	@PrimaryKeyJoinColumn
+	public Set<Teams> getLeaderTeams() {
+		return leaderTeams;
+	}
+
+
+
+	public void setLeaderTeams(Set<Teams> leaderTeams) {
+		this.leaderTeams = leaderTeams;
 	}
 	
 	
