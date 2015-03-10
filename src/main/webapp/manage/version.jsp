@@ -16,9 +16,12 @@
 %>
 <%=Common.makeHeader(3, "Aktualna wersja: <i>"
 						+ Common.getLastVersionOfProject(project).getVersion())
-						+ "</u>"%>
+						+ "</i>"%>
 <%=Common.makeHeader(4, "Zmiany:") %>
 <%=Common.makeHeader(5, Common.getLastVersionOfProject(project).getChanges()) %>
+<%=Common.makeHeader(4, "Autor: "+Common.getLastVersionOfProject(project).getStudent().getSurname()+
+						" " +Common.getLastVersionOfProject(project).getStudent().getName()
+						) %>
 <%
 
 	} else {
