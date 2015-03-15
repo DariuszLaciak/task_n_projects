@@ -37,11 +37,13 @@ import javax.servlet.http.HttpSession;
 
 
 
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Admins;
+import pl.edu.pk.laciak.DTO.Comments;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Task;
@@ -258,6 +260,59 @@ public class User extends HttpServlet {
 					json.put("success", 1);
 					System.err.println("sesja wygasła");
 				}
+				out.println(json);
+				break;
+			case "newComment":
+				String[] new_comment_data = request.getParameterValues("form_values[]");
+				String com_text = new_comment_data[0];
+				
+				session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
+				Comments comment = new Comments(com_text);
+				comment.setDate(new Date());
+				Teachers teacher_com = null;
+				Students student_com = null;
+				Project proj_com = null;
+				Task task_com = null;
+				if(s.getAttribute("type").equals("teacher")){
+					teacher_com = (Teachers) s.getAttribute("userData");
+					comment.setTeacher(teacher_com);
+				}
+				else {
+					student_com = (Students) s.getAttribute("userData");
+					comment.setStudent(student_com);
+				}
+				if(s.getAttribute("selectedItemType").equals("p")){
+					proj_com = (Project) s.getAttribute("selectedItem");
+					comment.setProject(proj_com);
+				}
+				else {
+					task_com = (Task) s.getAttribute("selectedItem");
+					comment.setTask(task_com);
+				}
+				session.save(comment);
+
+				if(teacher_com != null){
+					teacher_com.getComment().add(comment);
+					session.update(teacher_com);
+				}
+				else {
+					student_com.getComments().add(comment);
+					session.update(student_com);
+				}
+				if(proj_com != null){
+					proj_com.getComment().add(comment);
+					session.update(proj_com);
+					s.setAttribute("selectedItem", proj_com);
+				}
+				else {
+					task_com.getComment().add(comment);
+					session.update(task_com);
+					s.setAttribute("selectedItem", task_com);
+				}
+				session.getTransaction().commit();
+				
+				json.put("success", 1);
 				out.println(json);
 				break;
 			}

@@ -83,6 +83,24 @@ function selectItem(type,id){
 					$("#teacher_activ_version").click(function(){
 						$("#m_content").load("manage/version.jsp");
 					});
+					$("#student_activ_look").click(function(){
+						$("#m_content").load("manage/look.jsp");
+					});
+					$("#student_activ_files").click(function(){
+						$("#m_content").load("manage/files.jsp");
+					});
+					$("#student_activ_comment").click(function(){
+						$("#m_content").load("manage/comment.jsp");
+					});
+					$("#student_activ_tasks").click(function(){
+						$("#m_content").load("manage/tasks.jsp");
+					});
+					$("#student_activ_notes").click(function(){
+						$("#m_content").load("manage/notes.jsp");
+					});
+					$("#student_activ_version").click(function(){
+						$("#m_content").load("manage/version.jsp");
+					});
 				});
 				$("#selectItem").slideUp(500);
 			}

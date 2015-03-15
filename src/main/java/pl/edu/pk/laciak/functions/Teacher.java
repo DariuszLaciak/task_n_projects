@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
+import pl.edu.pk.laciak.DTO.Comments;
 import pl.edu.pk.laciak.DTO.Deadlines;
 import pl.edu.pk.laciak.DTO.Notes;
 import pl.edu.pk.laciak.DTO.Project;
@@ -152,13 +153,27 @@ public class Teacher extends HttpServlet {
 				int i = 0;
 				String group_name = "";
 				List<String> students = new ArrayList<String>();
+				boolean leaderPicked = true;
 				for(String data : group_data){
 					if(i ==0){
 						group_name = data;
 					}
 					else {
-						if(!students.contains(data))
+						if(data.equals("yes")){
+							i++;
+							leaderPicked = false;
+							continue;
+						}
+						else if(data.equals("no")){
+							continue;
+						}
+						else if(!students.contains(data)){
+							if(!leaderPicked){
+								leaderPicked = true;
+								data = data+"leader";
+							}
 							students.add(data);
+						}
 					}
 					i++;
 				}
@@ -168,7 +183,13 @@ public class Teacher extends HttpServlet {
 				long idStudents=0;
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
+				Students studentLeader = null;
 				for(String st : students){
+					boolean isLeader = false;
+					if(st.contains("leader")){
+						st = st.substring(0,st.indexOf("leader"));
+						isLeader = true;
+					}
 					try{
 						idStudents = Long.parseLong(st);
 					}
@@ -179,7 +200,12 @@ public class Teacher extends HttpServlet {
 					try{
 					stu = (Students) s.load(Students.class, idStudents);
 					studs.add(stu);
+					if(isLeader){
+						team.setLeader(stu);
+						studentLeader = stu;
+					}
 					stu.getTeams().add(team);
+					
 				}
 					catch(ObjectNotFoundException e){
 						Common.makeError(json, out, s, 2);
@@ -188,7 +214,12 @@ public class Teacher extends HttpServlet {
 					
 				}
 				team.getStudents().addAll(studs);
+				
 				s.save(team);
+				if(studentLeader != null){
+					studentLeader.getLeaderTeams().add(team);
+					s.update(studentLeader);
+				}
 				s.getTransaction().commit();
 				
 				json.put("success", 1);
@@ -645,6 +676,7 @@ public class Teacher extends HttpServlet {
 				}
 				
 				break;
+			
 			}
 		}
 			catch(NullPointerException e){

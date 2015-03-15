@@ -632,3 +632,7 @@ ul.admin, ul.teacher, ul.student {
 #repoUrl{
 	text-decoration: underline;
 }
+
+#leaderInfo{
+	display: none;
+}

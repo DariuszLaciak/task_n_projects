@@ -9,6 +9,7 @@
 	Students student;%>
 <%
 	project = (Project) session.getAttribute("selectedItem");
+	if(session.getAttribute("type").equals("student"))
 	student = (Students) session.getAttribute("userData");
 %>
 <%
@@ -24,7 +25,7 @@
 						) %>
 <%
 
-	} else {
+	} else{
 %>
 <%=Common.makeHeader(3,
 						"Nie ma jeszcze żadnej wersji projektu")%>
@@ -41,7 +42,7 @@
 <%=Common.makeHeader(3,
 						"Nie ma jeszcze ustawionego repozytorium")%>
 <%
-	if (Common.isTeamLeader(project, student)) {
+	if (student != null && Common.isTeamLeader(project, student)) {
 %>
 <form id='addRepositoryForm' class='form_styles'>
 	<%=Common.makeRadio("repoType", "git", "Git")%>

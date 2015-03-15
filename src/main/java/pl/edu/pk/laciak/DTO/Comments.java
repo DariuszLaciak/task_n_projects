@@ -55,7 +55,7 @@ public class Comments implements ObjectDTO{
 		return date;
 	}
 	public void setDate(Date date) {
-		this.date = new Date();
+		this.date = date;
 	}
 	@Column(nullable = false, length = 30)
 	public String getText() {

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
+import pl.edu.pk.laciak.DTO.Comments;
 import pl.edu.pk.laciak.DTO.Notes;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.ProjectVersion;
@@ -31,6 +32,7 @@ import pl.edu.pk.laciak.DTO.Task;
 import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.DTO.Teams;
 import pl.edu.pk.laciak.helpers.BorderStyle;
+import pl.edu.pk.laciak.helpers.CommentByDateComparator;
 import pl.edu.pk.laciak.helpers.ProjectComparator;
 import pl.edu.pk.laciak.helpers.ProjectNotesComparator;
 import pl.edu.pk.laciak.helpers.ProjectStepsComp;
@@ -334,8 +336,10 @@ public abstract class Common {
 				submenus.put("Komentarz", "student_activ_comment");
 				submenus.put("Pliki", "student_activ_files");
 				submenus.put("Oceny", "student_activ_notes");
-				if(isProject)
+				if(isProject){
 					submenus.put("Wersja", "student_activ_version");
+					submenus.put("Zadania", "student_activ_tasks");
+				}
 				elems.put(name, submenus);
 				break;
 			}
@@ -705,7 +709,6 @@ public abstract class Common {
 	}
 	
 	public static boolean isTeamLeader(Project project, Students student){
-		
 		if(project.getTeam() == null){
 			return true;
 		}
@@ -718,6 +721,43 @@ public abstract class Common {
 			return true;
 		}
 		return false;
+	}
+	
+	public static List<List<String>> createTableComments(Project proj,Task task){
+		List<List<String>> list = new ArrayList<List<String>>();
+		List<Comments> comments = new ArrayList<Comments>();
+		if(proj != null){
+			comments.addAll(proj.getComment() );
+		}
+		else if(task != null){
+			comments.addAll(task.getComment());
+		}
+		Collections.sort(comments,new CommentByDateComparator());
+		List<String> ps_elems = new ArrayList<String>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		for(Comments c : comments){
+			ps_elems = new ArrayList<String>();
+			ps_elems.add(sdf.format(c.getDate()));
+			ps_elems.add(c.getText());
+			if(c.getStudent() != null){
+				ps_elems.add(c.getStudent().getSurname() + " " +c.getStudent().getName() + " (S)");
+			}
+			else if(c.getTeacher() != null){
+				ps_elems.add(c.getTeacher().getSurname() + " " +c.getTeacher().getName() + " (N)");
+			}
+			list.add(ps_elems);
+		}
+		
+		
+		return list;
+	}
+	
+	public static List<String> createTableCommentsHeaders(){
+		List<String> ps_elems = new ArrayList<String>();
+		ps_elems.add("Data");
+		ps_elems.add("Treść");
+		ps_elems.add("Autor");
+		return ps_elems;
 	}
 }
 
