@@ -82,4 +82,14 @@
     <servlet-name>Student</servlet-name>
     <url-pattern>/Student</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NewFileServlet</display-name>
+    <servlet-name>NewFileServlet</servlet-name>
+    <servlet-class>pl.edu.pk.laciak.functions.NewFileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewFileServlet</servlet-name>
+    <url-pattern>/NewFileServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

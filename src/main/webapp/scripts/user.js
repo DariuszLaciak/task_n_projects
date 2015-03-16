@@ -23,3 +23,12 @@ function newComment(){
 		}
 	});
 }
+
+function uploadNewFile(){
+//	var file = $("#newFileObj")[0];
+//	var comment = $("#newFileComment").val();
+//	var formData = new FormData();
+//	formData.append("upload",file.files[0],file.files[0].filename);
+//	formData.append("newFileComment",comment);
+	
+}
