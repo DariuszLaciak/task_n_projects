@@ -25,6 +25,7 @@ public class Files implements ObjectDTO {
 	private long id;
 	private String name;
 	private Date date;
+	private String comment;
 	
 	private Students owner;
 	private Project id_project;
@@ -35,6 +36,16 @@ public class Files implements ObjectDTO {
 		
 	}
 	
+	
+	
+	public Files(String name, String comment) {
+		super();
+		this.name = name;
+		this.comment = comment;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(unique = true, nullable = false)
@@ -86,6 +97,15 @@ public class Files implements ObjectDTO {
 	}
 	public void setId_task(Task id_task) {
 		this.id_task = id_task;
+	}
+
+	@Column(nullable = false, length = 200)
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 	

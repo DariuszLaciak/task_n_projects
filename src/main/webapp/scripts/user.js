@@ -25,10 +25,23 @@ function newComment(){
 }
 
 function uploadNewFile(){
-//	var file = $("#newFileObj")[0];
-//	var comment = $("#newFileComment").val();
-//	var formData = new FormData();
-//	formData.append("upload",file.files[0],file.files[0].filename);
-//	formData.append("newFileComment",comment);
+	var comment = $("#newFileComment").val();
+	
+	$.ajax({
+		url: "User",
+		type: "post",
+		data: {
+			action: "newFile",
+			comment: comment
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 1){
+				popup("success", "Pomyslnie wstawiono plik");
+				$("#m_content").load("manage/files.jsp");
+			}
+		}
+	});
 	
 }

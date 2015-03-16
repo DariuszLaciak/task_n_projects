@@ -1,5 +1,6 @@
 package pl.edu.pk.laciak.functions;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
 
 
 
@@ -314,6 +317,32 @@ public class User extends HttpServlet {
 				
 				json.put("success", 1);
 				out.println(json);
+				break;
+			case "newFile":
+				String commentFile = request.getParameter("comment");
+				File file = (File) s.getAttribute("uploadingFile");
+				String fileName = s.getAttribute("uploadingFileName").toString();
+				long idActivity = 0;
+				String activity = "project";
+				try{
+					Project p = (Project) s.getAttribute("selectedItem");
+					idActivity = p.getId();
+				}
+				catch(ClassCastException e){
+					Task t = (Task) s.getAttribute("selectedItem");
+					activity = "task";
+					idActivity = t.getId();
+				}
+				String filepath =  "activityFiles/"+activity+"/"+idActivity+"/"+fileName;
+				boolean success = FTPCommon.uploadFile(file, fileName, "activityFiles/"+activity+"/"+idActivity);
+				if(success){
+					
+				}
+				else {
+					FTPCommon.deleteFile(filepath);
+					Common.makeError(json, out, session, 2); // nie udalo sie wrzucic
+					return;
+				}
 				break;
 			}
 		}

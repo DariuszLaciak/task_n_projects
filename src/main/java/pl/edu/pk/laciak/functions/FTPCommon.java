@@ -41,6 +41,25 @@ public class FTPCommon {
 
 	}
 	
+	public static boolean deleteFile(String filepath){
+		boolean success = false;
+		try {
+			client.connect(ftp_host, ftp_port);
+			client.login(ftp_user,ftp_pass);
+			client.enterLocalPassiveMode();
+			client.setFileType(FTP.BINARY_FILE_TYPE);
+			client.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
+			success = client.deleteFile(filepath);
+			System.out.println(client.getReplyString());
+			fis.close();
+			client.logout();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		return success;
+	}
+	
 	public static File getPhoto(long user_id){
 		File file = null;
 		InputStream input = null;
