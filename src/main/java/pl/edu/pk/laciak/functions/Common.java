@@ -21,6 +21,7 @@ import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Comments;
+import pl.edu.pk.laciak.DTO.Files;
 import pl.edu.pk.laciak.DTO.Notes;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.ProjectVersion;
@@ -33,6 +34,7 @@ import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.DTO.Teams;
 import pl.edu.pk.laciak.helpers.BorderStyle;
 import pl.edu.pk.laciak.helpers.CommentByDateComparator;
+import pl.edu.pk.laciak.helpers.FilesByDateComparator;
 import pl.edu.pk.laciak.helpers.ProjectComparator;
 import pl.edu.pk.laciak.helpers.ProjectNotesComparator;
 import pl.edu.pk.laciak.helpers.ProjectStepsComp;
@@ -757,6 +759,45 @@ public abstract class Common {
 		ps_elems.add("Data");
 		ps_elems.add("Treść");
 		ps_elems.add("Autor");
+		return ps_elems;
+	}
+	
+	public static List<List<String>> createTableFiles(Project proj,Task task){
+		List<List<String>> list = new ArrayList<List<String>>();
+		List<Files> files = new ArrayList<Files>();
+		if(proj != null)
+			files.addAll(proj.getFiles());
+		else if(task != null)
+			files.addAll(task.getFiles());
+		
+		Collections.sort(files,new FilesByDateComparator());
+		List<String> ps_elems = new ArrayList<String>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
+		int i = 1;
+		for(Files f : files){
+			ps_elems = new ArrayList<String>();
+			ps_elems.add(String.valueOf(i));
+			ps_elems.add(f.getName());
+			ps_elems.add(f.getOwner().getSurname() + " " + f.getOwner().getName());
+			ps_elems.add(sdf.format(f.getDate()));
+			ps_elems.add(f.getComment());
+			ps_elems.add(Common.makeButton("Pobierz", "downloadFile("+f.getId()+")", "b_blue"));
+			i++;
+			list.add(ps_elems);
+		}
+		
+		return list;
+	}
+	
+	public static List<String> createTableFilesHeaders(){
+		List<String> ps_elems = new ArrayList<String>();
+		ps_elems.add("Nr");
+		ps_elems.add("Nazwa");
+		ps_elems.add("Autor");
+		ps_elems.add("Data");
+		ps_elems.add("Opis");
+		ps_elems.add("");
 		return ps_elems;
 	}
 }

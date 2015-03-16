@@ -24,24 +24,3 @@ function newComment(){
 	});
 }
 
-function uploadNewFile(){
-	var comment = $("#newFileComment").val();
-	
-	$.ajax({
-		url: "User",
-		type: "post",
-		data: {
-			action: "newFile",
-			comment: comment
-		},
-		success: function(data){
-			var output = jQuery.parseJSON(data);
-			isUserLoggedIn(output);
-			if(output.success == 1){
-				popup("success", "Pomyslnie wstawiono plik");
-				$("#m_content").load("manage/files.jsp");
-			}
-		}
-	});
-	
-}

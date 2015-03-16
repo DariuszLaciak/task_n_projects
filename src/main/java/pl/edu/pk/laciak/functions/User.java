@@ -41,12 +41,14 @@ import javax.servlet.http.HttpSession;
 
 
 
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
 import pl.edu.pk.laciak.DTO.Admins;
 import pl.edu.pk.laciak.DTO.Comments;
+import pl.edu.pk.laciak.DTO.Files;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Students;
 import pl.edu.pk.laciak.DTO.Task;
@@ -318,32 +320,7 @@ public class User extends HttpServlet {
 				json.put("success", 1);
 				out.println(json);
 				break;
-			case "newFile":
-				String commentFile = request.getParameter("comment");
-				File file = (File) s.getAttribute("uploadingFile");
-				String fileName = s.getAttribute("uploadingFileName").toString();
-				long idActivity = 0;
-				String activity = "project";
-				try{
-					Project p = (Project) s.getAttribute("selectedItem");
-					idActivity = p.getId();
-				}
-				catch(ClassCastException e){
-					Task t = (Task) s.getAttribute("selectedItem");
-					activity = "task";
-					idActivity = t.getId();
-				}
-				String filepath =  "activityFiles/"+activity+"/"+idActivity+"/"+fileName;
-				boolean success = FTPCommon.uploadFile(file, fileName, "activityFiles/"+activity+"/"+idActivity);
-				if(success){
-					
-				}
-				else {
-					FTPCommon.deleteFile(filepath);
-					Common.makeError(json, out, session, 2); // nie udalo sie wrzucic
-					return;
-				}
-				break;
+			
 			}
 		}
 

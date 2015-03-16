@@ -1,8 +1,10 @@
 package pl.edu.pk.laciak.functions;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,10 +15,12 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
+import pl.edu.pk.laciak.DTO.Files;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.ProjectRepository;
 import pl.edu.pk.laciak.DTO.ProjectVersion;
 import pl.edu.pk.laciak.DTO.Students;
+import pl.edu.pk.laciak.DTO.Task;
 import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
 
@@ -99,6 +103,58 @@ public class Student extends HttpServlet {
 				session.setAttribute("selectedItem", versProject);
 				json.put("success", 1);
 				out.println(json);
+				break;
+			case "newFile":
+				String commentFile = request.getParameter("comment");
+				File file = (File) session.getAttribute("uploadingFile");
+				String fileName = session.getAttribute("uploadingFileName").toString();
+				long idActivity = 0;
+				String activity = "project";
+				Project p = null;
+				Task t = null;
+				try{
+					p = (Project) session.getAttribute("selectedItem");
+					idActivity = p.getId();
+				}
+				catch(ClassCastException e){
+					t = (Task) session.getAttribute("selectedItem");
+					activity = "task";
+					idActivity = t.getId();
+				}
+				String filepath =  "activityFiles/"+activity+"/"+idActivity+"/"+fileName;
+				boolean success = FTPCommon.uploadFile(file, fileName, "activityFiles/"+activity+"/"+idActivity);
+				if(success){
+					s = HibernateUtil.getSessionFactory().getCurrentSession();
+					s.beginTransaction();
+					
+					Files newFile = new Files(fileName, commentFile);
+					newFile.setDate(new Date());
+					newFile.setId_project(p);
+					newFile.setId_task(t);
+					newFile.setOwner(student);
+					s.save(newFile);
+					student.getFiles().add(newFile);
+					s.update(student);
+					if(p != null){
+						p.getFiles().add(newFile);
+						s.update(p);
+						session.setAttribute("selectedItem", p);
+					}
+					else {
+						t.getFiles().add(newFile);
+						s.update(t);
+						session.setAttribute("selectedItem", t);
+					}
+					
+					s.getTransaction().commit();
+					json.put("success", 1);
+					out.println(json);
+				}
+				else {
+					FTPCommon.deleteFile(filepath);
+					Common.makeError(json, out, s, 2); // nie udalo sie wrzucic
+					return;
+				}
 				break;
 			}
 		}

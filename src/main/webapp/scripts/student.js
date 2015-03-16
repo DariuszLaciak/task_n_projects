@@ -72,3 +72,28 @@ function confirmNewVersion(){
 		}
 	});
 }
+
+function uploadNewFile(){
+	var comment = $("#newFileComment").val();
+	
+	$.ajax({
+		url: "Student",
+		type: "post",
+		data: {
+			action: "newFile",
+			comment: comment
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 1){
+				popup("success", "Pomyslnie wstawiono plik");
+				$("#m_content").load("manage/files.jsp");
+			}
+			else if(output.success == 2){
+				popup("error", "Problem z serwerem FTP. Skontaktuj się z administratorem");
+			}
+		}
+	});
+	
+}
