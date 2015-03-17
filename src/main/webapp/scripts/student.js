@@ -17,6 +17,9 @@ $(document).ready(function(){
 	$("#student_activ_version").click(function(){
 		$("#m_content").load("manage/version.jsp");
 	});
+	$("#subject_list_st").click(function(){
+		$("#m_content").load("student/subjects.jsp");
+	});
 });
 
 function confirmNewRepo(){

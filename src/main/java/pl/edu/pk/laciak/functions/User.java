@@ -377,7 +377,6 @@ public class User extends HttpServlet {
 		}
 
 		catch(NullPointerException e){
-			e.printStackTrace();
 			json.put("error", "logged_out");
 			out.println(json);
 		}

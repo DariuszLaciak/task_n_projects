@@ -57,7 +57,7 @@ public class ProjectVersion implements ObjectDTO {
 	}
 	
 	
-	@Column(nullable = false, length = 40)
+	@Column(nullable = false, length = 400)
 	public String getVersion() {
 		return version;
 	}

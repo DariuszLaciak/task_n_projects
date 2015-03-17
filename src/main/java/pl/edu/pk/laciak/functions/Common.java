@@ -800,5 +800,67 @@ public abstract class Common {
 		ps_elems.add("");
 		return ps_elems;
 	}
+	
+	public static List<List<String>> createTableSubjectsStudent(Students student){
+		List<List<String>> list = new ArrayList<List<String>>();
+		List<Subject> subjects = new ArrayList<Subject>();
+		Map<String, Long> number = new HashMap<String, Long>();
+		
+		for(Project p : student.getProject()){
+			if(!subjects.contains(p.getSubject())){
+				subjects.add(p.getSubject());
+			}
+			if(number.containsKey(p.getSubject().getId()+"p")){
+				number.put(p.getSubject().getId()+"p", number.get(p.getSubject().getId()+"p")+1);
+			}
+			else {
+				number.put(p.getSubject().getId()+"p", 1L);
+			}
+		}
+		for(Task t : student.getTasks()){
+			if(!subjects.contains(t.getSubject())){
+				subjects.add(t.getSubject());
+			}
+			if(number.containsKey(t.getSubject().getId()+"t")){
+				number.put(t.getSubject().getId()+"t", number.get(t.getSubject().getId()+"t")+1);
+			}
+			else {
+				number.put(t.getSubject().getId()+"t", 1L);
+			}
+		}
+		
+		
+		List<String> ps_elems = new ArrayList<String>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
+		
+		for(Subject s : subjects){
+			ps_elems = new ArrayList<String>();
+			
+			ps_elems.add(s.getName());
+			ps_elems.add(s.getTeacher().getSurname()+ " " + s.getTeacher().getName());
+			if(number.get(s.getId()+"p") != null)
+				ps_elems.add(""+number.get(s.getId()+"p"));
+			else 
+				ps_elems.add(""+0);
+			if(number.get(s.getId()+"t") != null)
+				ps_elems.add(""+number.get(s.getId()+"t"));
+			else
+				ps_elems.add(""+0);
+			
+			list.add(ps_elems);
+		}
+		
+		return list;
+	}
+	
+	public static List<String> createTableSubjectsStudentHeaders(){
+		List<String> ps_elems = new ArrayList<String>();
+		ps_elems.add("Nazwa przedmiotu");
+		ps_elems.add("Prowadzący");
+		ps_elems.add("Liczba projektów");
+		ps_elems.add("Liczba zadań");
+		return ps_elems;
+	}
 }
 
