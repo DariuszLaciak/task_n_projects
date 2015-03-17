@@ -108,6 +108,8 @@ public class Student extends HttpServlet {
 				String commentFile = request.getParameter("comment");
 				File file = (File) session.getAttribute("uploadingFile");
 				String fileName = session.getAttribute("uploadingFileName").toString();
+				session.removeAttribute("uploadingFile");
+				session.removeAttribute("uploadingFileName");
 				long idActivity = 0;
 				String activity = "project";
 				Project p = null;

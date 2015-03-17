@@ -1,7 +1,9 @@
 package pl.edu.pk.laciak.functions;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
 
 
 
@@ -75,7 +79,7 @@ public class User extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 	}
 
 	/**
@@ -188,7 +192,7 @@ public class User extends HttpServlet {
 				catch (HibernateException e) {
 					json.put("edited", 0);
 				}
-				
+
 				out.println(json);
 				break;
 			case "selectItem":
@@ -270,7 +274,7 @@ public class User extends HttpServlet {
 			case "newComment":
 				String[] new_comment_data = request.getParameterValues("form_values[]");
 				String com_text = new_comment_data[0];
-				
+
 				session = HibernateUtil.getSessionFactory().getCurrentSession();
 				session.beginTransaction();
 				Comments comment = new Comments(com_text);
@@ -316,15 +320,64 @@ public class User extends HttpServlet {
 					s.setAttribute("selectedItem", task_com);
 				}
 				session.getTransaction().commit();
-				
+
 				json.put("success", 1);
 				out.println(json);
 				break;
-			
+			case "downloadFile":
+				String idFile = request.getParameter("id");
+				long realId = 0;
+				try {
+					realId = Long.parseLong(idFile);
+				}
+				catch(NumberFormatException e){
+					Common.makeError(json, out, null, 2);
+					return;
+				}
+				Files dlFile = null;
+				session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
+
+				dlFile = (Files) session.get(Files.class, realId);
+
+				session.getTransaction().commit();
+
+				long activId = 0;
+				boolean isProject = true;
+				if(dlFile != null){
+					if(s.getAttribute("selectedItemType").equals("p")){
+						Project p = (Project) s.getAttribute("selectedItem");
+						activId = p.getId();
+						if(dlFile.getId_project() == null || (dlFile.getId_project() != null && p.getId() != dlFile.getId_project().getId())){
+							Common.makeError(json, out, null, 3);
+							return;
+						}
+					}
+					else {
+						Task t = (Task) s.getAttribute("selectedItem");
+						activId = t.getId();
+						isProject = false;
+						if(dlFile.getId_project() == null || (dlFile.getId_project() != null && t.getId() != dlFile.getId_project().getId())){
+							Common.makeError(json, out, null, 3);
+							return;
+						}
+					}
+					File dl = FTPCommon.downloadFile(dlFile.getName(), activId, isProject);
+					s.setAttribute("downloadingFile", dl);
+					json.put("fileName",dlFile.getName());
+					json.put("success", 1);
+					out.println(json);
+				}
+				else {
+					Common.makeError(json, out, null, 4);
+					return;
+				}
+				break;
 			}
 		}
 
 		catch(NullPointerException e){
+			e.printStackTrace();
 			json.put("error", "logged_out");
 			out.println(json);
 		}

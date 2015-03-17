@@ -1,7 +1,9 @@
 package pl.edu.pk.laciak.functions;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +40,45 @@ public class FTPCommon {
 			e.printStackTrace();
 		}
 		return success;
+
+	}
+	
+	public static File downloadFile(String filename, long activityId, boolean isProject){
+		OutputStream out = null;
+		File file = null;
+		try {
+			file = File.createTempFile("temp", "dld");
+			out = new BufferedOutputStream(new FileOutputStream(file));
+			
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		try {
+			client.connect(ftp_host, ftp_port);
+			client.login(ftp_user,ftp_pass);
+			client.enterLocalPassiveMode();
+			client.setFileType(FTP.BINARY_FILE_TYPE);
+			client.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
+			String filepath = "activityFiles/";
+			if(isProject){
+				filepath += "project"; 
+			}
+			else {
+				filepath += "task"; 
+			}
+			filepath += "/"+activityId+"/"+filename;
+			client.retrieveFile(filepath, out);
+			System.out.println(client.getReplyString());
+			out.close();
+			client.logout();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		return file;
 
 	}
 	
