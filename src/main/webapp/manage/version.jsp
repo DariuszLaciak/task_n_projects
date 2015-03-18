@@ -38,11 +38,14 @@
 						+ project.getRepository().getLink() + "</span>")%>
 <%
 	} else {
+		
 %>
 <%=Common.makeHeader(3,
 						"Nie ma jeszcze ustawionego repozytorium")%>
 <%
+if(!Common.isProjectOrTaskFinished(session.getAttribute("selectedItem"))){ 
 	if (student != null && Common.isTeamLeader(project, student)) {
+		
 %>
 <form id='addRepositoryForm' class='form_styles'>
 	<%=Common.makeRadio("repoType", "git", "Git")%>
@@ -59,6 +62,11 @@
 <%
 	}
 	}
+else {
+	out.println(Common.makeHeader(3, "Aktywność zakończona"));
+}
+	}
+	if(!Common.isProjectOrTaskFinished(session.getAttribute("selectedItem"))){ 
 	if (session.getAttribute("type").equals("student")) {
 %>
 
@@ -72,4 +80,10 @@
 </form>
 <%
 	}
+	}
+	else {
+		out.println(Common.makeHeader(3, "Aktywność zakończona"));
+	}
+	
+	
 %>

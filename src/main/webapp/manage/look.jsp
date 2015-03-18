@@ -17,9 +17,14 @@ else if(session.getAttribute("type").equals("teacher")){
 	Teachers teacher = (Teachers)session.getAttribute("userData");  
 	
 	
+	if(!p.isFinished()){
 	%>
-	<button class='button b_grey' onclick='add_new_step()'>Dodaj nowy etap</button>
+	<button class='button b_grey' onclick='add_new_step()'>Dodaj nowy etap</button>&nbsp;&nbsp;&nbsp;
+	<%=Common.makeButton("Zakończ projekt", "finishProject()", "b_red") %>
 	<br /><br />
+	<%} else { %>
+	<%=Common.makeHeader(3, "Projekt zakończony") %>
+	<%} %>
 	<form id='new_step_form' class= 'form_styles'></form>
 	
 	<%

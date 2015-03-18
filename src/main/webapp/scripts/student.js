@@ -20,6 +20,12 @@ $(document).ready(function(){
 	$("#subject_list_st").click(function(){
 		$("#m_content").load("student/subjects.jsp");
 	});
+	$("#task_list_st").click(function(){
+		$("#m_content").load("student/tasks.jsp");
+	});
+	$("#project_list_st").click(function(){
+		$("#m_content").load("student/projects.jsp");
+	})
 });
 
 function confirmNewRepo(){

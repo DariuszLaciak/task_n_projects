@@ -676,6 +676,20 @@ public class Teacher extends HttpServlet {
 				}
 				
 				break;
+				
+			case "finishProject":
+				
+				Project pFinish = (Project) sess.getAttribute("selectedItem");
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				s.beginTransaction();
+				pFinish.setFinished(true);
+				s.update(pFinish);
+				s.getTransaction().commit();
+				sess.setAttribute("selectedItem", pFinish);
+				json.put("success", 1);
+				out.println(json);
+				
+				break;
 			
 			}
 		}

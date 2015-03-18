@@ -6,10 +6,14 @@
 <%
 Project p = (Project) session.getAttribute("selectedItem");
 if(session.getAttribute("type").equals("teacher")){
+	 if(!Common.isProjectOrTaskFinished(session.getAttribute("selectedItem"))){ 
 	%>
 	<%=Common.makeButton("Dodaj zadanie", "add_new_projectTask()", "b_grey") %>
 	<br /><br />
 	<%
+} else {
+	out.println(Common.makeHeader(3, "Projekt zakończony"));
+}
 }
 else {
 	

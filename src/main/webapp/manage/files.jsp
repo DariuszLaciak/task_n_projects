@@ -7,7 +7,9 @@
 	Task task = null;
 	boolean areFiles = false;%>
 <h1>Załączone pliki</h1>
-<% if(session.getAttribute("type").equals("student")){ %>
+<% if(session.getAttribute("type").equals("student")){ 
+if(!Common.isProjectOrTaskFinished(session.getAttribute("selectedItem"))){
+%>
 <form id='newFileForm' class='form_styles'>
 <%=Common.makeUploadFile("newFileObj") %>
 <%=Common.makeInputTextArea("newFileComment", "Opis", "") %>
@@ -32,7 +34,10 @@ $(document).ready(function(){
 	});
 });
 </script>
-<%} 
+<%} else {
+	out.println(Common.makeHeader(3, "Aktywność zakończona"));
+}
+}
 if(session.getAttribute("selectedItem") instanceof Project){
 	proj = (Project) session.getAttribute("selectedItem");
 	if(!proj.getFiles().isEmpty())

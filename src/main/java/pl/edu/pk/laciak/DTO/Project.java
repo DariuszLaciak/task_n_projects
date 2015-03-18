@@ -33,6 +33,7 @@ public class Project implements ObjectDTO {
 	private Date startDate;
 	private Students student;
 	private String text;
+	private boolean isFinished;
 	
 	private Deadlines deadline;
 	private Set<Comments> comment = new HashSet<Comments>();
@@ -232,6 +233,18 @@ public class Project implements ObjectDTO {
 
 	public void setRepository(ProjectRepository repository) {
 		this.repository = repository;
+	}
+
+
+	@Column(nullable = false)
+	public boolean isFinished() {
+		return isFinished;
+	}
+
+
+
+	public void setFinished(boolean isFinished) {
+		this.isFinished = isFinished;
 	}
 	
 	

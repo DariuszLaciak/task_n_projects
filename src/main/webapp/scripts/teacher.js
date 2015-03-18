@@ -18,6 +18,12 @@ $(document).ready(function(){
 	$("#manage_project").click(function(){
 		$("#m_content").load("teacher/manage_project.jsp");
 	});
+	$("#view_tasks").click(function(){
+		$("#m_content").load("teacher/list_tasks.jsp");
+	});
+	$("#view_projects").click(function(){
+		$("#m_content").load("teacher/list_projects.jsp");
+	});
 	$("#teacher_activ_look").click(function(){
 		$("#m_content").load("manage/look.jsp");
 	});
@@ -463,3 +469,20 @@ function confirmNewNote(){
 	});
 }
 
+function finishProject(){
+	$.ajax({
+		url: "Teacher",
+		type: "post",
+		data: {
+			action: "finishProject"
+		},
+		success: function(data){
+			var output = jQuery.parseJSON(data);
+			isUserLoggedIn(output);
+			if(output.success == 1){
+				popup("success", "Projekt zakończony");
+				$("#m_content").load("manage/look.jsp");
+			}
+		}
+	});
+}

@@ -58,7 +58,7 @@ public class Subject implements ObjectDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subject")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "subject")
 	@PrimaryKeyJoinColumn
 	public Set<Project> getProjects() {
 		return projects;
@@ -66,7 +66,7 @@ public class Subject implements ObjectDTO {
 	public void setProjects(Set<Project> projects) {
 		this.projects = projects;
 	}
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subject")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "subject")
 	@PrimaryKeyJoinColumn
 	public Set<Notes> getNotes() {
 		return notes;
@@ -75,7 +75,7 @@ public class Subject implements ObjectDTO {
 		this.notes = notes;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idTeacher", nullable = false)
 	public Teachers getTeacher() {
 		return teacher;
@@ -86,7 +86,7 @@ public class Subject implements ObjectDTO {
 		this.teacher = teacher;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subject")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "subject")
 	@PrimaryKeyJoinColumn
 	public Set<Task> getTasks() {
 		return tasks;

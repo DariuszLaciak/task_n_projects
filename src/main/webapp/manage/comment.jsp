@@ -7,12 +7,19 @@
 	Task task=null;
 	boolean noComment = true;%>
 <h1>Komentarze</h1>
+<% if(!Common.isProjectOrTaskFinished(session.getAttribute("selectedItem"))){ %>
 <form id='newCommentForm' class='form_styles'>
 <%=Common.makeInputTextArea("newCommentText", "Treść", "") %>
 <%=Common.br(1) %>
 <%=Common.makeButton("Dodaj nowy komentarz", "newComment()", "b_green") %>
 </form>
 <% 
+}
+else {
+	%>
+	<%=Common.makeHeader(3, "Aktywonść zakończona") %>
+	<%
+}
 noComment = true;
 if(session.getAttribute("selectedItemType").equals("t")){
 	task = (Task)session.getAttribute("selectedItem");
