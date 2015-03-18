@@ -24,6 +24,9 @@ $(document).ready(function(){
 	$("#view_projects").click(function(){
 		$("#m_content").load("teacher/list_projects.jsp");
 	});
+	$("#st_list").click(function(){
+		$("#m_content").load("teacher/list_groups.jsp");
+	});
 	$("#teacher_activ_look").click(function(){
 		$("#m_content").load("manage/look.jsp");
 	});

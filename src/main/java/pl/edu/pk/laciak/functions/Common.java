@@ -762,6 +762,55 @@ public abstract class Common {
 		return ps_elems;
 	}
 	
+	public static List<List<String>> createTableGroups(Teachers teacher){
+		List<List<String>> list = new ArrayList<List<String>>();
+		List<Teams> teams = new ArrayList<Teams>();
+		Map<String, Integer> number = new HashMap<String, Integer>();
+		
+		for(Project p : teacher.getProjects()){
+			if(p.getTeam()!=null){
+				if(!teams.contains(p.getTeam())){
+					teams.add(p.getTeam());
+					number.put(p.getTeam().getId()+"", 1);
+				}
+				else {
+					number.put(p.getTeam().getId()+"", number.get(p.getTeam().getId())+1);
+				}
+			}
+		}
+		
+		
+		
+		List<String> ps_elems = new ArrayList<String>();
+		
+		int i = 1;
+		for(Teams t : teams){
+			ps_elems = new ArrayList<String>();
+			ps_elems.add(String.valueOf(i));
+			ps_elems.add(t.getName());
+			if(number.get(t.getId()+"") != null)
+				ps_elems.add(number.get(t.getId()+"")+"");
+			else {
+				ps_elems.add("0");
+			}
+			ps_elems.add(Common.makeButton("Studenci", "teamStudents("+t.getId()+")", "b_blue"));
+			i++;
+			list.add(ps_elems);
+		}
+		
+		return list;
+	}
+	
+	public static List<String> createTableGroupsHeaders(){
+		List<String> ps_elems = new ArrayList<String>();
+		ps_elems.add("Nr");
+		ps_elems.add("Nazwa");
+		ps_elems.add("Liczba projektów");
+		ps_elems.add("Skład");
+		return ps_elems;
+	}
+	
+	
 	public static List<List<String>> createTableFiles(Project proj,Task task){
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Files> files = new ArrayList<Files>();
@@ -909,9 +958,6 @@ public abstract class Common {
 			}
 		}
 		
-		for(Entry<String, Long> entry : number.entrySet()){
-			System.out.println(entry.getKey() + " => "+entry.getValue());
-		}
 		List<String> ps_elems = new ArrayList<String>();
 		
 		for(Subject s : subjects){
