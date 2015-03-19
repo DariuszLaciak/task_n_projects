@@ -4,7 +4,7 @@
 
 $(document).ready(function(){
 	var dialogs = [
-	               "edit_profile"
+	               "edit_profile","studentsGroup"
 	               ]
 	$.each(dialogs,function(value,key){
 		if($("body").find("#"+key).length == 0){
@@ -70,6 +70,52 @@ function editProfileWindowSettings(){
 		},
 		{
 			text: "Anuluj",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+		]
+		
+	});
+}
+
+
+function openStudentsGroupWindow(id){
+	openStudentsGroupWindowSettings();
+	$.post(
+			'Teacher',
+			{
+				action: "studentsGroup",
+				id: id
+			},
+			function(data){
+				
+				var html = jQuery.parseJSON(data);
+				if(html.form != null){
+					$('#studentsGroup').html(html.form);
+					$("#studentsGroup").dialog("open");
+				}
+				else {
+					popup("error","Sesja wygasła. Zaloguj się ponownie");
+					setTimeout(function(){
+						location.reload();
+					}, 1000);
+				}
+			});
+	
+}
+
+function openStudentsGroupWindowSettings(){
+	$("#studentsGroup").dialog({
+		title: "Lista studentów",
+		autoOpen: false,
+		width: 450,
+		height: 500,
+		minWidth: 300,
+		minHeight: 400,
+		resizable: true,
+		buttons: [{
+			text: "Wyjdź",
 			click: function() {
 				$( this ).dialog( "close" );
 			}

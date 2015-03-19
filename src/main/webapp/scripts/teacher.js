@@ -489,3 +489,7 @@ function finishProject(){
 		}
 	});
 }
+
+function teamStudents(id){
+	openStudentsGroupWindow(id);
+}

@@ -690,6 +690,31 @@ public class Teacher extends HttpServlet {
 				out.println(json);
 				
 				break;
+				
+			case "studentsGroup":
+				html = "";
+				String idGroup = request.getParameter("id");
+				long idGroupL = Long.parseLong(idGroup);
+				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				s.beginTransaction();
+				Teams studentTeam = (Teams) s.load(Teams.class, idGroupL);
+				html += Common.makeHeader(3, "Studenci grupy "+studentTeam.getName());
+				int j = 1;
+				html += "<table>";
+				for(Students st : studentTeam.getStudents()){
+					html += "<tr><td>"+j+"</td>";
+					html += "<td>"+st.getSurname()+ " " + st.getName()+"</td>";
+					html += "<td>"+st.getAlbum()+"</td>";
+					if(studentTeam.getLeader() != null && studentTeam.getLeader().equals(st))
+						html += "<td>Leader</td>";
+					html += "</tr>";
+					j++;
+				}
+				html += "</table>";
+				s.getTransaction().commit();
+				json.put("form", html);
+				out.println(json);
+				break;
 			
 			}
 		}

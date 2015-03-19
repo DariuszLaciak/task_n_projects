@@ -38,7 +38,8 @@ public abstract class DBCommon {
 		if(!s.getTransaction().isActive())
 			s.beginTransaction();
 		lista = s.createQuery("from Subject where idTeacher=:id order by name").setParameter("id", teacher_id).list();
-		s.getTransaction().commit();
+		if(s !=null)
+			s.getTransaction().commit();
 		if(s.isOpen())
 			s.close();
 		return lista;
