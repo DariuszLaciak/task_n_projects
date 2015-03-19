@@ -109,10 +109,10 @@ function openStudentsGroupWindowSettings(){
 	$("#studentsGroup").dialog({
 		title: "Lista studentów",
 		autoOpen: false,
-		width: 450,
-		height: 500,
-		minWidth: 300,
-		minHeight: 400,
+		width: 390,
+		height: 300,
+		minWidth: 390,
+		minHeight: 300,
 		resizable: true,
 		buttons: [{
 			text: "Wyjdź",
