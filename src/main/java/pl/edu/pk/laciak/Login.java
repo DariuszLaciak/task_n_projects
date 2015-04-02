@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.exception.JDBCConnectionException;
 
 import pl.edu.pk.laciak.DTO.LoginData;
 import pl.edu.pk.laciak.functions.Common;
@@ -58,7 +59,14 @@ public class Login extends HttpServlet {
 			if(!session.getTransaction().isActive())
 				session.beginTransaction();
 			Query q = session.createQuery("from LoginData where username=:user").setString("user", user);
-			List<?> result = q.list();
+			List<?> result = null;
+			try {
+				result = q.list();
+			} catch (JDBCConnectionException e) {
+				response.getWriter().write("Problem z serwerem. Spróbuj ponownie się zalogować.");
+				
+				return;
+			}
 			
 			
 			if(result.isEmpty()){

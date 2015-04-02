@@ -18,7 +18,7 @@ function log(){
 				loading_done();
 			}
 			else {
-				location.reload();
+				location.reload(true);
 			}
 		}
 	});

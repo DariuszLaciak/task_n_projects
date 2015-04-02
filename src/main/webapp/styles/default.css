@@ -115,7 +115,7 @@ body {
 	padding: 20px;
 	margin-top: 10px;
 	overflow: auto;
-	display: table;
+	display: block;
 }
 
 .result_table {

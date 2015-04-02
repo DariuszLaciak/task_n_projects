@@ -221,6 +221,8 @@ public class User extends HttpServlet {
 				break;
 			case "confirmSelectItem":
 				session = HibernateUtil.getSessionFactory().getCurrentSession();
+				if(session.getTransaction().isActive())
+					session.getTransaction().commit();
 				session.beginTransaction();
 				if(user instanceof Teachers){
 					user = session.get(Teachers.class, ((Teachers) user).getId());
@@ -276,6 +278,8 @@ public class User extends HttpServlet {
 				String com_text = new_comment_data[0];
 
 				session = HibernateUtil.getSessionFactory().getCurrentSession();
+				if(session.getTransaction().isActive())
+					session.getTransaction().commit();
 				session.beginTransaction();
 				Comments comment = new Comments(com_text);
 				comment.setDate(new Date());

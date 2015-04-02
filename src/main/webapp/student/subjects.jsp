@@ -5,4 +5,8 @@
 <%! Students s; %>
 <%=Common.makeHeader(1, "Statystyki przedmiotów") %>
 <% s = (Students) session.getAttribute("userData"); %>
+<% if(Common.doesStudentHaveSubjects(s)){  %>
 <%=Common.createTable(Common.createTableSubjectsStudent(s), Common.createTableSubjectsStudentHeaders()) %>
+<% } else { %>
+<%=Common.makeHeader(3, "Nie masz przypisanych żadnych aktywności z przedmiotów") %>
+<% } %>

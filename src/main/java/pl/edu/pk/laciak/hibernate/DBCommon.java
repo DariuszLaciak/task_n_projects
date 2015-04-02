@@ -133,7 +133,15 @@ public abstract class DBCommon {
 		return lista;
 	}
 	
-	
+	public static void refreshPojo(Object object){
+		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		if(s.isOpen()){
+			if(!s.getTransaction().isActive())
+				s.beginTransaction();
+			s.refresh(object);
+			s.getTransaction().commit();
+		}
+	}
 	
 	
 }

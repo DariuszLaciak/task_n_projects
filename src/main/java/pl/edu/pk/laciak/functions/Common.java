@@ -35,6 +35,7 @@ import pl.edu.pk.laciak.DTO.Teams;
 import pl.edu.pk.laciak.helpers.BorderStyle;
 import pl.edu.pk.laciak.helpers.CommentByDateComparator;
 import pl.edu.pk.laciak.helpers.FilesByDateComparator;
+import pl.edu.pk.laciak.helpers.ProjectByDateComparator;
 import pl.edu.pk.laciak.helpers.ProjectComparator;
 import pl.edu.pk.laciak.helpers.ProjectNotesComparator;
 import pl.edu.pk.laciak.helpers.ProjectStepsComp;
@@ -85,7 +86,7 @@ public abstract class Common {
 	public static String makeRadio(String name, String value, String label){
 		return label+":<input type='radio' name='"+name+"' value='"+value+"'></input>";
 	}
-	
+
 	public static String makeRadioDisabled(String name, String value, String label, String title){
 		return label+":<input type='radio' name='"+name+"' value='"+value+"' disabled='true' title='"+title+"'></input>";
 	}
@@ -563,6 +564,27 @@ public abstract class Common {
 			throw new RuntimeException(ex);
 		}
 	}
+	
+	public static boolean doesStudentHaveSubjects(Students s){
+		for(Project p : s.getProject()){
+			if(p.getSubject() != null){
+				return true;
+			}
+		}
+		for(Teams t : s.getTeams()){
+			for(Project p : t.getProjects()){
+				if(p.getSubject() != null){
+					return true;
+				}
+			}
+		}
+		for(Task t : s.getTasks()){
+			if(t.getSubject() != null){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public static List<List<String>> createTableDataProjectSteps(Project proj, String type){
 		List<List<String>> list = new ArrayList<List<String>>();
@@ -696,7 +718,7 @@ public abstract class Common {
 
 		return false;
 	}
-	
+
 	public static ProjectVersion getLastVersionOfProject(Project project){
 		ProjectVersion version = null;
 		long id = 0;
@@ -706,10 +728,24 @@ public abstract class Common {
 				version = v;
 			}
 		}
-		
+
 		return version;
 	}
-	
+
+	public static boolean doesStudentHaveProjects(Students student){
+		if(!student.getProject().isEmpty()){
+			return true;
+		}
+		else {
+			for(Teams t : student.getTeams()){
+				if(!t.getProjects().isEmpty()){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	public static boolean isTeamLeader(Project project, Students student){
 		if(project.getTeam() == null){
 			return true;
@@ -724,7 +760,7 @@ public abstract class Common {
 		}
 		return false;
 	}
-	
+
 	public static List<List<String>> createTableComments(Project proj,Task task){
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Comments> comments = new ArrayList<Comments>();
@@ -749,11 +785,11 @@ public abstract class Common {
 			}
 			list.add(ps_elems);
 		}
-		
-		
+
+
 		return list;
 	}
-	
+
 	public static List<String> createTableCommentsHeaders(){
 		List<String> ps_elems = new ArrayList<String>();
 		ps_elems.add("Data");
@@ -761,12 +797,12 @@ public abstract class Common {
 		ps_elems.add("Autor");
 		return ps_elems;
 	}
-	
+
 	public static List<List<String>> createTableGroups(Teachers teacher){
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Teams> teams = new ArrayList<Teams>();
 		Map<String, Integer> number = new HashMap<String, Integer>();
-		
+
 		for(Project p : teacher.getProjects()){
 			if(p.getTeam()!=null){
 				if(!teams.contains(p.getTeam())){
@@ -778,11 +814,11 @@ public abstract class Common {
 				}
 			}
 		}
-		
-		
-		
+
+
+
 		List<String> ps_elems = new ArrayList<String>();
-		
+
 		int i = 1;
 		for(Teams t : teams){
 			ps_elems = new ArrayList<String>();
@@ -797,10 +833,10 @@ public abstract class Common {
 			i++;
 			list.add(ps_elems);
 		}
-		
+
 		return list;
 	}
-	
+
 	public static List<String> createTableGroupsHeaders(){
 		List<String> ps_elems = new ArrayList<String>();
 		ps_elems.add("Nr");
@@ -809,8 +845,8 @@ public abstract class Common {
 		ps_elems.add("Skład");
 		return ps_elems;
 	}
-	
-	
+
+
 	public static List<List<String>> createTableFiles(Project proj,Task task){
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Files> files = new ArrayList<Files>();
@@ -818,11 +854,11 @@ public abstract class Common {
 			files.addAll(proj.getFiles());
 		else if(task != null)
 			files.addAll(task.getFiles());
-		
+
 		Collections.sort(files,new FilesByDateComparator());
 		List<String> ps_elems = new ArrayList<String>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		
+
 		int i = 1;
 		for(Files f : files){
 			ps_elems = new ArrayList<String>();
@@ -835,10 +871,10 @@ public abstract class Common {
 			i++;
 			list.add(ps_elems);
 		}
-		
+
 		return list;
 	}
-	
+
 	public static List<String> createTableFilesHeaders(){
 		List<String> ps_elems = new ArrayList<String>();
 		ps_elems.add("Nr");
@@ -849,53 +885,76 @@ public abstract class Common {
 		ps_elems.add("");
 		return ps_elems;
 	}
-	
+
 	public static List<List<String>> createTableSubjectsStudent(Students student){
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Subject> subjects = new ArrayList<Subject>();
 		Map<String, Long> number = new HashMap<String, Long>();
-		
+
 		for(Project p : student.getProject()){
-			if(!number.containsKey(p.getSubject().getId()+"pf"))
-				number.put(p.getSubject().getId()+"pf", 0L);
-			if(!number.containsKey(p.getSubject().getId()+"p"))
-				number.put(p.getSubject().getId()+"p", 0L);
-			
-			
-			if(!subjects.contains(p.getSubject())){
-				subjects.add(p.getSubject());
+			if(p.getSubject() != null){
+				if(!number.containsKey(p.getSubject().getId()+"pf"))
+					number.put(p.getSubject().getId()+"pf", 0L);
+				if(!number.containsKey(p.getSubject().getId()+"p"))
+					number.put(p.getSubject().getId()+"p", 0L);
+
+
+				if(!subjects.contains(p.getSubject())){
+					subjects.add(p.getSubject());
+				}
+				if(number.containsKey(p.getSubject().getId()+"p")){
+					number.put(p.getSubject().getId()+"p", number.get(p.getSubject().getId()+"p")+1);
+				}
+
+				if(p.isFinished())
+					number.put(p.getSubject().getId()+"pf", number.get(p.getSubject().getId()+"pf")+1);
 			}
-			if(number.containsKey(p.getSubject().getId()+"p")){
-				number.put(p.getSubject().getId()+"p", number.get(p.getSubject().getId()+"p")+1);
+		}
+		for(Teams t : student.getTeams()){
+			for(Project p : t.getProjects()){
+				if(p.getSubject()!= null){
+					if(!number.containsKey(p.getSubject().getId()+"pf"))
+						number.put(p.getSubject().getId()+"pf", 0L);
+					if(!number.containsKey(p.getSubject().getId()+"p"))
+						number.put(p.getSubject().getId()+"p", 0L);
+
+
+					if(!subjects.contains(p.getSubject())){
+						subjects.add(p.getSubject());
+					}
+					if(number.containsKey(p.getSubject().getId()+"p")){
+						number.put(p.getSubject().getId()+"p", number.get(p.getSubject().getId()+"p")+1);
+					}
+
+					if(p.isFinished())
+						number.put(p.getSubject().getId()+"pf", number.get(p.getSubject().getId()+"pf")+1);
+				}
 			}
-			
-			if(p.isFinished())
-				number.put(p.getSubject().getId()+"pf", number.get(p.getSubject().getId()+"pf")+1);
-			
 		}
 		for(Task t : student.getTasks()){
-			if(!number.containsKey(t.getSubject().getId()+"tf"))
-				number.put(t.getSubject().getId()+"tf", 0L);
-			if(!number.containsKey(t.getSubject().getId()+"t"))
-				number.put(t.getSubject().getId()+"t", 0L);
-			if(!subjects.contains(t.getSubject())){
-				subjects.add(t.getSubject());
+			if(t.getSubject() != null){
+				if(!number.containsKey(t.getSubject().getId()+"tf"))
+					number.put(t.getSubject().getId()+"tf", 0L);
+				if(!number.containsKey(t.getSubject().getId()+"t"))
+					number.put(t.getSubject().getId()+"t", 0L);
+				if(!subjects.contains(t.getSubject())){
+					subjects.add(t.getSubject());
+				}
+				if(number.containsKey(t.getSubject().getId()+"t")){
+					number.put(t.getSubject().getId()+"t", number.get(t.getSubject().getId()+"t")+1);
+				}
+				if(t.isFinished())
+					number.put(t.getSubject().getId()+"tf", number.get(t.getSubject().getId()+"tf")+1);
 			}
-			if(number.containsKey(t.getSubject().getId()+"t")){
-				number.put(t.getSubject().getId()+"t", number.get(t.getSubject().getId()+"t")+1);
-			}
-			if(t.isFinished())
-				number.put(t.getSubject().getId()+"tf", number.get(t.getSubject().getId()+"tf")+1);
-			
 		}
-		
-		
+
+
 		List<String> ps_elems = new ArrayList<String>();
-		
-		
+
+
 		for(Subject s : subjects){
 			ps_elems = new ArrayList<String>();
-			
+
 			ps_elems.add(s.getName());
 			ps_elems.add(s.getTeacher().getSurname()+ " " + s.getTeacher().getName());
 			if(number.get(s.getId()+"pf")==null){
@@ -907,62 +966,62 @@ public abstract class Common {
 			if(number.get(s.getId()+"p") == null){
 				number.put(s.getId()+"p", 0L);
 			}
-			
+
 			if(number.get(s.getId()+"t") == null){
 				number.put(s.getId()+"t", 0L);
 			}
-			
+
 			ps_elems.add(""+number.get(s.getId()+"pf")+"/"+number.get(s.getId()+"p"));
 			ps_elems.add(""+number.get(s.getId()+"tf")+"/"+number.get(s.getId()+"t"));
-			
+
 			list.add(ps_elems);
 		}
-		
+
 		return list;
 	}
-	
+
 	public static List<List<String>> createTableSubjectsTeacher(Teachers teacher){
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Subject> subjects = new ArrayList<Subject>(teacher.getSubjects());
 		Map<String, Long> number = new HashMap<String, Long>();
-		
-		
+
+
 		for(Subject s : subjects){
 			for(Project p : s.getProjects()){
 				if(!number.containsKey(s.getId()+"pf"))
 					number.put(s.getId()+"pf", 0L);
 				if(!number.containsKey(s.getId()+"p"))
 					number.put(s.getId()+"p", 0L);
-				
-				
+
+
 				if(number.containsKey(s.getId()+"p")){
 					number.put(s.getId()+"p", number.get(s.getId()+"p")+1);
 				}
-				
+
 				if(p.isFinished())
 					number.put(s.getId()+"pf", number.get(s.getId()+"pf")+1);
-				
+
 			}
 			for(Task t : s.getTasks()){
 				if(!number.containsKey(s.getId()+"tf"))
 					number.put(s.getId()+"tf", 0L);
 				if(!number.containsKey(s.getId()+"t"))
 					number.put(s.getId()+"t", 0L);
-			
+
 				if(number.containsKey(s.getId()+"t")){
 					number.put(s.getId()+"t", number.get(s.getId()+"t")+1);
 				}
 				if(t.isFinished())
 					number.put(s.getId()+"tf", number.get(s.getId()+"tf")+1);
-				
+
 			}
 		}
-		
+
 		List<String> ps_elems = new ArrayList<String>();
-		
+
 		for(Subject s : subjects){
 			ps_elems = new ArrayList<String>();
-			
+
 			ps_elems.add(s.getName());
 			if(number.get(s.getId()+"pf")==null){
 				number.put(s.getId()+"pf", 0L);
@@ -973,20 +1032,20 @@ public abstract class Common {
 			if(number.get(s.getId()+"p") == null){
 				number.put(s.getId()+"p", 0L);
 			}
-			
+
 			if(number.get(s.getId()+"t") == null){
 				number.put(s.getId()+"t", 0L);
 			}
-			
+
 			ps_elems.add(""+number.get(s.getId()+"pf")+"/"+number.get(s.getId()+"p"));
 			ps_elems.add(""+number.get(s.getId()+"tf")+"/"+number.get(s.getId()+"t"));
-			
+
 			list.add(ps_elems);
 		}
-		
+
 		return list;
 	}
-	
+
 	public static List<String> createTableSubjectsTeacherHeaders(){
 		List<String> ps_elems = new ArrayList<String>();
 		ps_elems.add("Nazwa przedmiotu");
@@ -994,7 +1053,7 @@ public abstract class Common {
 		ps_elems.add("Liczba zadań (zakończonych/wszystkich)");
 		return ps_elems;
 	}
-	
+
 	public static List<String> createTableSubjectsStudentHeaders(){
 		List<String> ps_elems = new ArrayList<String>();
 		ps_elems.add("Nazwa przedmiotu");
@@ -1003,7 +1062,7 @@ public abstract class Common {
 		ps_elems.add("Liczba zadań (zakończonych/wszystkich)");
 		return ps_elems;
 	}
-	
+
 	public static boolean isProjectOrTaskFinished(Object activity){
 		Project project = null;
 		Task task = null;
@@ -1011,17 +1070,17 @@ public abstract class Common {
 			project = (Project) activity;
 		else
 			task = (Task) activity;
-		
+
 		if(project != null){
 			return project.isFinished();
 		}
 		else if(task != null){
 			return task.isFinished();
 		}
-		
+
 		return false;
 	}
-	
+
 	public static List<List<String>> createTableTasks(Object user){
 		Students student = null;
 		Teachers teacher = null;
@@ -1029,34 +1088,34 @@ public abstract class Common {
 			student = (Students) user;
 		else
 			teacher = (Teachers) user;
-		
+
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Task> tasks = null;
 		if(student != null)
 			tasks = new ArrayList<Task>(student.getTasks());
 		else
 			tasks = new ArrayList<Task>(teacher.getTasks());
-		
-		
+
+
 		List<String> ps_elems = new ArrayList<String>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		
+
 		int i = 1;
 		for(Task t : tasks){
 			ps_elems = new ArrayList<String>();
 			ps_elems.add(String.valueOf(i));
 			ps_elems.add(t.getName());
-			
+
 			if(teacher != null)
 				ps_elems.add(t.getStudent().getSurname() + " " + t.getStudent().getName());
-			
+
 			if(t.getSubject() != null){
 				ps_elems.add(t.getSubject().getName());
 			}
 			else {
 				ps_elems.add("n/d");
 			}
-			
+
 			ps_elems.add(sdf.format(t.getStartDate()));
 			if(t.getDeadline() != null){
 				ps_elems.add(sdf.format(t.getDeadline().getEndDate()));
@@ -1091,10 +1150,10 @@ public abstract class Common {
 			i++;
 			list.add(ps_elems);
 		}
-		
+
 		return list;
 	}
-	
+
 	public static List<String> createTableTasksHeaders(boolean isStudent){
 		List<String> ps_elems = new ArrayList<String>();
 		ps_elems.add("Nr");
@@ -1110,7 +1169,7 @@ public abstract class Common {
 		ps_elems.add("Zakończony");
 		return ps_elems;
 	}
-	
+
 	public static List<List<String>> createTableProjects(Object user){
 		Students student = null;
 		Teachers teacher = null;
@@ -1118,19 +1177,24 @@ public abstract class Common {
 			student = (Students) user;
 		else
 			teacher = (Teachers) user;
-		
+
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<Project> projects = null;
-		if(student != null)
+		if(student != null){
 			projects = new ArrayList<Project>(student.getProject());
-		else
+			for(Teams t : student.getTeams()){
+				projects.addAll(t.getProjects());
+			}
+		}
+		else {
 			projects = new ArrayList<Project>(teacher.getProjects());
-		
-		
-		
+		}
+
+		Collections.sort(projects,new ProjectByDateComparator());
+
 		List<String> ps_elems = new ArrayList<String>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		int i = 1;
 		for(Project p : projects){
 			String projectNote = "Brak";
@@ -1142,24 +1206,24 @@ public abstract class Common {
 			ps_elems = new ArrayList<String>();
 			ps_elems.add(String.valueOf(i));
 			ps_elems.add(p.getName());
-			
+
 			if(teacher != null)
-			if(p.getStudent() != null){
-				ps_elems.add("Indywidualny");
-				ps_elems.add(p.getStudent().getSurname() + " " + p.getStudent().getName());
-			}
-			else {
-				ps_elems.add("Grupowy");
-				ps_elems.add(p.getTeam().getName());
-			}
-			
+				if(p.getStudent() != null){
+					ps_elems.add("Indywidualny");
+					ps_elems.add(p.getStudent().getSurname() + " " + p.getStudent().getName());
+				}
+				else {
+					ps_elems.add("Grupowy");
+					ps_elems.add(p.getTeam().getName());
+				}
+
 			if(p.getSubject() != null){
 				ps_elems.add(p.getSubject().getName());
 			}
 			else {
 				ps_elems.add("n/d");
 			}
-			
+
 			ps_elems.add(sdf.format(p.getStartDate()));
 			if(p.getDeadline() != null){
 				ps_elems.add(sdf.format(p.getDeadline().getEndDate()));
@@ -1173,9 +1237,9 @@ public abstract class Common {
 			else {
 				ps_elems.add("Brak");
 			}
-			
+
 			ps_elems.add(projectNote);
-			
+
 			if(!p.getTasks().isEmpty()){
 				ps_elems.add(p.getTasks().size()+"");
 			}
@@ -1200,7 +1264,7 @@ public abstract class Common {
 			else {
 				ps_elems.add("0");
 			}
-			
+
 			if(!p.getVersion().isEmpty()){
 				ps_elems.add(getLastVersionOfProject(p).getVersion());
 			}
@@ -1216,10 +1280,10 @@ public abstract class Common {
 			i++;
 			list.add(ps_elems);
 		}
-		
+
 		return list;
 	}
-	
+
 	public static List<String> createTableProjectsHeaders(boolean isStudent){
 		List<String> ps_elems = new ArrayList<String>();
 		ps_elems.add("Nr");

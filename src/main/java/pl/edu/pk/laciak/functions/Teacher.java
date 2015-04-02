@@ -110,6 +110,8 @@ public class Teacher extends HttpServlet {
 				if(task_text != null)
 					task.setText(task_text);
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
+				if(s.getTransaction().isActive())
+					s.getTransaction().commit();
 				s.beginTransaction();
 				
 				student = (Students)s.load(Students.class, idStudent);

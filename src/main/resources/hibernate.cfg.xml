@@ -31,13 +31,13 @@
 		<!-- Bind the getCurrentSession() method to the thread. -->
 		<property name="current_session_context_class">thread</property>
 
-		<!-- Use the C3P0 connection pool. -->
-		<property name="c3p0.min_size">3</property>
-		<property name="c3p0.max_size">5</property>
-		<property name="c3p0.timeout">0</property>
-		<property name="hibernate.c3p0.acquire_increment"> 1 </property>
-		<property name="hibernate.c3p0.idle_test_period"> 0 </property>
-		<property name=" hibernate. c3p0.validate"> true </property>
+		<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+		<property name="c3p0.acquire_increment">1</property>
+		<property name="c3p0.idle_test_period">100</property> <!-- seconds -->
+		<property name="c3p0.max_size">100</property>
+		<property name="c3p0.max_statements">0</property>
+		<property name="c3p0.min_size">10</property>
+		<property name="c3p0.timeout">1800</property> <!-- seconds -->
 
 		<!-- Disable second-level cache. -->
 		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
