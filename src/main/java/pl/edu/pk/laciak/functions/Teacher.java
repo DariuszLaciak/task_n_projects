@@ -426,28 +426,52 @@ public class Teacher extends HttpServlet {
 				break;
 			case "finishStep":
 				String id_step = request.getParameter("id");
+				String noteStep = request.getParameter("note");
+				float realNote = Float.parseFloat(noteStep);
+				
 				long real_id = Long.parseLong(id_step);
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
 				Project_step step_edit = (Project_step) s.load(Project_step.class, real_id);
+				Notes note = new Notes(realNote);
+				note.setPs_note(step_edit);
+				note.setDate(new Date());
+				note.setProject(step_edit.getProject());
+				if(step_edit.getProject().getStudent() != null){
+					note.setStudent(step_edit.getProject().getStudent());
+				}
+				else if(step_edit.getProject().getTeam() != null){
+					note.setTeam(step_edit.getProject().getTeam());
+				}
+				s.save(note);
+				step_edit.setNote(note);
 				if(step_edit.getProject().getTeacher().getId() != (long)sess.getAttribute("userId")){
 					Common.makeError(json, out, s, 2);
 					return;
 				}
 				step_edit.setFinished(true);
 				s.update(step_edit);
+				step_edit.getProject().getNotes().add(note);
 				s.getTransaction().commit();
 				sess.setAttribute("selectedItem", step_edit.getProject());
 				json.put("success", 1);
 				out.println(json);
 				break;
 			case "finishTask":
+				String noteTaskS = request.getParameter("note");
+				float realNoteTaskS = Float.parseFloat(noteTaskS);
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
 				Task edit_task = (Task) sess.getAttribute("selectedItem");
+				Notes noteTas = new Notes(realNoteTaskS);
+				noteTas.setDate(new Date());
+				noteTas.setTask(edit_task);
+				noteTas.setStudent(edit_task.getStudent());
+				s.save(noteTas);
 				edit_task.setFinished(true);
 				s.update(edit_task);
 				s.getTransaction().commit();
+				edit_task.setNote(noteTas);
 				sess.setAttribute("selectedItem", edit_task);
 				json.put("success", 1);
 				out.println(json);
@@ -498,16 +522,31 @@ public class Teacher extends HttpServlet {
 				break;
 			case "finishProjectTask":
 				String id_task = request.getParameter("id");
+				String noteTas1 = request.getParameter("note");
+				float realNoteTask = Float.parseFloat(noteTas1);
 				long real_id_task = Long.parseLong(id_task);
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
 				Project_task task_edit = (Project_task) s.load(Project_task.class, real_id_task);
+				Notes noteTask = new Notes(realNoteTask);
+				noteTask.setPt_note(task_edit);
+				noteTask.setDate(new Date());
+				noteTask.setProject(task_edit.getProject());
+				if(task_edit.getProject().getStudent() != null){
+					noteTask.setStudent(task_edit.getProject().getStudent());
+				}
+				else if(task_edit.getProject().getTeam() != null){
+					noteTask.setTeam(task_edit.getProject().getTeam());
+				}
+				s.save(noteTask);
+				task_edit.setNote(noteTask);
 				if(task_edit.getProject().getTeacher().getId() != (long)sess.getAttribute("userId")){
 					Common.makeError(json, out, s, 2);
 					return;
 				}
 				task_edit.setFinished(true);
 				s.update(task_edit);
+				task_edit.getProject().getNotes().add(noteTask);
 				s.getTransaction().commit();
 				sess.setAttribute("selectedItem", task_edit.getProject());
 				json.put("success", 1);
@@ -680,13 +719,25 @@ public class Teacher extends HttpServlet {
 				break;
 				
 			case "finishProject":
-				
+				String note_proj = request.getParameter("note");
+				float realProjNote = Float.parseFloat(note_proj);
 				Project pFinish = (Project) sess.getAttribute("selectedItem");
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
+				Notes noteProject = new Notes(realProjNote);
+				noteProject.setDate(new Date());
+				noteProject.setProject(pFinish);
+				if(pFinish.getStudent() != null){
+					noteProject.setStudent(pFinish.getStudent());
+				}
+				else if(pFinish.getTeam() != null){
+					noteProject.setTeam(pFinish.getTeam());
+				}
+				s.save(noteProject);
 				pFinish.setFinished(true);
 				s.update(pFinish);
 				s.getTransaction().commit();
+				pFinish.getNotes().add(noteProject);
 				sess.setAttribute("selectedItem", pFinish);
 				json.put("success", 1);
 				out.println(json);

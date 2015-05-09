@@ -4,7 +4,7 @@
 
 $(document).ready(function(){
 	var dialogs = [
-	               "edit_profile","studentsGroup"
+	               "edit_profile","studentsGroup","finishSomething"
 	               ]
 	$.each(dialogs,function(value,key){
 		if($("body").find("#"+key).length == 0){
@@ -116,6 +116,56 @@ function openStudentsGroupWindowSettings(){
 		resizable: true,
 		buttons: [{
 			text: "Wyjdź",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+		]
+		
+	});
+}
+
+function openFinishSomethingWindow(saveFunction){
+	openFinishSomethingWindowSettings(saveFunction);
+	$.post(
+			'User',
+			{
+				action: "finishSomething"
+			},
+			function(data){
+				var html = jQuery.parseJSON(data);
+				if(html.form != null){
+					$('#finishSomething').html(html.form);
+					$("#finishSomething").dialog("open");
+				}
+				else {
+					popup("error","Sesja wygasła. Zaloguj się ponownie");
+					setTimeout(function(){
+						location.reload();
+					}, 1000);
+				}
+			});
+	
+}
+
+function openFinishSomethingWindowSettings(saveFunction){
+	$("#finishSomething").dialog({
+		title: "Zakończ i oceń",
+		autoOpen: false,
+		width: 300,
+		height: 210,
+		minWidth: 390,
+		minHeight: 300,
+		resizable: true,
+		buttons: [{
+			text: "Zakończ",
+			click: function() {
+				saveFunction();
+				$( this ).dialog( "close" );
+			}
+		},
+		{
+			text: "Anuluj",
 			click: function() {
 				$( this ).dialog( "close" );
 			}

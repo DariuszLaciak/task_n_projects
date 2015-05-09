@@ -46,6 +46,7 @@ import javax.servlet.http.HttpSession;
 
 
 
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
@@ -376,6 +377,18 @@ public class User extends HttpServlet {
 					Common.makeError(json, out, null, 4);
 					return;
 				}
+				break;
+			case "finishSomething":
+				
+				html = "";
+				html += "Zamierzasz zakończyć aktywność. Oceń ją: ";
+				html += Common.br(2);
+				html += Common.makeInputNumber("finishNote", "Ocena",  Double.parseDouble(Common.getProjetProperty("max_note")),
+						Double.parseDouble(Common.getProjetProperty("note_step")), 
+						Double.parseDouble(Common.getProjetProperty("max_note")), Double.parseDouble(Common.getProjetProperty("min_note")));
+				json.put("form", html);
+
+				out.println(json);
 				break;
 			}
 		}

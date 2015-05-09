@@ -54,12 +54,12 @@ function sub_details(id){
 function confirm_add_task(){
 	var form_values = $("#new_task_form").serializeArray();
 	var values = new Array();
-	
+
 
 	$.each(form_values, function(index,element){
 		values.push(element.value);
 	});
-	
+
 	$.ajax({
 		url: "Teacher",
 		type: "post",
@@ -82,7 +82,7 @@ function confirm_add_task(){
 			else if(output.success == 4){
 				popup("error","Zły format deadlinu");
 			}
-			
+
 		}
 	});
 }
@@ -90,12 +90,12 @@ function confirm_add_task(){
 function confirm_add_group(){
 	var form_values = $("#add_group_teacher_form").serializeArray();
 	var values = new Array();
-	
+
 
 	$.each(form_values, function(index,element){
 		values.push(element.value);
 	});
-	
+
 	$.ajax({
 		url: "Teacher",
 		type: "post",
@@ -115,7 +115,7 @@ function confirm_add_group(){
 			else if(output.success == 3){
 				popup("error","Nieprawidłowy student");
 			}
-			
+
 		}
 	});
 }
@@ -139,12 +139,12 @@ function makeProjectSelect(value){
 function add_project(){
 	var form_values = $("#new_project_form").serializeArray();
 	var values = new Array();
-	
+
 
 	$.each(form_values, function(index,element){
 		values.push(element.value);
 	});
-	
+
 	$.ajax({
 		url: "Teacher",
 		type: "post",
@@ -167,7 +167,7 @@ function add_project(){
 			else if(output.success == 4){
 				popup("error","Niepodano wszystkich danych");
 			}
-			
+
 		}
 	});
 }
@@ -186,8 +186,8 @@ function generateManageProject(val){
 			$("#manage_fields").html(output.html);
 			$("#isDeadline").change(function(){
 				if(!this.checked){
-			    	$("#new_deadline").hide();
-			    	$("#new_deadline").val(new Date().dateFormat("Y-m-d"));
+					$("#new_deadline").hide();
+					$("#new_deadline").val(new Date().dateFormat("Y-m-d"));
 				}
 				else {
 					$("#new_deadline").show();
@@ -211,7 +211,7 @@ function manage_project(){
 	var form_values = $("#manage_project_form").serializeArray();
 	var values = new Array();
 	var students = new Array();
-	
+
 
 	$.each(form_values, function(index,element){
 		if(element.name.indexOf("student") == -1)
@@ -219,7 +219,7 @@ function manage_project(){
 		else
 			students.push(element.value);
 	});
-	
+
 	$.ajax({
 		url: "Teacher",
 		type: "post",
@@ -242,31 +242,37 @@ function manage_project(){
 }
 
 function add_new_step(){
-	$.ajax({
-		url: "Teacher",
-		type: "post",
-		data: {
-			action: "add_new_step"
-		},
-		success: function(data){
-			var output = jQuery.parseJSON(data);
-			isUserLoggedIn(output);
-			$("#new_step_form").html(output.html);
-		}
-	});
+	var isFinishedBefre = $(".smallButton").length;
+	if(!isFinishedBefre){
+		$.ajax({
+			url: "Teacher",
+			type: "post",
+			data: {
+				action: "add_new_step"
+			},
+			success: function(data){
+				var output = jQuery.parseJSON(data);
+				isUserLoggedIn(output);
+				$("#new_step_form").html(output.html);
+			}
+		});
+	}
+	else {
+		popup("error", "Zakończ poprzedni etap!");
+	}
 }
 
 function confirm_add_new_step(){
 	var form_values = $("#new_step_form").serializeArray();
 	var values = new Array();
-	
+
 	var number = $("#new_step_form").find("h4").text();
 	var num = number.substring(number.lastIndexOf(" ")+1,number.length);
 	values.push(num);
 	$.each(form_values, function(index,element){
 		values.push(element.value);
 	});
-	
+
 	$.ajax({
 		url: "Teacher",
 		type: "post",
@@ -289,42 +295,50 @@ function confirm_add_new_step(){
 }
 
 function finishStep(id){
-	$.ajax({
-		url: "Teacher",
-		type: "post",
-		data: {
-			action: "finishStep",
-			id: id
-		},
-		success: function(data){
-			var output = jQuery.parseJSON(data);
-			isUserLoggedIn(output);
-			if(output.success == 1){
-				popup("success", "Zakończono etap");
-				$("#m_content").load("manage/look.jsp");
+	openFinishSomethingWindow(function(){
+		var note = $("#finishNote").val();
+		$.ajax({
+			url: "Teacher",
+			type: "post",
+			data: {
+				action: "finishStep",
+				id: id,
+				note: note
+			},
+			success: function(data){
+				var output = jQuery.parseJSON(data);
+				isUserLoggedIn(output);
+				if(output.success == 1){
+					popup("success", "Zakończono etap");
+					$("#m_content").load("manage/look.jsp");
+				}
+				else if(output.success == 2){
+					popup("error","Projekt nie jest przypisany do Ciebie");
+				}
 			}
-			else if(output.success == 2){
-				popup("error","Projekt nie jest przypisany do Ciebie");
-			}
-		}
+		});
 	});
 }
 
 function finishTask(){
-	$.ajax({
-		url: "Teacher",
-		type: "post",
-		data: {
-			action: "finishTask"
-		},
-		success: function(data){
-			var output = jQuery.parseJSON(data);
-			isUserLoggedIn(output);
-			if(output.success == 1){
-				popup("success", "Zakończono zadanie");
-				$("#m_content").html("<h2>Zadanie jest już zakończone</h2>");
+	openFinishSomethingWindow(function(){
+		var note = $("#finishNote").val();
+		$.ajax({
+			url: "Teacher",
+			type: "post",
+			data: {
+				action: "finishTask",
+				note: note
+			},
+			success: function(data){
+				var output = jQuery.parseJSON(data);
+				isUserLoggedIn(output);
+				if(output.success == 1){
+					popup("success", "Zakończono zadanie");
+					$("#m_content").html("<h2>Zadanie jest już zakończone</h2>");
+				}
 			}
-		}
+		});
 	});
 }
 
@@ -356,11 +370,11 @@ function add_new_projectTask(){
 function confirm_addProjectTask(){
 	var form_values = $("#projectTaskForm").serializeArray();
 	var values = new Array();
-	
+
 	$.each(form_values, function(index,element){
 		values.push(element.value);
 	});
-	
+
 	$.ajax({
 		url: "Teacher",
 		type: "post",
@@ -383,24 +397,28 @@ function confirm_addProjectTask(){
 }
 
 function finishProjectTask(id){
-	$.ajax({
-		url: "Teacher",
-		type: "post",
-		data: {
-			action: "finishProjectTask",
-			id: id
-		},
-		success: function(data){
-			var output = jQuery.parseJSON(data);
-			isUserLoggedIn(output);
-			if(output.success == 1){
-				popup("success", "Zakończono zadanie");
-				$("#m_content").load("manage/tasks.jsp");
+	openFinishSomethingWindow(function(){
+		var note = $("#finishNote").val();
+		$.ajax({
+			url: "Teacher",
+			type: "post",
+			data: {
+				action: "finishProjectTask",
+				id: id,
+				note: note
+			},
+			success: function(data){
+				var output = jQuery.parseJSON(data);
+				isUserLoggedIn(output);
+				if(output.success == 1){
+					popup("success", "Zakończono zadanie");
+					$("#m_content").load("manage/tasks.jsp");
+				}
+				else if(output.success == 2){
+					popup("error","Projekt nie jest przypisany do Ciebie");
+				}
 			}
-			else if(output.success == 2){
-				popup("error","Projekt nie jest przypisany do Ciebie");
-			}
-		}
+		});
 	});
 }
 
@@ -440,11 +458,11 @@ function addNote(){
 function confirmNewNote(){
 	var form_values = $("#newNoteForm").serializeArray();
 	var values = new Array();
-	
+
 	$.each(form_values, function(index,element){
 		values.push(element.value);
 	});
-	
+
 	$.ajax({
 		url: "Teacher",
 		type: "post",
@@ -473,20 +491,24 @@ function confirmNewNote(){
 }
 
 function finishProject(){
-	$.ajax({
-		url: "Teacher",
-		type: "post",
-		data: {
-			action: "finishProject"
-		},
-		success: function(data){
-			var output = jQuery.parseJSON(data);
-			isUserLoggedIn(output);
-			if(output.success == 1){
-				popup("success", "Projekt zakończony");
-				$("#m_content").load("manage/look.jsp");
+	openFinishSomethingWindow(function(){
+		var note = $("#finishNote").val();
+		$.ajax({
+			url: "Teacher",
+			type: "post",
+			data: {
+				action: "finishProject",
+				note: note
+			},
+			success: function(data){
+				var output = jQuery.parseJSON(data);
+				isUserLoggedIn(output);
+				if(output.success == 1){
+					popup("success", "Projekt zakończony");
+					$("#m_content").load("manage/look.jsp");
+				}
 			}
-		}
+		});
 	});
 }
 

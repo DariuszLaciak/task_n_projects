@@ -25,14 +25,15 @@ catch(ClassCastException e){
 		out.println(Common.makeHeader(2, "Jeszcze nie oceniono zadania"));
 	}
 }
-if(session.getAttribute("type").equals("teacher") && !noted){
-if(!Common.isProjectOrTaskFinished(session.getAttribute("selectedItem"))){ 
-%><br /><br />
-	<%=Common.makeButton("Wystaw nową", "addNote()", "b_grey") %>
-	<form id='newNoteForm' class='form_styles'></form>
+/* WYSTAWIANIE OCEN BEZ SPRAWDZANIA ZAKONCZENIA*/
+//if(session.getAttribute("type").equals("teacher") && !noted){
+//if(!Common.isProjectOrTaskFinished(session.getAttribute("selectedItem"))){ 
+%><!-- <br /><br />
+	<% //Common.makeButton("Wystaw nową", "addNote()", "b_grey") %> 
+	<form id='newNoteForm' class='form_styles'></form> -->
 <%
-} else {
-	out.println(Common.makeHeader(3, "Aktywność zakończona"));
-}
-}
+//} else {
+//	out.println(Common.makeHeader(3, "Aktywność zakończona"));
+//}
+//}
 %>
