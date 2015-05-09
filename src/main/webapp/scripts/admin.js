@@ -154,8 +154,9 @@ function confirm_add(){
 function student_form(){
 	
 	if($("input[name=new_type]:checked").val() == 'student'){
-		$("#form_add button").before("<div class='inputs student_input'><label class='l_input'>Number indeksu:</label><input type='text' id='student_index' name='student_index' size='30'></input></div>")
-		$("#form_add button").before("<div class='inputs student_input'><label class='l_input'>Number semestru:</label><input type='text' id='student_period' name='student_period' size='30'></input></div>")
+		$("#form_add button").before("<div class='inputs student_input'><label class='l_input'>Numer indeksu:</label><input type='text' id='student_index' name='student_index' size='30'></input></div>")
+		$("#form_add button").before("<div class='inputs student_input'><label class='l_input'>Numer semestru:</label><input type='text' id='student_period' name='student_period' size='30'></input></div>")
+		$("#form_add button").before("<div class='inputs student_input'><label class='l_input'>Grupa akademicka:</label><input type='text' id='student_group' name='student_group' size='30'></input></div>")
 	}
 	else {
 		$(".student_input").remove();

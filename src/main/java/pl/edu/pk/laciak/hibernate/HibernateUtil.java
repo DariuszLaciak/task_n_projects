@@ -5,6 +5,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import pl.edu.pk.laciak.DTO.AcademicGroup;
 import pl.edu.pk.laciak.DTO.Admins;
 import pl.edu.pk.laciak.DTO.Comments;
 import pl.edu.pk.laciak.DTO.Deadlines;
@@ -48,6 +49,7 @@ public class HibernateUtil {
     	configuration.addAnnotatedClass(Project_step.class);
     	configuration.addAnnotatedClass(ProjectVersion.class);
     	configuration.addAnnotatedClass(ProjectRepository.class);
+    	configuration.addAnnotatedClass(AcademicGroup.class);
         configuration.configure();
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).build();

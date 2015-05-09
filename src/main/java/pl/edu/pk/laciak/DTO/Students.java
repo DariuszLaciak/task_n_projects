@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -40,6 +41,7 @@ public class Students implements ObjectDTO {
 	private Date birthday;
 	private int period;
 	private LoginData login;
+	private AcademicGroup academicGroup;
 	private Set<Teams> leaderTeams = new HashSet<Teams>();
 	private Set<Task> tasks = new HashSet<Task>();
 	private Set<Project> project = new HashSet<Project>();
@@ -255,6 +257,19 @@ public class Students implements ObjectDTO {
 
 	public void setLeaderTeams(Set<Teams> leaderTeams) {
 		this.leaderTeams = leaderTeams;
+	}
+
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "academicGroupId", nullable = false)
+	public AcademicGroup getAcademicGroup() {
+		return academicGroup;
+	}
+
+
+
+	public void setAcademicGroup(AcademicGroup academicGroup) {
+		this.academicGroup = academicGroup;
 	}
 	
 	

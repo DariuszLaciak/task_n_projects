@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
+import pl.edu.pk.laciak.DTO.AcademicGroup;
 import pl.edu.pk.laciak.DTO.Admins;
 import pl.edu.pk.laciak.DTO.LoginData;
 import pl.edu.pk.laciak.DTO.Students;
@@ -54,7 +56,7 @@ public class Admin extends HttpServlet {
 				
 				if(type.equals("group")){
 					form += Common.makeHeader(3, "Format");
-					form += Common.makeHeader(4, "typ,imie,nazwisko,email,pesel,data_urodzenia,album(student),semestr(student);");
+					form += Common.makeHeader(4, "typ,imie,nazwisko,email,pesel,data_urodzenia,album(student),semestr(student),grupa_akademicka(student);");
 					form += Common.makeUploadFile("new_group_users");
 				}
 				else {
@@ -104,12 +106,13 @@ public class Admin extends HttpServlet {
 					ld = new LoginData(username, Common.sha256(values[4]), true);
 					
 					if(values[0].equals("student")){
-						if(values.length != 8){
+						if(values.length != 9){
 							Common.makeError(json,out,s,5);
 							return;
 						}
 						
 						Date date = null;
+						String academicGroup = values[8];
 						
 						try {
 							date = sdf.parse(values[5]);
@@ -120,8 +123,19 @@ public class Admin extends HttpServlet {
 						try{
 							s = HibernateUtil.getSessionFactory().getCurrentSession();
 							s.beginTransaction();
+							List<AcademicGroup> group = s.createQuery("from AcademicGroup where name=:name").setParameter("name", academicGroup).list();
+							AcademicGroup newGroup;
+							if(group.isEmpty()){
+								newGroup = new AcademicGroup(academicGroup);
+							}
+							else {
+								newGroup = group.get(0);
+							}
+							
 						Students st = new Students(values[1], values[2], values[3], Long.parseLong(values[4]), values[6], date, Integer.parseInt(values[7]));
-						
+						newGroup.getStudents().add(st);
+						s.save(newGroup);
+						st.setAcademicGroup(newGroup);
 						ld.setStudents(st);
 						st.setLogin(ld);
 						s.save(ld);
@@ -240,6 +254,7 @@ public class Admin extends HttpServlet {
 				if(user_type.equals("student")){
 					String index = data_form[6];
 					int period = 0;
+					String academicGroup = data_form[8];
 					try{
 					period = Integer.parseInt(data_form[7]);
 					}
@@ -253,7 +268,20 @@ public class Admin extends HttpServlet {
 					}
 					
 					s.beginTransaction();
+					List<AcademicGroup> group = s.createQuery("from AcademicGroup where name=:name").setParameter("name", academicGroup).list();
+					AcademicGroup newGroup;
+					if(group.isEmpty()){
+						newGroup = new AcademicGroup(academicGroup);
+					}
+					else {
+						newGroup = group.get(0);
+					}
+					
 					Students s1 = new Students(name, surname, address, pESEL, index, birthday, period);
+					newGroup.getStudents().add(s1);
+					s.save(newGroup);
+					s1.setAcademicGroup(newGroup);
+					
 					s1.setLogin(ld);
 					ld.setStudents(s1);
 					s.save(ld);
