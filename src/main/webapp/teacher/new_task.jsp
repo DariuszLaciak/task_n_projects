@@ -14,7 +14,8 @@
 <%=Common.makeInputText("task_name", "Nazwa", "") %>
 <% SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm"); %>
 <%=Common.makeInputTextReadOnly("task_start", "Data rozpoczęcia", sdf.format(new Date())) %>
-<%=Common.makeSelect("Student", "task_student", Common.makeSelectOptions("students")) %>
+<div class='inputs'><label class='l_input'>Studenci</label>
+<%=Common.makeButton("Przydziel", "assignUsers(\"new_task_form\",\"task_start\")", "b_green smallButton right") %></div>
 <%=Common.makeSelect("Przedmiot", "task_subject", Common.makeSelectOptions("subjects",session.getAttribute("userId").toString())) %>
 <%=Common.makeCheckBoxSendUnchecked("Deadline", "isDeadline", "yes","no") %>
 <%=Common.makeInputTextReadOnly("task_deadline", "", sdf.format(new Date())) %>

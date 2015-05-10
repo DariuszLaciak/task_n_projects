@@ -47,6 +47,7 @@ import javax.servlet.http.HttpSession;
 
 
 
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
@@ -60,6 +61,7 @@ import pl.edu.pk.laciak.DTO.Task;
 import pl.edu.pk.laciak.DTO.Teachers;
 import pl.edu.pk.laciak.DTO.Teams;
 import pl.edu.pk.laciak.helpers.BorderStyle;
+import pl.edu.pk.laciak.hibernate.DBCommon;
 import pl.edu.pk.laciak.hibernate.HibernateUtil;
 
 /**
@@ -386,6 +388,37 @@ public class User extends HttpServlet {
 				html += Common.makeInputNumber("finishNote", "Ocena",  Double.parseDouble(Common.getProjetProperty("max_note")),
 						Double.parseDouble(Common.getProjetProperty("note_step")), 
 						Double.parseDouble(Common.getProjetProperty("max_note")), Double.parseDouble(Common.getProjetProperty("min_note")));
+				json.put("form", html);
+
+				out.println(json);
+				break;
+			case "assignStudents":
+				
+				html = "";
+				html += "Przypisz studentów: ";
+				html += Common.br(2);
+				html += "<div id='assigningWindow'>";
+				html += "<div id='assignedStudents'></div><div id='studentList'>";
+				html += Common.makeSelect("Grupa akademicka", "academicGroupSelect", Common.makeSelectOptions("academicGroups"));
+				html += "<div id='studentListUl'></div></div></div>";
+				json.put("form", html);
+
+				out.println(json);
+				break;
+			case "fillStudentsAcademic":
+				String idAcademic = request.getParameter("id");
+				long realIdAcademic = Long.parseLong(idAcademic);
+				List<Students> studentsAcadmic = DBCommon.getStudentsAcademic(realIdAcademic);
+				html = "<ul>";
+				if(studentsAcadmic.isEmpty()){
+					html += "<li class='empty'>Brak studentów</li>";
+				}
+				else {
+					for(Students s : studentsAcadmic){
+						html += "<li class='studentAcademicLi' id='student_"+s.getId()+"'>"+s.getName()+" "+s.getSurname()+"</li>";
+					}
+				}
+				html += "</ul>";
 				json.put("form", html);
 
 				out.println(json);

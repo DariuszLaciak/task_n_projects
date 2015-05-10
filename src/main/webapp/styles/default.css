@@ -637,3 +637,56 @@ ul.admin, ul.teacher, ul.student {
 #leaderInfo{
 	display: none;
 }
+
+.right{
+	float: right;
+}
+
+#assignedStudents{
+	float:left;
+	width: 400px;
+	height: 350px;
+	border-right: 1px solid white;
+}
+
+#studentList{
+	float: right;
+	width: 250px;
+	height: 350px;
+}
+
+#studentList .inputs{
+	margin: 5px;
+}
+
+#studentList .l_input{
+	margin: 0;
+}
+
+
+#studentListUl li{
+	display: block;
+	list-style: none;
+	padding: 5px;
+	border: 1px solid black;
+	width: 150px;
+	margin: 3px 0 0 10px;
+}
+
+#assigningWindow{
+	overflow: auto;
+}
+
+#studentListFinal{
+	display: none;
+}
+
+.droppedStudent{
+	padding: 5px;
+	margin: 5px;
+	
+}
+
+.droppedStudent button{
+	margin: 0 0 0 20px;
+}

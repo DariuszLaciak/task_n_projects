@@ -39,19 +39,19 @@ import pl.edu.pk.laciak.hibernate.HibernateUtil;
 public class Teacher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Session s;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Teacher() {
-        super();
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Teacher() {
+		super();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class Teacher extends HttpServlet {
 			switch(function){
 			case "add_task":
 				String[] data_form = request.getParameterValues("form_values[]");
-				String task_name = data_form[0];
+				
 				String task_start = data_form[1];
 				String task_student = data_form[2];
 				String task_subject = data_form[3];
@@ -84,10 +84,14 @@ public class Teacher extends HttpServlet {
 					task_deadline = data_form[6];
 					task_text = data_form[7];
 				}
-				
+
 				Date startDate = null;
 				Date deadlineTime =null;
-				long idStudent = 0;
+				String[] students1 = task_student.split(",");
+				Long[] realStudents = new Long[students1.length];
+				for(int i = 0; i < students1.length; i++){
+					realStudents[i] = Long.parseLong(students1[i]);
+				}
 				int idSubject = 0;
 				try {
 					startDate = sdf.parse(task_start);
@@ -96,55 +100,61 @@ public class Teacher extends HttpServlet {
 					return;
 				}
 				try{
-					idStudent = Long.parseLong(task_student);
+
 					idSubject = Integer.parseInt(task_subject);
 				}
 				catch(NumberFormatException e){
 					Common.makeError(json, out, s, 3);
 					return;
 				}
-				Task task = new Task(task_name, startDate);
-				Students student = null;
-				Subject subject = null;
-				Deadlines deadline = null;
-				if(task_text != null)
-					task.setText(task_text);
+				for(Long st : realStudents){
+				String task_name = data_form[0];
+				
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
-				if(s.getTransaction().isActive())
-					s.getTransaction().commit();
-				s.beginTransaction();
 				
-				student = (Students)s.load(Students.class, idStudent);
-				
-				if(idSubject > 0){
-					subject = (Subject)s.load(Subject.class, idSubject);
-					task.setSubject(subject);
-					subject.getTasks().add(task);
-				}
-
-				
-				
-				task.setStudent(student);
-				student.getTasks().add(task);
-				task.setTeacher(teacher);
-				s.refresh(teacher);
-				teacher.getTasks().add(task);
-				s.persist(task);
-				
-				if(is_deadline.equals("yes")){
-					try {
-						deadlineTime = sdf.parse(task_deadline);
-					} catch (ParseException e) {
-						Common.makeError(json, out, s,4);
-						return;
+					if(s.getTransaction().isActive())
+						s.getTransaction().commit();
+					s.beginTransaction();
+					
+					Students student = null;
+					Subject subject = null;
+					Deadlines deadline = null;
+					
+					student = (Students)s.load(Students.class, st);
+					task_name += " ["+student.getName() + " " + student.getSurname()+"]";
+					Task task = new Task(task_name, startDate);
+					if(task_text != null)
+						task.setText(task_text);
+					if(idSubject > 0){
+						subject = (Subject)s.load(Subject.class, idSubject);
+						task.setSubject(subject);
+						subject.getTasks().add(task);
 					}
-					deadline = new Deadlines(deadlineTime);
-					task.setDeadline(deadline);
-					deadline.setTask(task);
-					s.save(deadline);
-					s.update(task);
+
+
+
+					task.setStudent(student);
+					student.getTasks().add(task);
+					task.setTeacher(teacher);
+					s.refresh(teacher);
+					teacher.getTasks().add(task);
+					s.persist(task);
+
+					if(is_deadline.equals("yes")){
+						try {
+							deadlineTime = sdf.parse(task_deadline);
+						} catch (ParseException e) {
+							Common.makeError(json, out, s,4);
+							return;
+						}
+						deadline = new Deadlines(deadlineTime);
+						task.setDeadline(deadline);
+						deadline.setTask(task);
+						s.save(deadline);
+						s.update(task);
+					}
+					s.getTransaction().commit();
 				}
-				s.getTransaction().commit();
 				if(s.isOpen())
 					s.close();
 				json.put("success", 1);
@@ -200,30 +210,30 @@ public class Teacher extends HttpServlet {
 						return;
 					}
 					try{
-					stu = (Students) s.load(Students.class, idStudents);
-					studs.add(stu);
-					if(isLeader){
-						team.setLeader(stu);
-						studentLeader = stu;
+						stu = (Students) s.load(Students.class, idStudents);
+						studs.add(stu);
+						if(isLeader){
+							team.setLeader(stu);
+							studentLeader = stu;
+						}
+						stu.getTeams().add(team);
+
 					}
-					stu.getTeams().add(team);
-					
-				}
 					catch(ObjectNotFoundException e){
 						Common.makeError(json, out, s, 2);
 						return;
 					}
-					
+
 				}
 				team.getStudents().addAll(studs);
-				
+
 				s.save(team);
 				if(studentLeader != null){
 					studentLeader.getLeaderTeams().add(team);
 					s.update(studentLeader);
 				}
 				s.getTransaction().commit();
-				
+
 				json.put("success", 1);
 				out.println(json);
 				break;
@@ -239,9 +249,9 @@ public class Teacher extends HttpServlet {
 					html += Common.makeSelect("Grupa", "project_student", Common.makeSelectOptions("project_groups"));
 					html += Common.makeButton("Dodaj projekt", "add_project()", "b_grey");
 					break;
-					default:
-						html += "<h3>Zły typ</h3>";
-						break;
+				default:
+					html += "<h3>Zły typ</h3>";
+					break;
 				}
 				json.put("html", html);
 				out.println(json);
@@ -252,7 +262,7 @@ public class Teacher extends HttpServlet {
 					Common.makeError(json, out, s, 4);
 					return;
 				}
-				
+
 				String p_name = project_data[0];
 				String p_start = project_data[1];
 				String p_subject = project_data[2];
@@ -261,14 +271,14 @@ public class Teacher extends HttpServlet {
 				String project_text = project_data[5];
 				String p_type = project_data[6];
 				String student_or_group = project_data[7];
-				
+
 				if(p_is_deadline.equals("yes")){
 					p_deadline = project_data[5];
 					project_text = project_data[6];
 					p_type = project_data[7];
 					student_or_group = project_data[8];
 				}
-				
+
 				Date start_date_p = null;
 				Date deadline_p = null;
 				try{
@@ -291,19 +301,19 @@ public class Teacher extends HttpServlet {
 					Common.makeError(json, out, s, 3);
 					return;
 				}
-				
+
 				Students p_student = null;
 				Teams p_team = null;
 				Subject p_subject_db = null;
 				Project project = new Project(p_name, start_date_p);
 				Teachers p_teacher = (Teachers)sess.getAttribute("userData");
-				
+
 				if(project_text != null)
 					project.setText(project_text);
-				
+
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
-				
+
 				if(id_subject != 0){
 					p_subject_db = (Subject) s.load(Subject.class,id_subject);
 					p_subject_db.getProjects().add(project);
@@ -311,6 +321,8 @@ public class Teacher extends HttpServlet {
 				}
 				if(p_type.equals("indiv")){
 					p_student = (Students) s.load(Students.class, id_sg);
+					p_name += " ["+p_student.getName() + " " + p_student.getSurname()+"]";
+					project.setName(p_name);
 					p_student.getProject().add(project);
 					project.setStudent(p_student);
 				}
@@ -321,7 +333,7 @@ public class Teacher extends HttpServlet {
 				}
 				project.setTeacher(p_teacher);
 				p_teacher.getProjects().add(project);
-				
+
 				s.persist(project);
 				if(p_is_deadline.equals("yes")){
 					Deadlines dead_p = new Deadlines(deadline_p);
@@ -329,19 +341,19 @@ public class Teacher extends HttpServlet {
 					dead_p.setProject(project);
 					s.save(dead_p);
 				}
-				
+
 				s.getTransaction().commit();
-				
-				
+
+
 				json.put("success", 1);
 				out.println(json);
 				break;
 			case "manage_project":
 				Long man_id = Long.parseLong(request.getParameter("id"));
-				
+
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
-				
+
 				Project man_p = (Project) s.load(Project.class, man_id);
 				html = Common.makeInputText("name", "Nowa nazwa", man_p.getName());
 				if(man_p.getDeadline() != null)
@@ -350,7 +362,7 @@ public class Teacher extends HttpServlet {
 					html += Common.makeCheckBoxSendUnchecked("Dodać deadline?", "isDeadline", "yes", "no");
 					html += Common.makeInputTextReadOnly("new_deadline", "", sdf_date.format(new Date()));
 				}
-				
+
 				s.getTransaction().commit();
 				html += Common.makeButton("Edytuj", "manage_project()", "b_grey");
 				json.put("html", html);
@@ -363,13 +375,13 @@ public class Teacher extends HttpServlet {
 				String new_project_deadline = new_project_data[2];
 				Date new_project_dead = null;
 				try{
-				if(new_project_data.length == 5){
-					new_project_deadline = new_project_data[4];
-					new_project_dead = sdf_date.parse(new_project_deadline);
-				}
-				else if(new_project_data.length == 3){
-					new_project_dead = sdf_date.parse(new_project_deadline);
-				}
+					if(new_project_data.length == 5){
+						new_project_deadline = new_project_data[4];
+						new_project_dead = sdf_date.parse(new_project_deadline);
+					}
+					else if(new_project_data.length == 3){
+						new_project_dead = sdf_date.parse(new_project_deadline);
+					}
 				}
 				catch(ParseException e){
 					Common.makeError(json, out, s, 2);
@@ -381,7 +393,7 @@ public class Teacher extends HttpServlet {
 				Project man_p1 = (Project) s.load(Project.class, edit_pro_id);
 				man_p1.setName(new_project_name);
 				if(new_project_data.length == 5){
-					
+
 					Deadlines d = new Deadlines(new_project_dead);
 					man_p1.setDeadline(d);
 					s.save(d);
@@ -428,7 +440,7 @@ public class Teacher extends HttpServlet {
 				String id_step = request.getParameter("id");
 				String noteStep = request.getParameter("note");
 				float realNote = Float.parseFloat(noteStep);
-				
+
 				long real_id = Long.parseLong(id_step);
 				s = HibernateUtil.getSessionFactory().getCurrentSession();
 				s.beginTransaction();
@@ -479,7 +491,7 @@ public class Teacher extends HttpServlet {
 			case "add_new_projectTask":
 				html = Common.makeInputTextArea("taskText", "Treść zadania", "");
 				Project proj = (Project) sess.getAttribute("selectedItem");
-				
+
 				if(proj.getTeam() != null){
 					html += Common.makeCheckBoxSendUnchecked("Przypisać do studenta?", "add_student", "yes", "no");
 					html += Common.makeSelect("", "studentsTask", Common.makeSelectOptions("studentsOfTeam",""+proj.getId()));
@@ -602,7 +614,7 @@ public class Teacher extends HttpServlet {
 				break;
 			case "confirmNewNote":
 				String[] new_note_data = request.getParameterValues("form_values[]");
-				
+
 				if(sess.getAttribute("selectedItemType").equals("t")){
 					String valueT = new_note_data[0];
 					Task tnote = (Task) sess.getAttribute("selectedItem");
@@ -641,20 +653,20 @@ public class Teacher extends HttpServlet {
 						return;
 					}
 					String pValue = new_note_data[1];
-					
+
 					Notes prNote = new Notes();
 					prNote.setDate(new Date());
 					prNote.setProject(pnote);
 					if(pnote.getSubject() != null)
 						prNote.setSubject(pnote.getSubject());
-					
+
 					if(pnote.getStudent() == null){
 						prNote.setTeam(pnote.getTeam());
 					}
 					else {
 						prNote.setStudent(pnote.getStudent());
 					}
-					
+
 					if(!noteType.equals("project")){
 						if(new_note_data.length < 3){
 							Common.makeError(json, out, s, 3); 
@@ -707,7 +719,7 @@ public class Teacher extends HttpServlet {
 						}
 						prNote.setValue(prNoteVal);
 						s.save(prNote);
-						
+
 					}
 					pnote.getNotes().add(prNote);
 					s.getTransaction().commit();
@@ -715,9 +727,9 @@ public class Teacher extends HttpServlet {
 					json.put("success", 1);
 					out.println(json);
 				}
-				
+
 				break;
-				
+
 			case "finishProject":
 				String note_proj = request.getParameter("note");
 				float realProjNote = Float.parseFloat(note_proj);
@@ -741,9 +753,9 @@ public class Teacher extends HttpServlet {
 				sess.setAttribute("selectedItem", pFinish);
 				json.put("success", 1);
 				out.println(json);
-				
+
 				break;
-				
+
 			case "studentsGroup":
 				html = "";
 				String idGroup = request.getParameter("id");
@@ -768,10 +780,10 @@ public class Teacher extends HttpServlet {
 				json.put("form", html);
 				out.println(json);
 				break;
-			
+
 			}
 		}
-			catch(NullPointerException e){
+		catch(NullPointerException e){
 			json.put("error", "logged_out");
 			out.println(json);
 			e.printStackTrace();

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
+import pl.edu.pk.laciak.DTO.AcademicGroup;
 import pl.edu.pk.laciak.DTO.Comments;
 import pl.edu.pk.laciak.DTO.Files;
 import pl.edu.pk.laciak.DTO.Notes;
@@ -208,6 +209,19 @@ public abstract class Common {
 					str[1] = textTask+"..."+"(Przez: "+(pt.getStudent()==null?"Bez przyspisania":pt.getStudent().getAlbum())+")";
 					list.add(str);
 				}
+			}
+			break;
+		case "academicGroups":
+			List<AcademicGroup> academic = DBCommon.getAcademicGroups();
+			String[] str = new String[2];
+			str[0] = "0";
+			str[1] = "Wybierz";
+			list.add(str);
+			for(AcademicGroup ac : academic){
+				str = new String[2];
+				str[0] = String.valueOf(ac.getId());
+				str[1] = ac.getName();
+				list.add(str);
 			}
 			break;
 		}

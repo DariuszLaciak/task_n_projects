@@ -4,7 +4,7 @@
 
 $(document).ready(function(){
 	var dialogs = [
-	               "edit_profile","studentsGroup","finishSomething"
+	               "edit_profile","studentsGroup","finishSomething","assignStudents"
 	               ]
 	$.each(dialogs,function(value,key){
 		if($("body").find("#"+key).length == 0){
@@ -159,6 +159,57 @@ function openFinishSomethingWindowSettings(saveFunction){
 		resizable: true,
 		buttons: [{
 			text: "Zakończ",
+			click: function() {
+				saveFunction();
+				$( this ).dialog( "close" );
+			}
+		},
+		{
+			text: "Anuluj",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+		]
+		
+	});
+}
+
+function openAssignStudentsWindow(saveFunction){
+	openAssignStudentsWindowSettings(saveFunction);
+	$.post(
+			'User',
+			{
+				action: "assignStudents"
+			},
+			function(data){
+				var html = jQuery.parseJSON(data);
+				if(html.form != null){
+					$('#assignStudents').html(html.form);
+					$("#assignStudents").dialog("open");
+					selectStudentsAcademic();
+				}
+				else {
+					popup("error","Sesja wygasła. Zaloguj się ponownie");
+					setTimeout(function(){
+						location.reload();
+					}, 1000);
+				}
+			});
+	
+}
+
+function openAssignStudentsWindowSettings(saveFunction){
+	$("#assignStudents").dialog({
+		title: "Przydziel studentów",
+		autoOpen: false,
+		width: 700,
+		height: 510,
+		minWidth: 390,
+		minHeight: 300,
+		resizable: true,
+		buttons: [{
+			text: "Przydziel",
 			click: function() {
 				saveFunction();
 				$( this ).dialog( "close" );

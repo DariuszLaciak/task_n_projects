@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import pl.edu.pk.laciak.DTO.AcademicGroup;
 import pl.edu.pk.laciak.DTO.Notes;
 import pl.edu.pk.laciak.DTO.Project;
 import pl.edu.pk.laciak.DTO.Project_step;
@@ -120,6 +121,20 @@ public abstract class DBCommon {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public static List<AcademicGroup> getAcademicGroups(){
+		List<AcademicGroup> lista = new ArrayList<>();
+		
+		s = HibernateUtil.getSessionFactory().getCurrentSession();
+		if(!s.getTransaction().isActive())
+			s.beginTransaction();
+		lista = s.createQuery("from AcademicGroup").list();
+		s.getTransaction().commit();
+		if(s.isOpen())
+			s.close();
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public static List<Project_step> getStepsOfProject(long id){
 		List<Project_step> lista = new ArrayList<>();
 		
@@ -127,6 +142,20 @@ public abstract class DBCommon {
 		if(!s.getTransaction().isActive())
 			s.beginTransaction();
 		lista = s.createQuery("from Project_step p where p.project.id=:id order by id").setParameter("id", id).list();
+		s.getTransaction().commit();
+		if(s.isOpen())
+			s.close();
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Students> getStudentsAcademic(long id){
+		List<Students> lista = new ArrayList<>();
+		
+		s = HibernateUtil.getSessionFactory().getCurrentSession();
+		if(!s.getTransaction().isActive())
+			s.beginTransaction();
+		lista = s.createQuery("from Students where academicGroupId=:id").setParameter("id", id).list();
 		s.getTransaction().commit();
 		if(s.isOpen())
 			s.close();
